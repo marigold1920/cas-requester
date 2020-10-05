@@ -1,16 +1,16 @@
 import React from "react";
 
 import { Text, View, TextInput, ImageBackground } from "react-native";
-import ButtonImgBgr from "../../components/buttonWithImgBackground";
-import ButtonWithImage from "../../components/buttonWithImage";
+import ButtonImgBgr from "../../components/button-image-background.component";
+import ButtonWithImage from "../../components/button-image.component";
 
-import styles from "./HomeStyles";
+import styles from "./home-styles";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../../../assets/icons/Background.png")}
+        source={require("../../../assets/icons/background.png")}
         style={styles.backgroundImage}
       >
         <View style={styles.headerBlock}>
@@ -54,6 +54,7 @@ const HomeScreen = () => {
               content="Tài xế có thể giúp bạn tìm bệnh viện phù hợp"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
+              gotoScreen={() => navigation.navigate("Profile")}
             />
             <ButtonImgBgr
               buttonStyle={styles.menu_Button_Right}

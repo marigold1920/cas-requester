@@ -4,11 +4,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ButtonWithImage = (props) => {
   return (
-    <View>
-      <TouchableOpacity style={props.buttonStyle}>
-        <Image source={props.imgSrc} style={props.styleImg} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={props.buttonStyle}>
+      <Image source={props.imgSrc} style={props.styleImg} />
+    </TouchableOpacity>
   );
 };
+
 export default ButtonWithImage;
