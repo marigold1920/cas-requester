@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 28,
     color: "#494958",
-    fontFamily: "HelveticaNeue-Bold",
+    fontFamily: "Roboto-Black",
     marginLeft: 5,
     fontWeight: "bold",
     width: 150,
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   searchText: {
     fontSize: 18,
     width: 190,
-    fontFamily: "HelveticaNeue",
+    fontFamily: "Roboto-Light",
   },
   //css for menu button
   menuBlock_column: {
@@ -113,12 +114,16 @@ const styles = StyleSheet.create({
   },
   menu_title: {
     fontSize: 16,
+    fontFamily: "Roboto-Bold",
+    width: 130,
+    textAlign: "center",
   },
   menu_content: {
     marginTop: 7,
     width: 100,
     textAlign: "center",
     fontSize: 14,
+    fontFamily: "Roboto-Light",
   },
 });
 export default styles;
