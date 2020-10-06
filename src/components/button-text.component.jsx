@@ -2,10 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const ButtonText = (props) => {
+const ButtonText = ({ gotoScreen, textContent, styleButton, styleText }) => {
+  const { button, text } = styles;
+  const combineStylesButton = StyleSheet.flatten([button, styleButton]); // sử dụng đê thay thế một số thuộc tính style cụ thể (vd: áp dụng width ở màn hình history)
+  const combineStylesText = StyleSheet.flatten([text, styleText]);
   return (
-    <TouchableOpacity style={styles.button} onPress={props.gotoScreen}>
-      <Text style={styles.text}>{props.textContent}</Text>
+    <TouchableOpacity style={combineStylesButton} onPress={gotoScreen}>
+      <Text style={combineStylesText}>{textContent}</Text>
     </TouchableOpacity>
   );
 };

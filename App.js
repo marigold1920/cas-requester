@@ -9,6 +9,7 @@ import HomeScreen from "./src/screens/home-screen/home-screen";
 import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
 import RegisterScreen from "./src/screens/register-screen/register-screen";
+import HistoryScreen from "./src/screens/history-screen/history-screen";
 
 const MainNavigator = createStackNavigator(
   {
@@ -16,9 +17,10 @@ const MainNavigator = createStackNavigator(
     Profile: ProfileScreen,
     Login: LoginScreen,
     Register: RegisterScreen,
+    History: HistoryScreen,
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Login", //change this att to change initial screen
     defaultNavigationOptions: {
       headerShown: false,
     },
@@ -40,7 +42,7 @@ export default class App extends React.Component {
       "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
       "nunito.bold": require("./assets/fonts/nunito.bold.ttf"),
       "nunito.regular": require("./assets/fonts/nunito.regular.ttf"),
-      "nunito.bold": require("./assets/fonts/nunito.bold.ttf"),
+      "nunito.light": require("./assets/fonts/nunito.light.ttf"),
       "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
       "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
       "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
