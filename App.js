@@ -8,12 +8,14 @@ import * as Font from "expo-font";
 import HomeScreen from "./src/screens/home-screen/home-screen";
 import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
+import RegisterScreen from "./src/screens/register-screen/register-screen";
 
 const MainNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Profile: ProfileScreen,
     Login: LoginScreen,
+    Register: RegisterScreen,
   },
   {
     initialRouteName: "Login",
@@ -35,8 +37,14 @@ export default class App extends React.Component {
       "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
       "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf"),
       "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
+      "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+      "nunito.bold": require("./assets/fonts/nunito.bold.ttf"),
       "nunito.regular": require("./assets/fonts/nunito.regular.ttf"),
       "nunito.bold": require("./assets/fonts/nunito.bold.ttf"),
+      "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
+      "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+      "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
+      "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
     });
 
     this.setState({ assetsLoaded: true });

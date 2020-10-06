@@ -7,8 +7,8 @@ import ButtonText from "../../components/button-text.component";
 import TextLinking from "../../components/text-linking.component";
 import LogoName from "../../components/logo-name.component";
 
-import styles from "./login-styles";
-const LoginScreen = ({ navigation }) => {
+import styles from "./register-styles";
+const RegisterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -27,14 +27,18 @@ const LoginScreen = ({ navigation }) => {
             imgSrc={require("../../../assets/icons/key.png")}
             placeholder="Mật khẩu"
           />
+          <TextInputIcon
+            imgSrc={require("../../../assets/icons/user.png")}
+            placeholder="Tên"
+          />
           <ButtonText
-            textContent="Đăng nhập"
-            gotoScreen={() => navigation.navigate("Home")}
+            textContent="Tạo tài khoản"
+            gotoScreen={() => navigation.navigate("Login")}
           />
           <TextLinking
-            contentText="Chưa có tài khoản?"
-            contentLink="Đăng ký"
-            link={() => navigation.navigate("Register")}
+            contentText="Đã có tài khoản?"
+            contentLink="Đăng nhập"
+            link={() => navigation.navigate("Login")}
           />
         </View>
       </ImageBackground>
@@ -42,4 +46,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
