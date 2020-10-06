@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Text, View, TextInput, ImageBackground } from "react-native";
+import { Text, View, ImageBackground } from "react-native";
 import ButtonImgBgr from "../../components/button-image-background.component";
 import ButtonWithImage from "../../components/button-image.component";
+import SearchBox from "../../components/searchbox-icon.component";
 
 import styles from "./home-styles";
 
@@ -32,17 +33,7 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.searchBlock}>
-          <View style={styles.searchBox}>
-            <ButtonWithImage
-              buttonStyle={styles.searchButton}
-              styleImg={styles.searchIcon}
-              imgSrc={require("../../../assets/icons/search.png")}
-            />
-            <TextInput
-              style={styles.searchText}
-              placeholder="Tìm kiếm bệnh viện"
-            />
-          </View>
+          <SearchBox placeholder="Tìm kiếm bệnh viện" />
         </View>
         <View style={styles.menuBlock_column}>
           <View style={styles.menuBlock_row}>
@@ -75,6 +66,7 @@ const HomeScreen = ({ navigation }) => {
               content="Xem lịch sử gọi xe, gửi phản hồi về dịch vụ"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
+              gotoScreen={() => navigation.navigate("History")}
             />
             <ButtonImgBgr
               buttonStyle={styles.menu_Button_Right}

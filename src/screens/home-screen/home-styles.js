@@ -49,43 +49,11 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
   },
-  //css for search box
+  //css for search block
   searchBlock: {
     flex: 0.5,
     alignItems: "center",
     justifyContent: "center",
-  },
-  searchBox: {
-    padding: 5,
-    alignItems: "center",
-    marginRight: 25,
-    marginLeft: 25,
-    flexDirection: "row",
-    borderRadius: 60,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  searchIcon: {
-    height: 20,
-    width: 20,
-  },
-  searchButton: {
-    borderColor: "#FFF",
-    borderRadius: 50,
-    padding: 5,
-    margin: 5,
-  },
-  searchText: {
-    fontSize: 18,
-    width: 190,
-    fontFamily: "Roboto-Light",
   },
   //css for menu button
   menuBlock_column: {
