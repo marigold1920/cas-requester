@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Text, View, ImageBackground } from "react-native";
+import BackgroundImage from "../../components/background-screen.component";
 import ButtonImgBgr from "../../components/button-image-background.component";
 import ButtonWithImage from "../../components/button-image.component";
 import SearchBox from "../../components/searchbox-icon.component";
@@ -10,15 +11,12 @@ import styles from "./home-styles";
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/icons/background.png")}
-        style={styles.backgroundImage}
-      >
+      <BackgroundImage>
         <View style={styles.headerBlock}>
           <ButtonWithImage
             buttonStyle={styles.headerButton_noBorder}
             styleImg={styles.headerProfile}
-            imgSrc={require("../../../assets/icons/avatar.png")}
+            imgSrc={require("../../../assets/icons/mock-avatar.png")}
           />
           <Text style={styles.headerText}>TiTi Is M3</Text>
           <ButtonWithImage
@@ -30,6 +28,7 @@ const HomeScreen = ({ navigation }) => {
             buttonStyle={styles.headerButton}
             styleImg={styles.headerImg}
             imgSrc={require("../../../assets/icons/sign-out.png")}
+            gotoScreen={() => navigation.navigate("Login")}
           />
         </View>
         <View style={styles.searchBlock}>
@@ -79,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
             />
           </View>
         </View>
-      </ImageBackground>
+      </BackgroundImage>
     </View>
   );
 };
