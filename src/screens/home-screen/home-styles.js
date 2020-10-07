@@ -1,14 +1,9 @@
 import { StyleSheet } from "react-native";
-
+import rem from "../../components/constant.unit";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
   },
   //css for header
   headerBlock: {
@@ -28,10 +23,10 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 28,
     color: "#494958",
-    fontFamily: "Roboto-Black",
+    fontFamily: "Roboto_500Medium",
     marginLeft: 5,
     fontWeight: "bold",
-    width: 150,
+    width: 13 * rem,
   },
   headerButton_noBorder: {
     borderRadius: 50,
@@ -75,14 +70,14 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   menu_Img: {
-    width: 140,
     height: 180,
+    width: 150,
     justifyContent: "center",
     alignItems: "center",
   },
   menu_title: {
     fontSize: 16,
-    fontFamily: "Roboto-Bold",
+    fontFamily: "Roboto_700Bold",
     width: 130,
     textAlign: "center",
   },
@@ -91,7 +86,7 @@ const styles = StyleSheet.create({
     width: 100,
     textAlign: "center",
     fontSize: 14,
-    fontFamily: "Roboto-Light",
+    fontFamily: "Roboto_500Medium",
   },
 });
 export default styles;

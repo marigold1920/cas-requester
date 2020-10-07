@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   app_name: {
-    fontFamily: "nunito.bold",
+    fontFamily: "Roboto_900Black",
     fontSize: 30,
     marginTop: 10,
     color: "#FFFFFF",

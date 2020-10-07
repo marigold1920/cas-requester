@@ -2,12 +2,12 @@ import React from "react";
 
 import { View, Image, StyleSheet, ImageBackground } from "react-native";
 
-const BackgroundImage = (props) => {
+const BackgroundLogin = (props) => {
   return (
     <View style={styles.container}>
       <Image
         style={styles.backgroundImage}
-        source={require("../../assets/icons/background.png")}
+        source={require("../../assets/icons/background-login.png")}
       />
       {props.children}
     </View>
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BackgroundImage;
+export default BackgroundLogin;

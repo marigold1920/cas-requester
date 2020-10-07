@@ -1,20 +1,17 @@
 import React from "react";
 
-import { View, ImageBackground } from "react-native";
+import { View } from "react-native";
 
 import TextInputIcon from "../../components/text-input-with-icon.component";
 import ButtonText from "../../components/button-text.component";
 import TextLinking from "../../components/text-linking.component";
 import LogoName from "../../components/logo-name.component";
-
+import BackgroundLogin from "../../components/background-screen-login.component";
 import styles from "./register-styles";
 const RegisterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/icons/background-login.png")}
-        style={styles.background_image}
-      >
+      <BackgroundLogin>
         <View style={styles.block_logo_name}>
           <LogoName />
         </View>
@@ -32,7 +29,7 @@ const RegisterScreen = ({ navigation }) => {
             placeholder="Tên"
           />
           <ButtonText
-            textContent="Tạo tài khoản"
+            textContent="TẠO TÀI KHOẢN"
             gotoScreen={() => navigation.navigate("Login")}
           />
           <TextLinking
@@ -41,7 +38,7 @@ const RegisterScreen = ({ navigation }) => {
             link={() => navigation.navigate("Login")}
           />
         </View>
-      </ImageBackground>
+      </BackgroundLogin>
     </View>
   );
 };

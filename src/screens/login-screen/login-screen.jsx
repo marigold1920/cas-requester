@@ -6,15 +6,14 @@ import TextInputIcon from "../../components/text-input-with-icon.component";
 import ButtonText from "../../components/button-text.component";
 import TextLinking from "../../components/text-linking.component";
 import LogoName from "../../components/logo-name.component";
+import BackgroundLogin from "../../components/background-screen-login.component";
 
 import styles from "./login-styles";
+
 const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/icons/background-login.png")}
-        style={styles.background_image}
-      >
+      <BackgroundLogin>
         <View style={styles.block_logo_name}>
           <LogoName />
         </View>
@@ -28,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
             placeholder="Mật khẩu"
           />
           <ButtonText
-            textContent="Đăng nhập"
+            textContent="ĐĂNG NHẬP"
             gotoScreen={() => navigation.navigate("Home")}
           />
           <TextLinking
@@ -37,7 +36,7 @@ const LoginScreen = ({ navigation }) => {
             link={() => navigation.navigate("Register")}
           />
         </View>
-      </ImageBackground>
+      </BackgroundLogin>
     </View>
   );
 };

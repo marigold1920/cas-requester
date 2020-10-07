@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
-
+import rem from "../components/constant.unit";
 const SearchBox = ({ placeholder }) => {
   return (
     <View style={styles.container}>
@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     width: 20,
   },
   searchText: {
-    fontSize: 20,
-    width: 190,
+    fontSize: 18,
+    width: 21 * rem,
     marginLeft: 5,
-    fontFamily: "Roboto-Light",
+    fontFamily: "Roboto_500Medium",
   },
 });
 export default SearchBox;

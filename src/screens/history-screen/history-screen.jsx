@@ -1,19 +1,39 @@
 import React from "react";
-import { View, FlatList, StyleSheet, ImageBackground } from "react-native";
+import { View, FlatList } from "react-native";
 import CustomRowHistory from "../../components/history-custom-row.component";
 import SearchBox from "../../components/searchbox-icon.component";
 
 import styles from "./history-styles";
 
 import DATA from "./data";
-// import styles from "./history-styles";
+import BackgroundImage from "../../components/background-screen.component";
+import ButtonText from "../../components/button-text.component";
 
 const MockData = DATA;
+
+const HistoryScreen = () => {
+  return (
+    <View style={styles.container}>
+      <BackgroundImage>
+        <View style={styles.container_search_box}>
+          <SearchBox placeholder="Tìm kiếm địa điểm" />
+        </View>
+        <CustomListview itemList={MockData} />
+        <View style={styles.container_button}>
+          <ButtonText
+            textContent="Tìm xe"
+            styleButton={styles.button}
+            styleText={styles.button_text}
+          />
+        </View>
+      </BackgroundImage>
+    </View>
+  );
+};
 
 const CustomListview = ({ itemList }) => (
   <View style={styles.customlist}>
     <FlatList
-      showsVerticalScrollIndicator="false"
       data={itemList}
       renderItem={({ item }) => (
         <CustomRowHistory
@@ -25,21 +45,5 @@ const CustomListview = ({ itemList }) => (
     />
   </View>
 );
-
-const HistoryScreen = () => {
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/icons/background.png")}
-        style={styles.backgroundImage}
-      >
-        <View style={styles.container_search_box}>
-          <SearchBox placeholder="Tìm kiếm địa điểm" />
-        </View>
-        <CustomListview itemList={MockData} />
-      </ImageBackground>
-    </View>
-  );
-};
 
 export default HistoryScreen;

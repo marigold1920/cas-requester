@@ -20,14 +20,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-    fontSize: 20,
-    fontFamily: "nunito.regular",
+    fontSize: 16,
+    fontFamily: "Roboto_500Medium",
     color: "#FFF",
     marginRight: 7,
   },
   link: {
-    fontSize: 20,
-    fontFamily: "nunito.regular",
+    fontSize: 16,
+    fontFamily: "Roboto_500Medium",
     textDecorationLine: "underline",
     color: "#0038FD",
   },

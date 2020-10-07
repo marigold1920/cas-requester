@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import ButtonText from "./button-text.component";
+import rem from "./constant.unit";
 import LabelIcon from "./label-icon.component";
 
 const CustomRowHistory = ({ title, address, image_url }) => (
@@ -25,17 +26,25 @@ const CustomRowHistory = ({ title, address, image_url }) => (
       </View>
     </View>
     <View style={styles.container_detail_feedback}>
-      <View style={{ width: 100 }}></View>
-      <ButtonText
-        textContent="Chi Tiết"
-        styleButton={styles.detail_feedback_button}
-        styleText={styles.detail_feedback_text}
-      />
-      <ButtonText
-        textContent="Đánh giá"
-        styleButton={styles.detail_feedback_button}
-        styleText={styles.detail_feedback_text}
-      />
+      <View style={{ flex: 1 }}></View>
+      <View
+        style={{
+          flex: 2,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <ButtonText
+          textContent="Chi Tiết"
+          styleButton={styles.detail_feedback_button}
+          styleText={styles.detail_feedback_text}
+        />
+        <ButtonText
+          textContent="Đánh giá"
+          styleButton={styles.detail_feedback_button}
+          styleText={styles.detail_feedback_text}
+        />
+      </View>
     </View>
   </View>
 );
@@ -59,25 +68,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     opacity: 1,
-    borderRadius: 10,
+    borderRadius: 15,
     paddingRight: 8,
     paddingLeft: 8,
-    paddingTop: 3,
+    paddingTop: 5,
   },
   title: {
-    fontSize: 22,
-    fontFamily: "nunito.bold",
+    fontSize: 19,
+    fontFamily: "Roboto_700Bold",
     color: "#26324A",
+    marginBottom: 2,
   },
   description: {
-    fontSize: 17,
+    fontSize: 16,
     color: "#3E5075",
-    fontFamily: "nunito.regular",
+    fontFamily: "Roboto_500Medium",
   },
   image: {
     height: 80,
     width: 80,
-    borderRadius: 10,
+    borderRadius: 15,
   },
   container_date_time: {
     flex: 1,
@@ -96,8 +106,8 @@ const styles = StyleSheet.create({
   },
   detail_feedback_button: {
     marginRight: 20,
-    width: 90,
-    height: 40,
+    width: 8 * rem,
+    height: 35,
   },
   detail_feedback_text: {
     fontSize: 15,
