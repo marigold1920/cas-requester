@@ -1,13 +1,9 @@
 import { StyleSheet } from "react-native";
+import rem from "../../components/constant.unit";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-  },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
   },
   //css for header
   headerBlock: {
@@ -27,10 +23,10 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 28,
     color: "#494958",
-    fontFamily: "HelveticaNeue-Bold",
+    fontFamily: "Roboto_500Medium",
     marginLeft: 5,
     fontWeight: "bold",
-    width: 150,
+    width: 13 * rem,
   },
   headerButton_noBorder: {
     borderRadius: 50,
@@ -48,43 +44,11 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
   },
-  //css for search box
+  //css for search block
   searchBlock: {
     flex: 0.5,
     alignItems: "center",
     justifyContent: "center",
-  },
-  searchBox: {
-    padding: 5,
-    alignItems: "center",
-    marginRight: 25,
-    marginLeft: 25,
-    flexDirection: "row",
-    borderRadius: 60,
-    backgroundColor: "#FFFFFF",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-  },
-  searchIcon: {
-    height: 20,
-    width: 20,
-  },
-  searchButton: {
-    borderColor: "#FFF",
-    borderRadius: 50,
-    padding: 5,
-    margin: 5,
-  },
-  searchText: {
-    fontSize: 18,
-    width: 190,
-    fontFamily: "HelveticaNeue",
   },
   //css for menu button
   menuBlock_column: {
@@ -106,19 +70,23 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   menu_Img: {
-    width: 140,
     height: 180,
+    width: 150,
     justifyContent: "center",
     alignItems: "center",
   },
   menu_title: {
     fontSize: 16,
+    fontFamily: "Roboto_700Bold",
+    width: 130,
+    textAlign: "center",
   },
   menu_content: {
     marginTop: 7,
     width: 100,
     textAlign: "center",
     fontSize: 14,
+    fontFamily: "Roboto_500Medium",
   },
 });
 export default styles;
