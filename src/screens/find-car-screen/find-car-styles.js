@@ -13,6 +13,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#FFF",
+    // borderBottomColor: "red",
+    // borderBottomWidth: 0.5,
   },
   //block 2:
   container_mapview: {
@@ -27,6 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
+    // borderTopColor: "red",
+    // borderTopWidth: 0.5,
   },
 
   //css for child component:
@@ -62,8 +66,9 @@ const styles = StyleSheet.create({
   img_reverse: { width: 2 * rem, height: 2 * rem },
   //block 2:
   map_view: {
+    marginTop: 25,
     width: 30 * rem,
-    height: 27 * rem,
+    height: 30 * rem,
   },
   //block 3:
   img_background: {
