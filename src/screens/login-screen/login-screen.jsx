@@ -35,6 +35,9 @@ const LoginScreen = ({ navigation }) => {
             contentLink="Đăng ký"
             link={() => navigation.navigate("Register")}
           />
+          <TextLinking
+            contentLink="Quên mật khẩu?"
+            link={() => navigation.navigate("Register")}/>
         </View>
       </BackgroundLogin>
     </View>
