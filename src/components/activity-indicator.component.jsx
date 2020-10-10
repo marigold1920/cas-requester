@@ -2,29 +2,27 @@ import React, { Component } from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 import { View, StyleSheet } from "react-native";
 
-class CustomLoading extends Component {
+class ActivityIndicatorCustom extends Component {
   state = {
-    isShowSpinner: true,
+    spinner: false,
   };
 
-  componentDidMount() {
+  closeActivityIndicator = () =>
     setInterval(
       () =>
         this.setState({
-          isShowSpinner: false,
+          spinner: false,
         }),
-      3000
+      1000
     );
-  }
-  componentWillUnmount() {
-    this.isShowSpinner = false;
-  }
+
+  componentDidMount = () => this.closeActivityIndicator();
   render() {
     return (
       <View style={styles.container}>
         <Spinner
-          visible={this.state.isShowSpinner}
-          textContent={"Đang tìm tài xế phù hợp cho bạn..."}
+          visible={this.state.spinner}
+          textContent={"Đang tìm tài xế phù hợp..."}
           textStyle={styles.spinnerTextStyle}
         />
       </View>
@@ -41,6 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF",
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10,
   },
 });
 

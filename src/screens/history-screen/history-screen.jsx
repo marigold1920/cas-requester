@@ -12,39 +12,35 @@ import ButtonText from "../../components/button-text.component";
 const MockData = DATA;
 
 const HistoryScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <BackgroundImage>
-        <View style={styles.container_search_box}>
-          <SearchBox placeholder="Tìm kiếm địa điểm" />
+    return (
+        <View style={styles.container}>
+            <BackgroundImage>
+                <View style={styles.container_search_box}>
+                    <SearchBox placeholder="Tìm kiếm địa điểm" />
+                </View>
+                <CustomListview itemList={MockData} />
+                <View style={styles.container_button}>
+                    <ButtonText
+                        textContent="Tìm xe"
+                        styleButton={styles.button}
+                        styleText={styles.button_text}
+                        gotoScreen={() => navigation.navigate("FindCar")}
+                    />
+                </View>
+            </BackgroundImage>
         </View>
-        <CustomListview itemList={MockData} />
-        <View style={styles.container_button}>
-          <ButtonText
-            textContent="Tìm xe"
-            styleButton={styles.button}
-            styleText={styles.button_text}
-            gotoScreen={() => navigation.navigate("FindCar")}
-          />
-        </View>
-      </BackgroundImage>
-    </View>
-  );
+    );
 };
 
 const CustomListview = ({ itemList }) => (
-  <View style={styles.customlist}>
-    <FlatList
-      data={itemList}
-      renderItem={({ item }) => (
-        <CustomRowHistory
-          title={item.title}
-          address={item.address}
-          image_url={item.image_url}
+    <View style={styles.customlist}>
+        <FlatList
+            data={itemList}
+            renderItem={({ item }) => (
+                <CustomRowHistory title={item.title} address={item.address} image_url={item.image_url} />
+            )}
         />
-      )}
-    />
-  </View>
+    </View>
 );
 
 export default HistoryScreen;
