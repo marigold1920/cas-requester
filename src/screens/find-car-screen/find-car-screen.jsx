@@ -6,7 +6,6 @@ import styles from "./find-car-styles";
 
 import ButtonWithImage from "../../components/button-image.component";
 
-import rem from "../../components/constant.unit";
 import ButtonText from "../../components/button-text.component";
 const FindCarScreen = ({ navigation }) => {
     return (
