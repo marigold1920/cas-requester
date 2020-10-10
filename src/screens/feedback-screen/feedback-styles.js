@@ -1,0 +1,140 @@
+import { StyleSheet } from "react-native";
+import rem from "../../components/constant.unit";
+
+const styles = StyleSheet.create({
+  //css for 4 parents containers:
+  container: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  //block 1:
+  container_logo_feedback: {
+    flex: 2,
+    flexDirection: "column",
+    // borderBottomColor: "red",
+    // borderBottomWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  //block 2:
+  container_feedback_content: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  //block 3:
+  container_submit: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 20,
+    // borderTopColor: "red",
+    // borderTopWidth: 0.5,
+  },
+
+  //css for child component:
+  //block 1:
+  back_arrow: { flex: 1, marginTop: 34, marginLeft: 8 },
+  logo_img: {
+    width: 10 * rem,
+    height: 9 * rem,
+  },
+  feedback_title: {
+    fontFamily: "Roboto_700Bold",
+    fontSize: 20,
+  },
+  feed_description: {
+    marginTop: 10,
+    width: 18 * rem,
+    fontSize: 16,
+    fontFamily: "Roboto_500Medium",
+    textAlign: "center",
+  },
+  //block 2:
+  rating_block: {
+    flexDirection: "row",
+    flex: 1,
+  },
+  rating_icon: {
+    width: 3 * rem,
+    height: 3 * rem,
+    marginHorizontal: 7,
+  },
+  textArea_block: {
+    flex: 3,
+  },
+  textArea: {
+    borderRadius: 20,
+    padding: 15,
+    backgroundColor: "#FFF",
+    width: 25 * rem,
+    height: 15 * rem,
+    textAlignVertical: "top",
+  },
+  //block 2:
+
+  //block 3:
+  cancel_button: {
+    backgroundColor: "#FFF",
+    width: 12 * rem,
+    height: 4.5 * rem,
+    borderRadius: 10,
+  },
+  cancel_text: {
+    color: "#000000",
+    fontSize: 20,
+    fontFamily: "Roboto_500Medium",
+  },
+  submit_button: {
+    backgroundColor: "#FFAB2E",
+    width: 12 * rem,
+    height: 4.5 * rem,
+    borderRadius: 10,
+  },
+  submit_text: {
+    color: "#FFF",
+    fontSize: 20,
+    fontFamily: "Roboto_500Medium",
+  },
+  //css for modal:
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontFamily: "Roboto_700Bold",
+  },
+  modalText: {
+    marginTop: 15,
+    marginBottom: 15,
+    fontSize: 18,
+  },
+
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
+
+export default styles;

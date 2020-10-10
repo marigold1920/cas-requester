@@ -20,6 +20,7 @@ import RegisterScreen from "./src/screens/register-screen/register-screen";
 import HistoryScreen from "./src/screens/history-screen/history-screen";
 import FindCarScreen from "./src/screens/find-car-screen/find-car-screen";
 import TripInfoScreen from "./src/screens/trip-info-screen/trip-info-screen";
+import FeedbackScreen from "./src/screens/feedback-screen/feedback-screen";
 
 const MainNavigator = createStackNavigator(
   {
@@ -30,6 +31,7 @@ const MainNavigator = createStackNavigator(
     History: HistoryScreen,
     FindCar: FindCarScreen,
     TripInfo: TripInfoScreen,
+    Feedback: FeedbackScreen,
   },
   {
     initialRouteName: "Home", //change this att to change initial screen

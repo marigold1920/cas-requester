@@ -3,14 +3,22 @@ import React from "react";
 import { Text, View, Image, StyleSheet, contStyle } from "react-native";
 import rem from "./constant.unit";
 
-const AvatarNameCol = ({ imgSource, textContent, contStyle }) => {
-  const { container } = styles;
+const AvatarNameCol = ({
+  imgSource,
+  textContent,
+  contStyle,
+  imgStyle,
+  textStyle,
+}) => {
+  const { container, image, text } = styles;
   const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
+  const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
+  const combineStylesText = StyleSheet.flatten([text, textStyle]);
   // StyleSheet.flatten giúp thay đổi bất cứ thuộc tính nào của container, nếu không thay đổi sẽ áp dụng thuộc tính default
   return (
     <View style={combineStylesContainer}>
-      <Image style={styles.image} source={imgSource} />
-      <Text style={styles.text}>{textContent}</Text>
+      <Image style={combineStylesImage} source={imgSource} />
+      <Text style={combineStylesText}>{textContent}</Text>
     </View>
   );
 };
