@@ -7,7 +7,7 @@ const BackgroundImage = (props) => {
     <View style={styles.container}>
       <Image
         style={styles.backgroundImage}
-        source={require("../../assets/icons/background.png")}
+        source={require("../../assets/icons/background-main.png")}
       />
       {props.children}
     </View>

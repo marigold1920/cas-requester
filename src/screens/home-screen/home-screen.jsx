@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
               styleImg={styles.menu_Img}
               imgSrc={require("../../../assets/icons/disease-profile.png")}
               title="Hồ sơ bệnh"
-              content="Tài xế có thể giúp bạn tìm bệnh viện phù hợp"
+              content="Cập nhật thông tin về tình trạng bệnh hiện tại của bạn"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
               gotoScreen={() => navigation.navigate("Profile")}
@@ -54,6 +54,7 @@ const HomeScreen = ({ navigation }) => {
               content="Bạn cần đưa đến bệnh viện hoặc về nhà"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
+              gotoScreen={() => navigation.navigate("FindCar")}
             />
           </View>
           <View style={styles.menuBlock_row}>
@@ -62,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
               styleImg={styles.menu_Img}
               imgSrc={require("../../../assets/icons/history.png")}
               title="Lịch sử"
-              content="Xem lịch sử gọi xe, gửi phản hồi về dịch vụ"
+              content="Xem lịch sử gọi xe và gửi phản hồi về dịch vụ"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
               gotoScreen={() => navigation.navigate("History")}
@@ -72,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
               styleImg={styles.menu_Img}
               imgSrc={require("../../../assets/icons/personal-info.png")}
               title="Thông tin cá nhân"
-              content="Tài xế có thể giúp bạn tìm bệnh viện phù hợp"
+              content="Thông tin để tài xế có thể dễ dàng liên lạc với bạn"
               titleStyle={styles.menu_title}
               contentStyle={styles.menu_content}
             />

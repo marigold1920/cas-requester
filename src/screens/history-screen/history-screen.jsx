@@ -11,7 +11,7 @@ import ButtonText from "../../components/button-text.component";
 
 const MockData = DATA;
 
-const HistoryScreen = () => {
+const HistoryScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <BackgroundImage>
@@ -24,6 +24,7 @@ const HistoryScreen = () => {
             textContent="Tìm xe"
             styleButton={styles.button}
             styleText={styles.button_text}
+            gotoScreen={() => navigation.navigate("FindCar")}
           />
         </View>
       </BackgroundImage>

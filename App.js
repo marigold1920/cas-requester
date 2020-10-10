@@ -18,6 +18,8 @@ import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
 import RegisterScreen from "./src/screens/register-screen/register-screen";
 import HistoryScreen from "./src/screens/history-screen/history-screen";
+import FindCarScreen from "./src/screens/find-car-screen/find-car-screen";
+import TripInfoScreen from "./src/screens/trip-info-screen/trip-info-screen";
 
 const MainNavigator = createStackNavigator(
   {
@@ -26,9 +28,11 @@ const MainNavigator = createStackNavigator(
     Login: LoginScreen,
     Register: RegisterScreen,
     History: HistoryScreen,
+    FindCar: FindCarScreen,
+    TripInfo: TripInfoScreen,
   },
   {
-    initialRouteName: "Login", //change this att to change initial screen
+    initialRouteName: "Home", //change this att to change initial screen
     defaultNavigationOptions: {
       headerShown: false,
     },
