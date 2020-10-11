@@ -18,7 +18,6 @@ const ProfileScreen = ({ navigation }) => {
                     contStyle={{ flex: 2 }}
                 />
                 <View style={styles.container_button}>
-                    <TextArea textContent="Đã từng mắc bệnh:" />
                     <TextArea textContent="Tình trạng hiện nay:" />
                     <ButtonText
                         textContent="Cập nhật"
