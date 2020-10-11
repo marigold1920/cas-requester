@@ -194,20 +194,6 @@ class TripInfoScreen extends Component {
                         />
                         <Text style={{ marginTop: 5 }}>Gọi điện</Text>
                     </View>
-
-                    <View
-                        style={{
-                            flex: 1,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <ButtonWithImage
-                            imgSrc={require("../../../assets/icons/messages.png")}
-                            styleImg={{ width: 2 * rem, height: 2 * rem }}
-                        />
-                        <Text style={{ marginTop: 5 }}>Nhắn tin</Text>
-                    </View>
                     <View style={styles.block_button}>
                         <ButtonText
                             textContent="Hủy chuyến"
