@@ -6,101 +6,54 @@ import ButtonText from "./button-text.component";
 import rem from "./constant.unit";
 import LabelIcon from "./label-icon.component";
 
-<<<<<<< Updated upstream
 const CustomRowHistory = ({ title, address, image_url, navigation }) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.container_infor}>
-                <Image source={{ uri: image_url }} style={styles.image} />
-                <View style={styles.container_detail}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.description}>{address}</Text>
-                    <View style={styles.container_date_time}>
-                        <LabelIcon
-                            iconSrc={require("../../assets/icons/date-icon.png")}
-                            title="21/09/2020"
-                            titleStyle={styles.date}
-                        />
-                        <LabelIcon
-                            iconSrc={require("../../assets/icons/time-icon.png")}
-                            title="10:50"
-                            titleStyle={styles.time}
-                        />
-                    </View>
-                </View>
-            </View>
-            <View style={styles.container_detail_feedback}>
-                <View style={{ flex: 1 }}></View>
-                <View
-                    style={{
-                        flex: 2,
-                        flexDirection: "row",
-                        justifyContent: "space-between"
-                    }}
-                >
-                    <ButtonText
-                        textContent="Chi Tiết"
-                        styleButton={styles.detail_feedback_button}
-                        styleText={styles.detail_feedback_text}
-                        gotoScreen={() => navigation.navigate("RequestDetails")}
-                    />
-                    <ButtonText
-                        textContent="Đánh giá"
-                        styleButton={styles.detail_feedback_button}
-                        styleText={styles.detail_feedback_text}
-                        gotoScreen={() => navigation.navigate("Feedback")}
-                    />
-                </View>
-            </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.container_infor}>
+        <Image source={{ uri: image_url }} style={styles.image} />
+        <View style={styles.container_detail}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.description}>{address}</Text>
+          <View style={styles.container_date_time}>
+            <LabelIcon
+              iconSrc={require("../../assets/icons/date-icon.png")}
+              title="21/09/2020"
+              titleStyle={styles.date}
+            />
+            <LabelIcon
+              iconSrc={require("../../assets/icons/time-icon.png")}
+              title="10:50"
+              titleStyle={styles.time}
+            />
+          </View>
         </View>
-    );
+      </View>
+      <View style={styles.container_detail_feedback}>
+        <View style={{ flex: 1 }}></View>
+        <View
+          style={{
+            flex: 2,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <ButtonText
+            textContent="Chi Tiết"
+            styleButton={styles.detail_feedback_button}
+            styleText={styles.detail_feedback_text}
+            gotoScreen={() => navigation.navigate("RequestDetails")}
+          />
+          <ButtonText
+            textContent="Đánh giá"
+            styleButton={styles.detail_feedback_button}
+            styleText={styles.detail_feedback_text}
+            gotoScreen={() => navigation.navigate("Feedback")}
+          />
+        </View>
+      </View>
+    </View>
+  );
 };
-=======
-const CustomRowHistory = ({ title, address, image_url }) => (
-  <View style={styles.container}>
-    <View style={styles.container_infor}>
-      <Image source={{ uri: image_url }} style={styles.image} />
-      <View style={styles.container_detail}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{address}</Text>
-        <View style={styles.container_date_time}>
-          <LabelIcon
-            iconSrc={require("../../assets/icons/date-icon.png")}
-            title="21/09/2020"
-            titleStyle={styles.date}
-          />
-          <LabelIcon
-            iconSrc={require("../../assets/icons/time-icon.png")}
-            title="10:50"
-            titleStyle={styles.time}
-          />
-        </View>
-      </View>
-    </View>
-    <View style={styles.container_detail_feedback}>
-      <View style={{ flex: 1 }}></View>
-      <View
-        style={{
-          flex: 2,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <ButtonText
-          textContent="Chi Tiết"
-          styleButton={styles.detail_feedback_button}
-          styleText={styles.detail_feedback_text}
-        />
-        <ButtonText
-          textContent="Đánh giá"
-          styleButton={styles.detail_feedback_button}
-          styleText={styles.detail_feedback_text}
-        />
-      </View>
-    </View>
-  </View>
-);
->>>>>>> Stashed changes
 
 const styles = StyleSheet.create({
   container: {
