@@ -3,29 +3,29 @@ import rem from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     container_search_box: {
+        alignItems: "center",
         flex: 1,
-        marginTop: 30,
-        marginBottom: 5
+        marginBottom: 10,
     },
     customlist: {
-        flex: 5
+        flex: 7,
     },
     container_button: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     button: {
         width: 11 * rem,
         height: 4 * rem,
-        backgroundColor: "#FFAB2E"
+        backgroundColor: "#FFAB2E",
     },
     button_text: {
-        color: "#FFF"
-    }
+        color: "#FFF",
+    },
 });
 
 export default styles;

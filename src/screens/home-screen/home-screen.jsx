@@ -18,7 +18,7 @@ const HomeScreen = ({ navigation }) => {
                         styleImg={styles.headerProfile}
                         imgSrc={require("../../../assets/icons/mock-avatar.png")}
                     />
-                    <Text style={styles.headerText}>TiTi Is M3</Text>
+                    <Text style={styles.headerText}>Tín Trần</Text>
                     <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
@@ -76,6 +76,9 @@ const HomeScreen = ({ navigation }) => {
                             content="Thông tin để tài xế có thể dễ dàng liên lạc với bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
+                            gotoScreen={() =>
+                                navigation.navigate("PersonalInfo")
+                            }
                         />
                     </View>
                 </View>
