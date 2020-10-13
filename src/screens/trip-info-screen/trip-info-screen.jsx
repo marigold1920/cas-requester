@@ -194,7 +194,7 @@ class TripInfoScreen extends Component {
                             styleText={styles.text}
                             styleButton={styles.cancel_button}
                             gotoScreen={() => {
-                                this.props.navigation.navigate("Feedback");
+                                this.props.navigation.navigate("FindCar");
                             }}
                         />
                     </View>

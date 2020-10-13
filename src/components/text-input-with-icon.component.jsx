@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Image, StyleSheet, TextInput, Dimensions } from "react-native";
+import { View, Image, StyleSheet, TextInput } from "react-native";
 import rem from "../components/constant.unit";
+
 const TextInputIcon = props => {
     return (
         <View style={styles.container}>
-            <View style={styles.bgr_image}>
-                <Image source={props.imgSrc} style={styles.image} />
-            </View>
+            {props.imgSrc ? (
+                <View style={styles.bgr_image}>
+                    <Image source={props.imgSrc} style={styles.image} />
+                </View>
+            ) : null}
             <TextInput style={styles.text_input} placeholder={props.placeholder} placeholderTextColor="#FFF" />
         </View>
     );
@@ -25,10 +28,12 @@ const styles = StyleSheet.create({
         borderRadius: 70
     },
     image: {
-        width: 16,
-        height: 16
+        width: 20,
+        height: 20
     },
     text_input: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         fontSize: 16,
         fontFamily: "Roboto_500Medium",
         color: "#FFF",
