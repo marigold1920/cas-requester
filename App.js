@@ -3,8 +3,16 @@ import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { AppLoading } from "expo";
-import { useFonts, Roboto_500Medium, Roboto_900Black, Roboto_700Bold } from "@expo-google-fonts/roboto";
-import { Nunito_400Regular, Nunito_800ExtraBold } from "@expo-google-fonts/nunito";
+import {
+    useFonts,
+    Roboto_500Medium,
+    Roboto_900Black,
+    Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
+import {
+    Nunito_400Regular,
+    Nunito_800ExtraBold,
+} from "@expo-google-fonts/nunito";
 import HomeScreen from "./src/screens/home-screen/home-screen";
 import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
@@ -16,6 +24,7 @@ import RequestDetails from "./src/screens/request-details/request-details.conpon
 import FeedbackScreen from "./src/screens/feedback-screen/feedback-screen";
 import PersonalInfoScreen from "./src/screens/personal-info-screen/personal-info-screen";
 import OtpScreen from "./src/screens/otp/otp.component";
+import ResetPassScreen from "./src/screens/reset-password-screen/reset-password-screen";
 
 const MainNavigator = createStackNavigator(
     {
@@ -29,13 +38,14 @@ const MainNavigator = createStackNavigator(
         RequestDetails: RequestDetails,
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,
-        Otp: OtpScreen
+        Otp: OtpScreen,
+        ResetPass: ResetPassScreen,
     },
     {
         initialRouteName: "Login", //change this att to change initial screen
         defaultNavigationOptions: {
-            headerShown: false
-        }
+            headerShown: false,
+        },
     }
 );
 
@@ -47,7 +57,7 @@ export default () => {
         Roboto_900Black,
         Roboto_700Bold,
         Nunito_400Regular,
-        Nunito_800ExtraBold
+        Nunito_800ExtraBold,
     });
     if (!fontsLoaded) {
         return <AppLoading />;
