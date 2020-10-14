@@ -18,11 +18,17 @@ const OtpScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    <TextInputIcon placeholder="Mã OTP" />
-                    <ButtonText textContent="XÁC NHẬN" gotoScreen={() => navigation.navigate("Home")} />
+                    <TextInputIcon
+                        imgSrc={require("../../../assets/icons/otp-icon.png")}
+                        placeholder="Nhập mã OTP"
+                    />
+                    <ButtonText
+                        textContent="XÁC NHẬN"
+                        gotoScreen={() => navigation.navigate("Home")}
+                    />
                     <TextLinking
-                        contentText="Chưa có tài khoản?"
-                        contentLink="Đăng ký"
+                        contentText="Chưa nhận được mã OTP?"
+                        contentLink="Gửi lại mã"
                         link={() => navigation.navigate("Register")}
                     />
                 </View>
