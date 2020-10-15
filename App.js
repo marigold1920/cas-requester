@@ -25,6 +25,8 @@ import FeedbackScreen from "./src/screens/feedback-screen/feedback-screen";
 import PersonalInfoScreen from "./src/screens/personal-info-screen/personal-info-screen";
 import OtpScreen from "./src/screens/otp/otp.component";
 import ResetPassScreen from "./src/screens/reset-password-screen/reset-password-screen";
+import FindCarScreen01 from './src/screens/find-car-screen-v01/find-car-screen';
+
 
 const MainNavigator = createStackNavigator(
     {
@@ -40,9 +42,10 @@ const MainNavigator = createStackNavigator(
         PersonalInfo: PersonalInfoScreen,
         Otp: OtpScreen,
         ResetPass: ResetPassScreen,
+        FindCar01: FindCarScreen01
     },
     {
-        initialRouteName: "Login", //change this att to change initial screen
+        initialRouteName: "FindCar01", //change this att to change initial screen
         defaultNavigationOptions: {
             headerShown: false,
         },

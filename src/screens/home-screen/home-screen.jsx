@@ -54,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
                             content="Bạn cần đưa đến bệnh viện hoặc về nhà"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("FindCar")}
+                            gotoScreen={() => navigation.navigate("FindCar01")}
                         />
                     </View>
                     <View style={styles.menuBlock_row}>
