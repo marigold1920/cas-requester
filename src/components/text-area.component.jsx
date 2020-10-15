@@ -28,24 +28,24 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         width: "90%",
-        marginBottom: 20
+        marginBottom: 20,
     },
     text: {
         color: "#787881",
-        fontFamily: "Nunito_400Regular",
+        fontFamily: "Texgyreadventor-regular",
         marginBottom: 8,
-        fontSize: 16
+        fontSize: 16,
     },
     textArea: {
-        fontFamily: "Nunito_400Regular",
+        fontFamily: "Texgyreadventor-regular",
         fontSize: 18,
         backgroundColor: "#FFF",
         borderRadius: 10,
         paddingLeft: 10,
         paddingTop: 10,
         textAlignVertical: "top",
-        height: 9 * rem
-    }
+        height: 9 * rem,
+    },
 });
 
 export default TextArea;

@@ -4,7 +4,10 @@ import rem from "../components/constant.unit";
 const SearchBox = ({ placeholder }) => {
     return (
         <View style={styles.container}>
-            <Image source={require("../../assets/icons/search.png")} style={styles.searchIcon} />
+            <Image
+                source={require("../../assets/icons/search.png")}
+                style={styles.searchIcon}
+            />
             <TextInput style={styles.searchText} placeholder={placeholder} />
         </View>
     );
@@ -22,21 +25,21 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 6
+            height: 6,
         },
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
-        elevation: 7
+        elevation: 7,
     },
     searchIcon: {
         height: 20,
-        width: 20
+        width: 20,
     },
     searchText: {
         fontSize: 18,
         width: 21 * rem,
         marginLeft: 5,
-        fontFamily: "Roboto_500Medium"
-    }
+        fontFamily: "Texgyreadventor-regular",
+    },
 });
 export default SearchBox;

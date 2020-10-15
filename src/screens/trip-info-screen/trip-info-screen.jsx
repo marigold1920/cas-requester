@@ -10,14 +10,14 @@ import ButtonText from "../../components/button-text.component";
 
 class TripInfoScreen extends Component {
     state = {
-        spinner: true
+        spinner: true,
     };
 
     componentDidMount() {
         setTimeout(
             () =>
                 this.setState({
-                    spinner: false
+                    spinner: false,
                 }),
             3000
         );
@@ -28,7 +28,7 @@ class TripInfoScreen extends Component {
                 style={{
                     flex: 1,
                     justifyContent: "center",
-                    flexDirection: "column"
+                    flexDirection: "column",
                 }}
             >
                 {/* <View style={styles.loading}>
@@ -44,7 +44,7 @@ class TripInfoScreen extends Component {
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
-                        marginTop: 20
+                        marginTop: 20,
                         // borderBottomColor: "red",
                         // borderBottomWidth: 0.5,
                     }}
@@ -53,7 +53,7 @@ class TripInfoScreen extends Component {
                         style={{
                             flex: 1,
                             alignItems: "center",
-                            flexDirection: "row"
+                            flexDirection: "row",
                         }}
                     >
                         <View style={styles.back_arrow}>
@@ -69,7 +69,7 @@ class TripInfoScreen extends Component {
                             <Text
                                 style={{
                                     fontSize: 20,
-                                    fontFamily: "Nunito_800ExtraBold"
+                                    fontFamily: "Texgyreadventor-bold",
                                 }}
                             >
                                 Đã tìm được tài xế phù hợp
@@ -81,21 +81,21 @@ class TripInfoScreen extends Component {
                         style={{
                             flex: 2,
                             justifyContent: "center",
-                            flexDirection: "row"
+                            flexDirection: "row",
                         }}
                     >
                         <View
                             style={{
                                 flexDirection: "column",
                                 flex: 1,
-                                alignItems: "center"
+                                alignItems: "center",
                             }}
                         >
                             <Image
                                 style={{
                                     width: 7 * rem,
                                     height: 7 * rem,
-                                    borderRadius: 100
+                                    borderRadius: 100,
                                 }}
                                 source={require("../../../assets/icons/mock-driver.png")}
                             />
@@ -103,7 +103,7 @@ class TripInfoScreen extends Component {
                                 style={{
                                     marginTop: 10,
                                     justifyContent: "center",
-                                    flexDirection: "row"
+                                    flexDirection: "row",
                                 }}
                             >
                                 <Image
@@ -138,14 +138,14 @@ class TripInfoScreen extends Component {
                                 padding: 5,
                                 marginHorizontal: 15,
                                 justifyContent: "center",
-                                alignItems: "center"
+                                alignItems: "center",
                             }}
                         >
                             <View style={{ marginBottom: 10 }}>
                                 <Text
                                     style={{
                                         fontSize: 20,
-                                        fontFamily: "Roboto_500Medium"
+                                        fontFamily: "Texgyreadventor-regular",
                                     }}
                                 >
                                     Nguyễn Văn Huy
@@ -159,16 +159,16 @@ class TripInfoScreen extends Component {
                                     borderColor: "black",
                                     borderWidth: 1,
                                     justifyContent: "center",
-                                    paddingVertical: 7
+                                    paddingVertical: 7,
                                 }}
                             >
                                 <Text
                                     style={{
                                         fontSize: 20,
                                         textAlign: "center",
-                                        fontFamily: "Roboto_700Bold",
+                                        fontFamily: "Texgyreadventor-bold",
                                         color: "black",
-                                        width: 9 * rem
+                                        width: 9 * rem,
                                     }}
                                 >
                                     29A 021.38

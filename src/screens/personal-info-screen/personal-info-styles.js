@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
         fontSize: 19,
         color: "#26324A",
         fontWeight: "400",
-        fontFamily: "Nunito_400Regular",
+        fontFamily: "Texgyreadventor-regular",
     },
     joining_day: {
         fontSize: 20,
         color: "#26324A",
         fontWeight: "600",
-        fontFamily: "Nunito_400Regular",
+        fontFamily: "Texgyreadventor-regular",
     },
     label: {
         fontSize: 18,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     button_text: {
         color: "#26324A",
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-regular",
     },
     text_policy: {
         marginTop: 10,

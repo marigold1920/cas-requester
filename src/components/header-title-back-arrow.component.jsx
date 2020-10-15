@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     text_content: {
         fontSize: 21,
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-regular",
         color: "#494958",
     },
 });

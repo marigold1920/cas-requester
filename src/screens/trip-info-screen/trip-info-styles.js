@@ -3,18 +3,18 @@ import rem from "../../components/constant.unit";
 const styles = StyleSheet.create({
     //css for parents container:
     container: {
-        flex: 1
+        flex: 1,
     },
     container_mapview: {
         flex: 2,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     container_contact: {
         flex: 0.5,
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 10
+        marginBottom: 10,
     },
     //css block 1:
     back_arrow: { flex: 1, marginLeft: 10 },
@@ -22,21 +22,21 @@ const styles = StyleSheet.create({
         width: 14,
         height: 14,
         marginRight: 3,
-        marginLeft: 3
+        marginLeft: 3,
     },
     //css block 2
     map_view: {
         width: 30 * rem,
-        height: 26 * rem
+        height: 26 * rem,
     },
     spinnerTextStyle: {
-        color: "#FFF"
+        color: "#FFF",
     },
     loading: {
         position: "absolute",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#F5FCFF"
+        backgroundColor: "#F5FCFF",
     },
     //css block 3
     //block 3:
@@ -48,28 +48,28 @@ const styles = StyleSheet.create({
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 4
+            height: 4,
         },
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
-        marginBottom: 15
+        marginBottom: 15,
     },
     cancel_button: {
         backgroundColor: "#FF0000",
         width: 11 * rem,
         height: 4.5 * rem,
-        borderRadius: 10
+        borderRadius: 10,
     },
     text: {
         color: "#FFF",
         fontSize: 18,
-        fontFamily: "Roboto_500Medium"
+        fontFamily: "Texgyreadventor-regular",
     },
     callButton: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center"
-    }
+        justifyContent: "center",
+    },
 });
 
 export default styles;

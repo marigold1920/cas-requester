@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Linking, Text, StyleSheet } from "react-native";
 
-const TextLinking = props => {
+const TextLinking = (props) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{props.contentText}</Text>
@@ -17,20 +17,20 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     text: {
         fontSize: 16,
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-regular",
         color: "#FFF",
-        marginRight: 7
+        marginRight: 7,
     },
     link: {
         fontSize: 16,
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-regular",
         textDecorationLine: "underline",
-        color: "#0038FD"
-    }
+        color: "#0038FD",
+    },
 });
 
 export default TextLinking;
