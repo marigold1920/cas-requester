@@ -18,6 +18,7 @@ const HeaderTileWithBackBtn = ({ textContent, gotoScreen }) => {
             <View style={styles.container_header_title}>
                 <Text style={styles.text_content}>{textContent}</Text>
             </View>
+            <View style={{ flex: 1 }}></View>
         </View>
     );
 };
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
     },
     container_header_title: {
         flex: 7,
-        marginLeft: 50,
         marginTop: 5,
     },
     //css for child:
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         fontSize: 21,
         fontFamily: "Texgyreadventor-regular",
         color: "#494958",
+        textAlign: "center",
     },
 });
 
