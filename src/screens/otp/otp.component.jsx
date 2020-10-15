@@ -18,11 +18,9 @@ const OtpScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    <TextInputIcon
-                        imgSrc={require("../../../assets/icons/otp-icon.png")}
-                        placeholder="Nhập mã OTP"
-                    />
+                    <TextInputIcon imgSrc={require("../../../assets/icons/otp-icon.png")} placeholder="Nhập mã OTP" />
                     <ButtonText
+                        styleButton={{ paddingVertical: 5 }}
                         textContent="XÁC NHẬN"
                         gotoScreen={() => navigation.navigate("Home")}
                     />

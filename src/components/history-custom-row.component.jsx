@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { withNavigation } from "react-navigation";
 
 import ButtonText from "./button-text.component";
-import rem from "./constant.unit";
 import LabelIcon from "./label-icon.component";
 
 const CustomRowHistory = ({ title, address, image_url, navigation }) => {
@@ -34,7 +33,7 @@ const CustomRowHistory = ({ title, address, image_url, navigation }) => {
                     style={{
                         flex: 2,
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        justifyContent: "space-between"
                     }}
                 >
                     <ButtonText
@@ -59,12 +58,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        marginBottom: 20,
+        marginBottom: 20
     },
     container_infor: {
         flex: 1,
         flexDirection: "row",
-        marginHorizontal: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        marginHorizontal: 10
     },
 
     container_detail: {
@@ -77,48 +78,50 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingRight: 8,
         paddingLeft: 8,
-        paddingTop: 5,
+        paddingTop: 5
     },
     title: {
-        fontSize: 19,
+        fontSize: 16,
         fontFamily: "Texgyreadventor-bold",
         color: "#26324A",
-        marginBottom: 2,
+        marginBottom: 2
     },
     description: {
-        fontSize: 16,
+        fontSize: 14,
         color: "#3E5075",
-        fontFamily: "Texgyreadventor-regular",
+        fontFamily: "Texgyreadventor-regular"
     },
     image: {
         height: 80,
         width: 80,
-        borderRadius: 15,
+        borderRadius: 15
     },
     container_date_time: {
         flex: 1,
         flexDirection: "row",
+        marginVertical: 5
     },
     date: {
+        fontFamily: "Texgyreadventor-regular",
         width: 120,
-        marginRight: 10,
+        marginRight: 10
     },
     time: {
-        width: 50,
+        fontFamily: "Texgyreadventor-regular"
     },
     container_detail_feedback: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "row"
     },
     detail_feedback_button: {
         marginRight: 20,
-        width: 8 * rem,
-        height: 35,
+        paddingVertical: 3,
+        paddingHorizontal: 5
     },
     detail_feedback_text: {
         fontSize: 15,
-        color: "#26324A",
-    },
+        color: "#26324A"
+    }
 });
 
 export default withNavigation(CustomRowHistory);

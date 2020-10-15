@@ -37,7 +37,6 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.menuBlock_column}>
                     <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Left}
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
                             title="Hồ sơ bệnh"
@@ -47,7 +46,6 @@ const HomeScreen = ({ navigation }) => {
                             gotoScreen={() => navigation.navigate("Profile")}
                         />
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Right}
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/find-car.png")}
                             title="Tìm xe"
@@ -59,7 +57,6 @@ const HomeScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Left}
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/history.png")}
                             title="Lịch sử"
@@ -69,16 +66,13 @@ const HomeScreen = ({ navigation }) => {
                             gotoScreen={() => navigation.navigate("History")}
                         />
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Right}
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/personal-info.png")}
                             title="Thông tin cá nhân"
                             content="Thông tin để tài xế có thể dễ dàng liên lạc với bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() =>
-                                navigation.navigate("PersonalInfo")
-                            }
+                            gotoScreen={() => navigation.navigate("PersonalInfo")}
                         />
                     </View>
                 </View>

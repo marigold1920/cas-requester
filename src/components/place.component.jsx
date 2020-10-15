@@ -34,12 +34,14 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 16,
-        color: "#26324A"
+        color: "#26324A",
+        fontFamily: "Texgyreadventor-bold"
     },
     address: {
         fontSize: 14,
         color: "#4F5C77",
-        marginBottom: 5
+        marginBottom: 5,
+        fontFamily: "Texgyreadventor-regular"
     },
     dateTime: {
         flexDirection: "row",
@@ -59,6 +61,7 @@ const styles = StyleSheet.create({
     },
     value: {
         color: "#26324A",
-        fontSize: 14
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-regular"
     }
 });

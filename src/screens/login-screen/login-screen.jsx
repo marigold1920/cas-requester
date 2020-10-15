@@ -1,6 +1,6 @@
 import React from "react";
 
-import { View, ImageBackground } from "react-native";
+import { View } from "react-native";
 
 import TextInputIcon from "../../components/text-input-with-icon.component";
 import ButtonText from "../../components/button-text.component";
@@ -18,15 +18,10 @@ const LoginScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    <TextInputIcon
-                        imgSrc={require("../../../assets/icons/phone.png")}
-                        placeholder="Số điện thoại"
-                    />
-                    <TextInputIcon
-                        imgSrc={require("../../../assets/icons/key.png")}
-                        placeholder="Mật khẩu"
-                    />
+                    <TextInputIcon imgSrc={require("../../../assets/icons/phone.png")} placeholder="Số điện thoại" />
+                    <TextInputIcon imgSrc={require("../../../assets/icons/key.png")} placeholder="Mật khẩu" />
                     <ButtonText
+                        styleButton={{ paddingVertical: 5 }}
                         textContent="ĐĂNG NHẬP"
                         gotoScreen={() => navigation.navigate("Home")}
                     />
@@ -35,10 +30,7 @@ const LoginScreen = ({ navigation }) => {
                         contentLink="Đăng ký"
                         link={() => navigation.navigate("Register")}
                     />
-                    <TextLinking
-                        contentLink="Quên mật khẩu?"
-                        link={() => navigation.navigate("ResetPass")}
-                    />
+                    <TextLinking contentLink="Quên mật khẩu?" link={() => navigation.navigate("ResetPass")} />
                 </View>
             </BackgroundLogin>
         </View>

@@ -25,10 +25,16 @@ const FindCarScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.block_address}>
                     <View style={styles.address}>
-                        <TextInput placeholder="Địa chỉ hiện tại" style={{ fontSize: 20 }} />
+                        <TextInput
+                            placeholder="Địa chỉ hiện tại"
+                            style={{ fontSize: 16, fontFamily: "Texgyreadventor-regular" }}
+                        />
                     </View>
                     <View style={styles.address}>
-                        <TextInput placeholder="Điểm đến của bạn" style={{ fontSize: 20 }} />
+                        <TextInput
+                            placeholder="Điểm đến của bạn"
+                            style={{ fontSize: 16, fontFamily: "Texgyreadventor-regular" }}
+                        />
                     </View>
                 </View>
                 <View style={styles.block_reverse}>

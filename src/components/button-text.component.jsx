@@ -24,15 +24,18 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#FFF",
-        width: 18 * rem,
-        height: 3.8 * rem,
+        paddingVertical: 10,
+        paddingHorizontal: 25,
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center"
     },
     text: {
-        fontSize: 20,
-        color: "red"
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 18,
+        color: "red",
+        paddingVertical: 5,
+        paddingHorizontal: 15
     }
 });
 export default ButtonText;

@@ -1,13 +1,10 @@
 import React from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
-import rem from "../components/constant.unit";
+
 const SearchBox = ({ placeholder }) => {
     return (
         <View style={styles.container}>
-            <Image
-                source={require("../../assets/icons/search.png")}
-                style={styles.searchIcon}
-            />
+            <Image source={require("../../assets/icons/search.png")} style={styles.searchIcon} />
             <TextInput style={styles.searchText} placeholder={placeholder} />
         </View>
     );
@@ -15,31 +12,22 @@ const SearchBox = ({ placeholder }) => {
 const styles = StyleSheet.create({
     container: {
         padding: 12,
-        marginTop: 10,
+        marginVertical: 8,
         alignItems: "center",
-        marginRight: 25,
-        marginLeft: 25,
+        marginHorizontal: 25,
         flexDirection: "row",
         borderRadius: 50,
-        backgroundColor: "#FFFFFF",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
-        elevation: 7,
+        backgroundColor: "#FFFFFF"
     },
     searchIcon: {
-        height: 20,
-        width: 20,
+        height: 18,
+        width: 18
     },
     searchText: {
-        fontSize: 18,
-        width: 21 * rem,
-        marginLeft: 5,
-        fontFamily: "Texgyreadventor-regular",
-    },
+        flex: 1,
+        fontSize: 17,
+        marginLeft: 10,
+        fontFamily: "Texgyreadventor-regular"
+    }
 });
 export default SearchBox;

@@ -19,7 +19,10 @@ const ResetPassScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.block_button}>
                     <TextInputIcon placeholder="Số điện thoại" />
+                    <TextInputIcon placeholder="Mật khẩu" />
+                    <TextInputIcon placeholder="Xác nhận mật khẩu" />
                     <ButtonText
+                        styleButton={{ paddingVertical: 5 }}
                         textContent="Gửi mã OTP"
                         gotoScreen={() => navigation.navigate("Otp")}
                     />

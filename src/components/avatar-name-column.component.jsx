@@ -1,15 +1,9 @@
 import React from "react";
 
-import { Text, View, Image, StyleSheet, contStyle } from "react-native";
+import { Text, View, Image, StyleSheet } from "react-native";
 import rem from "./constant.unit";
 
-const AvatarNameCol = ({
-    imgSource,
-    textContent,
-    contStyle,
-    imgStyle,
-    textStyle,
-}) => {
+const AvatarNameCol = ({ imgSource, textContent, contStyle, imgStyle, textStyle }) => {
     const { container, image, text } = styles;
     const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
     const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
@@ -29,17 +23,19 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 10
     },
     image: {
         width: 13 * rem,
         height: 13 * rem,
         borderRadius: 100,
-        marginBottom: 10,
+        marginBottom: 10
     },
     text: {
         fontFamily: "Texgyreadventor-bold",
-        fontSize: 25,
-    },
+        fontSize: 22,
+        color: "#494958"
+    }
 });
 
 export default AvatarNameCol;

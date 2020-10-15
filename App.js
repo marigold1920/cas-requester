@@ -4,16 +4,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-// import {
-//     useFonts,
-//     Roboto_500Medium,
-//     Roboto_900Black,
-//     Roboto_700Bold,
-// } from "@expo-google-fonts/roboto";
-// import {
-//     Nunito_400Regular,
-//     Nunito_800ExtraBold,
-// } from "@expo-google-fonts/nunito";
+
 import HomeScreen from "./src/screens/home-screen/home-screen";
 import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
@@ -40,13 +31,13 @@ const MainNavigator = createStackNavigator(
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,
         Otp: OtpScreen,
-        ResetPass: ResetPassScreen,
+        ResetPass: ResetPassScreen
     },
     {
         initialRouteName: "Login", //change this att to change initial screen
         defaultNavigationOptions: {
-            headerShown: false,
-        },
+            headerShown: false
+        }
     }
 );
 
@@ -54,31 +45,18 @@ const AppContainer = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
     state = {
-        assetsLoaded: false,
+        assetsLoaded: false
     };
 
     async componentDidMount() {
         await Font.loadAsync({
-            "Roboto-Black": require("./assets/fonts/Roboto-Black.ttf"),
-            "Roboto-Light": require("./assets/fonts/Roboto-Light.ttf"),
-            "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
-            "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
-            "nunito.bold": require("./assets/fonts/nunito.bold.ttf"),
-            "nunito.regular": require("./assets/fonts/nunito.regular.ttf"),
-            "nunito.light": require("./assets/fonts/nunito.light.ttf"),
             "Texgyreadventor-bold": require("./assets/fonts/Texgyreadventor-bold.otf"),
-            "Texgyreadventor-regular": require("./assets/fonts/Texgyreadventor-regular.otf"),
+            "Texgyreadventor-regular": require("./assets/fonts/Texgyreadventor-regular.otf")
         });
 
         this.setState({ assetsLoaded: true });
     }
-    // let [fontsLoaded] = useFonts({
-    //     Roboto_500Medium,
-    //     Roboto_900Black,
-    //     Roboto_700Bold,
-    //     Nunito_400Regular,
-    //     Nunito_800ExtraBold,
-    // });
+
     render() {
         const { assetsLoaded } = this.state;
         if (!assetsLoaded) {

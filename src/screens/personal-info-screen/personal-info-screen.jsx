@@ -1,12 +1,10 @@
 import React from "react";
 
-import { View, TextInput, Text, Image } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, TextInput, Text } from "react-native";
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
-import TextArea from "../../components/text-area.component";
 
 import styles from "./personal-info-styles";
 
@@ -31,18 +29,12 @@ const PersonalInfoScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.container_block_update_info}>
                     <View style={styles.container_text_input}>
-                        <Text style={styles.label}>Tên</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="Tín Trần"
-                        ></TextInput>
+                        <Text style={styles.label}>Tên *</Text>
+                        <TextInput style={styles.text_input} defaultValue="Tín Trần" />
                     </View>
                     <View style={styles.container_text_input}>
-                        <Text style={styles.label}>Số điện thoại</Text>
-                        <TextInput
-                            style={styles.text_input}
-                            placeholder="+84 931 738 872"
-                        ></TextInput>
+                        <Text style={styles.label}>Số điện thoại *</Text>
+                        <TextInput style={styles.text_input} defaultValue="+84 931 738 872" />
                     </View>
                     <View style={styles.container_button_save}>
                         <ButtonText
@@ -52,8 +44,7 @@ const PersonalInfoScreen = ({ navigation }) => {
                             gotoScreen={() => navigation.navigate("Home")}
                         />
                         <Text style={styles.text_policy}>
-                            * Các thông tin cá nhân được bảo mật theo chính
-                            sách, qui định của Nhà nước
+                            * Các thông tin cá nhân được bảo mật theo chính sách, qui định của Nhà nước
                         </Text>
                     </View>
                 </View>

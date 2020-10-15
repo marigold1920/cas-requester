@@ -19,7 +19,11 @@ const RegisterScreen = ({ navigation }) => {
                     <TextInputIcon imgSrc={require("../../../assets/icons/phone.png")} placeholder="Số điện thoại" />
                     <TextInputIcon imgSrc={require("../../../assets/icons/key.png")} placeholder="Mật khẩu" />
                     <TextInputIcon imgSrc={require("../../../assets/icons/user.png")} placeholder="Tên" />
-                    <ButtonText textContent="TẠO TÀI KHOẢN" gotoScreen={() => navigation.navigate("Login")} />
+                    <ButtonText
+                        styleButton={{ paddingVertical: 5 }}
+                        textContent="TẠO TÀI KHOẢN"
+                        gotoScreen={() => navigation.navigate("Otp")}
+                    />
                     <TextLinking
                         contentText="Đã có tài khoản?"
                         contentLink="Đăng nhập"
