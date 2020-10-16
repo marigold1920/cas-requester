@@ -12,6 +12,7 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [note, setNote] = useState("");
+    const [profile, setProfile] = useState("");
 
     const handleAction = () => {
         setIsLoading(true);
@@ -23,7 +24,7 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
     };
 
     return (
-        <View style={[styles.booking, isOthers ? { height: deviceRevolution.height * 0.6 } : null]}>
+        <View style={[styles.booking, isOthers ? { height: deviceRevolution.height * 0.65 } : null]}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
                     onPress={() => setIsOthers(false)}
@@ -71,6 +72,15 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
                 ) : null}
                 <TextInput
                     style={styles.note}
+                    onFocus={() => setIsReverse(true)}
+                    placeholder="Tình trạng bệnh hiện tại"
+                    numberOfLines={2}
+                    defaultValue={profile}
+                    onChangeText={value => setProfile(value)}
+                />
+                <TextInput
+                    style={styles.note}
+                    onFocus={() => setIsReverse(true)}
                     placeholder="Ghi chú"
                     numberOfLines={2}
                     defaultValue={note}
@@ -88,7 +98,7 @@ export default withNavigation(FindOwnAmbulanceTab);
 
 const styles = StyleSheet.create({
     booking: {
-        height: deviceRevolution.height * 0.5,
+        height: deviceRevolution.height * 0.55,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 10
+        marginBottom: 5
     },
     places: {
         width: "85%",
@@ -113,7 +123,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FF8946",
         color: "#fff",
         fontSize: 18,
-        paddingVertical: 10,
+        paddingVertical: 8,
         paddingHorizontal: 40,
         marginBottom: 10,
         borderRadius: 25,
@@ -122,8 +132,8 @@ const styles = StyleSheet.create({
     },
     note: {
         width: "100%",
-        borderWidth: 0.25,
-        borderColor: "#6F6F6F",
+        borderWidth: 0.5,
+        borderColor: "#444444",
         borderRadius: 10,
         paddingVertical: 5,
         paddingHorizontal: 20,

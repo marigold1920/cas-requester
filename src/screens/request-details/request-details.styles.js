@@ -9,11 +9,10 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         position: "relative",
-        justifyContent: "center",
         alignItems: "center"
     },
     driverInfo: {
-        height: height * 0.4,
+        height: "40%",
         justifyContent: "center",
         alignItems: "center",
         position: "relative"
@@ -70,7 +69,7 @@ const styles = StyleSheet.create({
     },
     details: {
         width: width,
-        height: height * 0.6,
+        height: "45%",
         display: "flex",
         flexDirection: "column",
         marginTop: 30,
@@ -99,6 +98,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "Texgyreadventor-regular",
         elevation: 10
+    },
+    profile: {
+        backgroundColor: "#fff",
+        opacity: 0.75,
+        borderRadius: 10,
+        marginBottom: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 20
     }
 });
 

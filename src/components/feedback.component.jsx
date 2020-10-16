@@ -2,26 +2,11 @@ import React from "react";
 import { StyleSheet, View, TouchableOpacity, Image, TextInput } from "react-native";
 
 import rem from "./constant.unit";
+import Rating from "./rating.component";
 
 const Feedback = ({ placeholder }) => (
     <View style={styles.container_feedback_content}>
-        <View style={styles.rating_block}>
-            <TouchableOpacity>
-                <Image style={styles.rating_icon} source={require("../../assets/icons/yellow-star.png")} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image style={styles.rating_icon} source={require("../../assets/icons/yellow-star.png")} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image style={styles.rating_icon} source={require("../../assets/icons/yellow-star.png")} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image style={styles.rating_icon} source={require("../../assets/icons/yellow-star.png")} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image style={styles.rating_icon} source={require("../../assets/icons/yellow-star.png")} />
-            </TouchableOpacity>
-        </View>
+        <Rating size={20} level={5} />
         <View style={styles.textArea_block}>
             <TextInput
                 style={styles.textArea}

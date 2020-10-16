@@ -70,9 +70,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 10
     },
-    action__wrapper: {
-        elevation: 30,
-        padding: 0
+    group__action: {
+        width: "80%",
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "nowrap",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 20
     },
     action: {
         fontFamily: "Texgyreadventor-regular",
@@ -81,10 +86,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#0CBA70",
         borderRadius: 25,
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        marginTop: 10,
+        paddingHorizontal: 15,
         borderColor: "transparent",
         elevation: 30
+    },
+    cancel: {
+        backgroundColor: "#f30000"
     }
 });
 
