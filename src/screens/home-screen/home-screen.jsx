@@ -17,6 +17,7 @@ const HomeScreen = ({ navigation }) => {
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
                         imgSrc={require("../../../assets/icons/mock-avatar.png")}
+                        gotoScreen={() => navigation.navigate("PersonalInfo")}
                     />
                     <Text style={styles.headerText}>Tín Trần</Text>
                     <ButtonWithImage
@@ -38,6 +39,26 @@ const HomeScreen = ({ navigation }) => {
                     <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
+                            imgSrc={require("../../../assets/icons/find-car.png")}
+                            title="Tìm xe cho bạn"
+                            content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
+                            titleStyle={styles.menu_title}
+                            contentStyle={styles.menu_content}
+                            gotoScreen={() => navigation.navigate("FindCar")}
+                        />
+                        <ButtonImgBgr
+                            styleImg={styles.menu_Img}
+                            imgSrc={require("../../../assets/icons/personal-info.png")}
+                            title="Tìm xe cho người khác"
+                            content="Đặt xe giúp người khác"
+                            titleStyle={styles.menu_title}
+                            contentStyle={styles.menu_content}
+                            gotoScreen={() => navigation.navigate("PersonalInfo")}
+                        />
+                    </View>
+                    <View style={styles.menuBlock_row}>
+                        <ButtonImgBgr
+                            styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
                             title="Hồ sơ bệnh"
                             content="Cập nhật thông tin về tình trạng bệnh hiện tại của bạn"
@@ -47,32 +68,12 @@ const HomeScreen = ({ navigation }) => {
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
-                            imgSrc={require("../../../assets/icons/find-car.png")}
-                            title="Tìm xe"
-                            content="Bạn cần đưa đến bệnh viện hoặc về nhà"
-                            titleStyle={styles.menu_title}
-                            contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("FindCar")}
-                        />
-                    </View>
-                    <View style={styles.menuBlock_row}>
-                        <ButtonImgBgr
-                            styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/history.png")}
                             title="Lịch sử"
                             content="Xem lịch sử gọi xe và gửi phản hồi về dịch vụ"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("History")}
-                        />
-                        <ButtonImgBgr
-                            styleImg={styles.menu_Img}
-                            imgSrc={require("../../../assets/icons/personal-info.png")}
-                            title="Thông tin cá nhân"
-                            content="Thông tin để tài xế có thể dễ dàng liên lạc với bạn"
-                            titleStyle={styles.menu_title}
-                            contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("PersonalInfo")}
                         />
                     </View>
                 </View>

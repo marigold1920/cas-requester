@@ -12,7 +12,7 @@ const TextArea = ({ textContent, contStyle }) => {
             <Text style={styles.text}>{textContent}</Text>
             <TextInput
                 style={styles.textArea}
-                placeholder="Type something"
+                placeholder=""
                 placeholderTextColor="grey"
                 numberOfLines={5}
                 multiline={true}
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         width: "90%",
-        marginBottom: 20,
+        marginBottom: 20
     },
     text: {
         color: "#787881",
         fontFamily: "Texgyreadventor-regular",
         marginBottom: 8,
-        fontSize: 16,
+        fontSize: 16
     },
     textArea: {
         fontFamily: "Texgyreadventor-regular",
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop: 10,
         textAlignVertical: "top",
-        height: 9 * rem,
-    },
+        height: 9 * rem
+    }
 });
 
 export default TextArea;

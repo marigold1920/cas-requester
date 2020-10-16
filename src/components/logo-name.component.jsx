@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         fontFamily: "Texgyreadventor-bold",
         fontSize: 30,
         marginTop: 10,
+        marginBottom: 30,
         color: "#FFFFFF"
     }
 });
