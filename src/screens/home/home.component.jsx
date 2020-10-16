@@ -1,17 +1,18 @@
 import React from "react";
-
 import { Text, View } from "react-native";
+
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonImgBgr from "../../components/button-image-background.component";
 import ButtonWithImage from "../../components/button-image.component";
 import SearchBox from "../../components/searchbox-icon.component";
+import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
-import styles from "./home-styles";
+import styles from "./home.styles";
 
 const HomeScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <BackgroundImage>
+        <BackgroundImage>
+            <KeyboardAvoiding style={styles.container}>
                 <View style={styles.headerBlock}>
                     <ButtonWithImage
                         buttonStyle={styles.headerButton_noBorder}
@@ -40,23 +41,12 @@ const HomeScreen = ({ navigation }) => {
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/find-car.png")}
-                            title="Tìm xe cho bạn"
+                            title="Tìm xe"
                             content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("FindCar")}
                         />
-                        <ButtonImgBgr
-                            styleImg={styles.menu_Img}
-                            imgSrc={require("../../../assets/icons/personal-info.png")}
-                            title="Tìm xe cho người khác"
-                            content="Đặt xe giúp người khác"
-                            titleStyle={styles.menu_title}
-                            contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("PersonalInfo")}
-                        />
-                    </View>
-                    <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
@@ -66,6 +56,8 @@ const HomeScreen = ({ navigation }) => {
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("Profile")}
                         />
+                    </View>
+                    <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/history.png")}
@@ -75,10 +67,19 @@ const HomeScreen = ({ navigation }) => {
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("History")}
                         />
+                        <ButtonImgBgr
+                            styleImg={styles.menu_Img}
+                            imgSrc={require("../../../assets/icons/personal-info.png")}
+                            title="Thông tin cá nhân"
+                            content="Có thể giúp tài xế dễ dàng liên lạc với bạn khi gửi yêu cầu"
+                            titleStyle={styles.menu_title}
+                            contentStyle={styles.menu_content}
+                            gotoScreen={() => navigation.navigate("PersonalInfo")}
+                        />
                     </View>
                 </View>
-            </BackgroundImage>
-        </View>
+            </KeyboardAvoiding>
+        </BackgroundImage>
     );
 };
 

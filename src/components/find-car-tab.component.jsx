@@ -15,9 +15,11 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
 
     const handleAction = () => {
         setIsLoading(true);
+        setIsReverse(false);
         setTimeout(() => {
-            navigation.navigate("TripInfo");
-        }, 15000);
+            setIsLoading(false);
+            navigation.navigate("RequestInfo");
+        }, 5000);
     };
 
     return (

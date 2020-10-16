@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 10
+        marginVertical: 10
     },
     image: {
         width: 13 * rem,

@@ -12,10 +12,13 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     container_block_update_info: {
-        flex: 4,
-        marginHorizontal: 22
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
     },
     container_text_input: {
+        width: "75%",
         marginTop: 15,
         borderBottomWidth: 0.5,
         borderBottomColor: "#B9C5E6",
@@ -27,14 +30,13 @@ const styles = StyleSheet.create({
     },
     //css child:
     joining_day_title: {
-        marginTop: 5,
         fontSize: 14,
         color: "#26324A",
         fontWeight: "400",
         fontFamily: "Texgyreadventor-regular"
     },
     joining_day: {
-        fontSize: 18,
+        fontSize: 16,
         color: "#26324A",
         fontWeight: "600",
         fontFamily: "Texgyreadventor-regular"
@@ -46,14 +48,16 @@ const styles = StyleSheet.create({
     },
     text_input: {
         marginTop: 3,
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: "Texgyreadventor-regular",
         color: "#494958"
     },
     //css button save:
     button_size: {
+        marginVertical: 20,
         backgroundColor: "#FFF",
-        paddingVertical: 5
+        paddingVertical: 5,
+        elevation: 30
     },
     button_text: {
         color: "#26324A",

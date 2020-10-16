@@ -13,13 +13,14 @@ const BackgroundImage = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#000"
     },
     backgroundImage: {
-        flex: 1,
         position: "absolute",
-        zIndex: 0,
-        width: " 100%",
+        width: "100%",
         height: "100%"
     }
 });

@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        marginVertical: 5
     },
     rating_block: {
         display: "flex",

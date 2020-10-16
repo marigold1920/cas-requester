@@ -9,9 +9,9 @@ import LogoName from "../../components/logo-name.component";
 import BackgroundLogin from "../../components/background-screen-login.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
-import styles from "./otp.styles";
+import styles from "./reset-password.styles";
 
-const OtpScreen = ({ navigation }) => {
+const ResetPassScreen = ({ navigation }) => {
     return (
         <BackgroundLogin>
             <KeyboardAvoiding style={styles.container}>
@@ -19,15 +19,17 @@ const OtpScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    <TextInputIcon imgSrc={require("../../../assets/icons/otp-icon.png")} placeholder="Nhập mã OTP" />
+                    <TextInputIcon placeholder="Số điện thoại" />
+                    <TextInputIcon placeholder="Mật khẩu" />
+                    <TextInputIcon placeholder="Xác nhận mật khẩu" />
                     <ButtonText
                         styleButton={{ paddingVertical: 5 }}
-                        textContent="XÁC NHẬN"
-                        gotoScreen={() => navigation.navigate("Home")}
+                        textContent="Gửi mã OTP"
+                        gotoScreen={() => navigation.navigate("Otp")}
                     />
                     <TextLinking
-                        contentText="Chưa nhận được mã OTP?"
-                        contentLink="Gửi lại mã"
+                        contentText="Chưa có tài khoản?"
+                        contentLink="Đăng ký"
                         link={() => navigation.navigate("Register")}
                     />
                 </View>
@@ -36,4 +38,4 @@ const OtpScreen = ({ navigation }) => {
     );
 };
 
-export default OtpScreen;
+export default ResetPassScreen;

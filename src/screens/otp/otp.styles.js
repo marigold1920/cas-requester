@@ -1,20 +1,19 @@
 import { StyleSheet } from "react-native";
+import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column"
     },
-    //css for block app_logo-name
     block_logo_name: {
-        flex: 2,
         marginTop: 40
     },
-    //css for block button
     block_button: {
-        flex: 4,
+        height: deviceRevolution.height * 0.4,
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     }
 });
 

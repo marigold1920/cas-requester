@@ -27,8 +27,8 @@ const RequestDetails = ({ navigation }) => (
             <View style={styles.content}>
                 <Image style={styles.image} source={require("../../../assets/images/person-3.jpg")} />
                 <Text style={styles.name}>Victor Nguyen</Text>
-                <Text style={styles.role}>Tài xế</Text>
                 <Text style={styles.licensePlate}>71 - C1 852.23</Text>
+                <Text style={styles.phone}>0931738872</Text>
             </View>
             <Text style={styles.status}>Thành công</Text>
         </View>

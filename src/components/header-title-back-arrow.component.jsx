@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
         height: 21
     },
     text_content: {
-        fontSize: 16,
-        fontFamily: "Texgyreadventor-regular",
+        fontSize: 18,
+        fontFamily: "Texgyreadventor-bold",
         color: "#494958",
         textAlign: "center"
     }
