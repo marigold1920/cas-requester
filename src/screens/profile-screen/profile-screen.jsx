@@ -1,6 +1,6 @@
 import React from "react";
 
-import { View, TextInput, Text } from "react-native";
+import { View } from "react-native";
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
@@ -13,10 +13,7 @@ const ProfileScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <BackgroundImage>
-                <HeaderTileWithBackBtn
-                    textContent="Hồ sơ bệnh"
-                    gotoScreen={() => navigation.navigate("Home")}
-                />
+                <HeaderTileWithBackBtn textContent="Hồ sơ bệnh" gotoScreen={() => navigation.navigate("Home")} />
                 <AvatarNameCol
                     imgSource={require("../../../assets/icons/mock-avatar.png")}
                     textContent="Tín Trần"

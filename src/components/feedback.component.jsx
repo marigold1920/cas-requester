@@ -55,12 +55,13 @@ const styles = StyleSheet.create({
         flex: 3
     },
     textArea: {
-        borderRadius: 20,
+        borderRadius: 10,
         padding: 15,
         backgroundColor: "#FFF",
         width: 25 * rem,
         height: 7 * rem,
-        textAlignVertical: "top"
+        textAlignVertical: "top",
+        fontFamily: "Texgyreadventor-regular"
     }
 });
 

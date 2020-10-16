@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         fontSize: 16,
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-regular",
         color: "#FFF",
         marginLeft: 7,
-        width: 15 * rem
+        width: "100%"
     }
 });
 export default TextInputIcon;

@@ -21,11 +21,10 @@ const styles = StyleSheet.create({
         borderRadius: 40
     },
     headerText: {
-        fontSize: 28,
+        fontSize: 24,
         color: "#494958",
-        fontFamily: "Roboto_500Medium",
+        fontFamily: "Texgyreadventor-bold",
         marginLeft: 5,
-        fontWeight: "bold",
         width: 13 * rem
     },
     headerButton_noBorder: {
@@ -34,15 +33,22 @@ const styles = StyleSheet.create({
         margin: 5
     },
     headerButton: {
-        borderWidth: 0.6,
-        borderColor: "#FFF",
+        backgroundColor: "#fff",
         borderRadius: 50,
         padding: 5,
-        margin: 5
+        margin: 5,
+        shadowOffset: {
+            width: 6,
+            height: 6
+        },
+        shadowColor: "#C4D5F6",
+        shadowOpacity: 0.3,
+        elevation: 16
     },
     headerImg: {
-        height: 25,
-        width: 25
+        height: 20,
+        width: 20,
+        margin: 3
     },
     //css for search block
     searchBlock: {
@@ -58,26 +64,11 @@ const styles = StyleSheet.create({
     },
     menuBlock_row: {
         flexDirection: "row",
-        justifyContent: "center",
-        marginLeft: 20,
-        marginRight: 20
-    },
-    menu_Button_Left: {
-        padding: 5,
-        marginLeft: 5
-    },
-    menu_Button_Right: {
-        padding: 5
-    },
-    menu_Img: {
-        height: 180,
-        width: 150,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: "center"
     },
     menu_title: {
         fontSize: 16,
-        fontFamily: "Roboto_700Bold",
+        fontFamily: "Texgyreadventor-bold",
         width: 130,
         textAlign: "center"
     },
@@ -86,7 +77,7 @@ const styles = StyleSheet.create({
         width: 100,
         textAlign: "center",
         fontSize: 14,
-        fontFamily: "Roboto_500Medium"
+        fontFamily: "Texgyreadventor-regular"
     }
 });
 export default styles;

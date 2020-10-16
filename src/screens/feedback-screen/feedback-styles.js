@@ -26,37 +26,37 @@ const styles = StyleSheet.create({
         height: 9 * rem
     },
     feedback_title: {
-        fontFamily: "Roboto_700Bold",
+        fontFamily: "Texgyreadventor-bold",
         fontSize: 20
     },
     feed_description: {
         marginTop: 10,
         width: 18 * rem,
-        fontSize: 16,
-        fontFamily: "Roboto_500Medium",
-        textAlign: "center"
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-regular",
+        textAlign: "center",
+        color: "#8D8D8D"
     },
     cancel_button: {
         backgroundColor: "#FFF",
-        width: 12 * rem,
-        height: 4.5 * rem,
-        borderRadius: 10
+        paddingVertical: 5,
+        borderRadius: 25
     },
     cancel_text: {
         color: "#000000",
-        fontSize: 20,
-        fontFamily: "Roboto_500Medium"
+        fontSize: 18,
+        fontFamily: "Texgyreadventor-regular"
     },
     submit_button: {
         backgroundColor: "#FFAB2E",
-        width: 12 * rem,
-        height: 4.5 * rem,
-        borderRadius: 10
+        paddingVertical: 5,
+        paddingHorizontal: 35,
+        borderRadius: 25
     },
     submit_text: {
         color: "#FFF",
-        fontSize: 20,
-        fontFamily: "Roboto_500Medium"
+        fontSize: 18,
+        fontFamily: "Texgyreadventor-regular"
     },
     //css for modal:
     centeredView: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontSize: 18,
-        fontFamily: "Roboto_700Bold"
+        fontFamily: "Texgyreadventor-bold"
     },
     modalText: {
         marginTop: 15,

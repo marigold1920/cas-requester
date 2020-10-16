@@ -2,17 +2,9 @@ import React from "react";
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
+import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import {
-    useFonts,
-    Roboto_500Medium,
-    Roboto_900Black,
-    Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
-import {
-    Nunito_400Regular,
-    Nunito_800ExtraBold,
-} from "@expo-google-fonts/nunito";
+
 import HomeScreen from "./src/screens/home-screen/home-screen";
 import ProfileScreen from "./src/screens/profile-screen/profile-screen";
 import LoginScreen from "./src/screens/login-screen/login-screen";
@@ -41,30 +33,38 @@ const MainNavigator = createStackNavigator(
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,
         Otp: OtpScreen,
-        ResetPass: ResetPassScreen,
-        FindCar01: FindCarScreen01
+        ResetPass: ResetPassScreen
     },
     {
         initialRouteName: "FindCar01", //change this att to change initial screen
         defaultNavigationOptions: {
-            headerShown: false,
-        },
+            headerShown: false
+        }
     }
 );
 
 const AppContainer = createAppContainer(MainNavigator);
 
-export default () => {
-    let [fontsLoaded] = useFonts({
-        Roboto_500Medium,
-        Roboto_900Black,
-        Roboto_700Bold,
-        Nunito_400Regular,
-        Nunito_800ExtraBold,
-    });
-    if (!fontsLoaded) {
-        return <AppLoading />;
+export default class App extends React.Component {
+    state = {
+        assetsLoaded: false
+    };
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            "Texgyreadventor-bold": require("./assets/fonts/Texgyreadventor-bold.otf"),
+            "Texgyreadventor-regular": require("./assets/fonts/Texgyreadventor-regular.otf")
+        });
+
+        this.setState({ assetsLoaded: true });
     }
-    // from the custom App we return the component we assigned to AppContainer.
-    return <AppContainer />;
-};
+
+    render() {
+        const { assetsLoaded } = this.state;
+        if (!assetsLoaded) {
+            return <AppLoading />;
+        }
+        // from the custom App we return the component we assigned to AppContainer.
+        return <AppContainer />;
+    }
+}

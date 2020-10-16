@@ -14,28 +14,26 @@ const ButtonImgBgr = props => {
 };
 
 const styles = StyleSheet.create({
-    menu_Button: {
-        padding: 5
-    },
     menu_Img: {
         height: 18 * rem,
         width: 14 * rem,
         alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: 10
+        justifyContent: "center"
     },
     menu_title: {
-        fontSize: 17,
+        fontSize: 16,
         marginTop: 20,
         marginBottom: 10,
-        fontFamily: "Roboto_700Bold",
-        textAlign: "center"
+        fontFamily: "Texgyreadventor-bold",
+        textAlign: "center",
+        color: "#494958"
     },
     menu_content: {
         textAlign: "center",
-        fontSize: 15,
-        fontFamily: "Roboto_500Medium",
-        marginHorizontal: 10
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-regular",
+        marginHorizontal: 10,
+        color: "#8D8D8D"
     }
 });
 export default ButtonImgBgr;

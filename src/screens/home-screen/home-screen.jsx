@@ -17,6 +17,7 @@ const HomeScreen = ({ navigation }) => {
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
                         imgSrc={require("../../../assets/icons/mock-avatar.png")}
+                        gotoScreen={() => navigation.navigate("PersonalInfo")}
                     />
                     <Text style={styles.headerText}>Tín Trần</Text>
                     <ButtonWithImage
@@ -37,7 +38,26 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.menuBlock_column}>
                     <View style={styles.menuBlock_row}>
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Left}
+                            styleImg={styles.menu_Img}
+                            imgSrc={require("../../../assets/icons/find-car.png")}
+                            title="Tìm xe cho bạn"
+                            content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
+                            titleStyle={styles.menu_title}
+                            contentStyle={styles.menu_content}
+                            gotoScreen={() => navigation.navigate("FindCar")}
+                        />
+                        <ButtonImgBgr
+                            styleImg={styles.menu_Img}
+                            imgSrc={require("../../../assets/icons/personal-info.png")}
+                            title="Tìm xe cho người khác"
+                            content="Đặt xe giúp người khác"
+                            titleStyle={styles.menu_title}
+                            contentStyle={styles.menu_content}
+                            gotoScreen={() => navigation.navigate("PersonalInfo")}
+                        />
+                    </View>
+                    <View style={styles.menuBlock_row}>
+                        <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
                             title="Hồ sơ bệnh"
@@ -47,19 +67,6 @@ const HomeScreen = ({ navigation }) => {
                             gotoScreen={() => navigation.navigate("Profile")}
                         />
                         <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Right}
-                            styleImg={styles.menu_Img}
-                            imgSrc={require("../../../assets/icons/find-car.png")}
-                            title="Tìm xe"
-                            content="Bạn cần đưa đến bệnh viện hoặc về nhà"
-                            titleStyle={styles.menu_title}
-                            contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("FindCar01")}
-                        />
-                    </View>
-                    <View style={styles.menuBlock_row}>
-                        <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Left}
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/history.png")}
                             title="Lịch sử"
@@ -67,18 +74,6 @@ const HomeScreen = ({ navigation }) => {
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("History")}
-                        />
-                        <ButtonImgBgr
-                            buttonStyle={styles.menu_Button_Right}
-                            styleImg={styles.menu_Img}
-                            imgSrc={require("../../../assets/icons/personal-info.png")}
-                            title="Thông tin cá nhân"
-                            content="Thông tin để tài xế có thể dễ dàng liên lạc với bạn"
-                            titleStyle={styles.menu_title}
-                            contentStyle={styles.menu_content}
-                            gotoScreen={() =>
-                                navigation.navigate("PersonalInfo")
-                            }
                         />
                     </View>
                 </View>

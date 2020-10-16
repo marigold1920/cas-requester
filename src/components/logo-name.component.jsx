@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View, Image, Text, StyleSheet } from "react-native";
-const LogoName = props => {
+const LogoName = () => {
     return (
         <View style={styles.container}>
             <Image source={require("../../assets/icons/logo.png")} style={styles.app_logo} />
@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
         borderRadius: 18
     },
     app_name: {
-        fontFamily: "Roboto_900Black",
+        fontFamily: "Texgyreadventor-bold",
         fontSize: 30,
         marginTop: 10,
+        marginBottom: 30,
         color: "#FFFFFF"
     }
 });
