@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
 import MapView from "react-native-maps";
 
-import styles from "./find-car-styles";
+import styles from "./find-car.styles";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import FindOwnAmbulanceTab from "../../components/find-car-tab.component";

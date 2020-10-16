@@ -1,17 +1,18 @@
 import React from "react";
-
 import { View, TextInput, Text } from "react-native";
+
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
+import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
-import styles from "./personal-info-styles";
+import styles from "./personal-info.styles";
 
 const PersonalInfoScreen = ({ navigation }) => {
     return (
-        <View style={styles.container}>
-            <BackgroundImage>
+        <BackgroundImage>
+            <KeyboardAvoiding style={styles.container}>
                 <View style={{ flex: 1 }}>
                     <HeaderTileWithBackBtn
                         textContent="Thông tin cá nhân"
@@ -48,8 +49,8 @@ const PersonalInfoScreen = ({ navigation }) => {
                         </Text>
                     </View>
                 </View>
-            </BackgroundImage>
-        </View>
+            </KeyboardAvoiding>
+        </BackgroundImage>
     );
 };
 

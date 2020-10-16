@@ -5,20 +5,19 @@ import { createAppContainer } from "react-navigation";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 
-import HomeScreen from "./src/screens/home-screen/home-screen";
-import ProfileScreen from "./src/screens/profile-screen/profile-screen";
-import LoginScreen from "./src/screens/login-screen/login-screen";
-import RegisterScreen from "./src/screens/register-screen/register-screen";
-import HistoryScreen from "./src/screens/history-screen/history-screen";
-import FindCarScreen from "./src/screens/find-car-screen/find-car-screen";
-import TripInfoScreen from "./src/screens/trip-info-screen/trip-info-screen";
+import HomeScreen from "./src/screens/home/home.component";
+import ProfileScreen from "./src/screens/profile/profile.component";
+import LoginScreen from "./src/screens/login/login.component";
+import RegisterScreen from "./src/screens/register/register.component";
+import HistoryScreen from "./src/screens/history/history.component";
+import FindCarScreen from "./src/screens/find-car/find-car.component";
+import RequestInfo from "./src/screens/request-info/request-info.component";
 import RequestDetails from "./src/screens/request-details/request-details.conponent";
-import FeedbackScreen from "./src/screens/feedback-screen/feedback-screen";
-import PersonalInfoScreen from "./src/screens/personal-info-screen/personal-info-screen";
+import FeedbackScreen from "./src/screens/feedback/feedback.component";
+import PersonalInfoScreen from "./src/screens/personal-info/personal-info.component";
 import OtpScreen from "./src/screens/otp/otp.component";
-import ResetPassScreen from "./src/screens/reset-password-screen/reset-password-screen";
-import FindCarScreen01 from './src/screens/find-car-screen-v01/find-car-screen';
 
+import ResetPassScreen from "./src/screens/reset-password/reset-password.component";
 
 const MainNavigator = createStackNavigator(
     {
@@ -28,7 +27,7 @@ const MainNavigator = createStackNavigator(
         Register: RegisterScreen,
         History: HistoryScreen,
         FindCar: FindCarScreen,
-        TripInfo: TripInfoScreen,
+        RequestInfo: RequestInfo,
         RequestDetails: RequestDetails,
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,
@@ -36,7 +35,7 @@ const MainNavigator = createStackNavigator(
         ResetPass: ResetPassScreen
     },
     {
-        initialRouteName: "FindCar01", //change this att to change initial screen
+        initialRouteName: "Login", //change this att to change initial screen
         defaultNavigationOptions: {
             headerShown: false
         }

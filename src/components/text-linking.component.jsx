@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     text: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: "Texgyreadventor-regular",
         color: "#FFF",
         marginRight: 7
     },
     link: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: "Texgyreadventor-regular",
         textDecorationLine: "underline",
         color: "#0038FD"

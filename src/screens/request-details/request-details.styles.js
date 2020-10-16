@@ -45,19 +45,19 @@ const styles = StyleSheet.create({
         color: "#26324A",
         fontFamily: "Texgyreadventor-bold"
     },
-    role: {
-        fontSize: 14,
+    licensePlate: {
+        fontSize: 12,
         color: "#787881",
         fontFamily: "Texgyreadventor-regular"
     },
-    licensePlate: {
+    phone: {
         fontSize: 16,
         color: "#494958",
         fontFamily: "Texgyreadventor-bold"
     },
     status: {
         position: "absolute",
-        bottom: -15,
+        bottom: -16,
         backgroundColor: "#A147E4",
         color: "#fff",
         justifyContent: "center",
@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 20,
         borderRadius: 20,
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 16
     },
     details: {
         width: width,
@@ -96,7 +97,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         color: "#fff",
         fontSize: 16,
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        elevation: 10
     }
 });
 

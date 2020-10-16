@@ -3,7 +3,7 @@ import React from "react";
 import { Text, View, StyleSheet, TextInput } from "react-native";
 import rem from "./constant.unit";
 
-const TextArea = ({ textContent, contStyle }) => {
+const TextArea = ({ textContent, contStyle, ...otherProps }) => {
     const { container } = styles;
     const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
     // StyleSheet.flatten giúp thay đổi bất cứ thuộc tính nào của container, nếu không thay đổi sẽ áp dụng thuộc tính default
@@ -16,6 +16,7 @@ const TextArea = ({ textContent, contStyle }) => {
                 placeholderTextColor="grey"
                 numberOfLines={5}
                 multiline={true}
+                {...otherProps}
             />
         </View>
     );
@@ -38,13 +39,12 @@ const styles = StyleSheet.create({
     },
     textArea: {
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 18,
+        fontSize: 16,
         backgroundColor: "#FFF",
         borderRadius: 10,
-        paddingLeft: 10,
-        paddingTop: 10,
-        textAlignVertical: "top",
-        height: 9 * rem
+        paddingHorizontal: 15,
+        color: "#787881",
+        minHeight: 120
     }
 });
 

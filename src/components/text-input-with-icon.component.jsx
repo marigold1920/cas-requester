@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
-import rem from "../components/constant.unit";
 
 const TextInputIcon = props => {
     return (
