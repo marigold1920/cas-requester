@@ -1,7 +1,6 @@
 import React from "react";
 import { View, FlatList } from "react-native";
 import CustomRowHistory from "../../components/history-custom-row.component";
-import SearchBox from "../../components/searchbox-icon.component";
 
 import styles from "./history.styles";
 
@@ -17,9 +16,6 @@ const HistoryScreen = ({ navigation }) => {
         <View style={styles.container}>
             <BackgroundImage>
                 <HeaderTileWithBackBtn textContent="Lịch sử" gotoScreen={() => navigation.navigate("Home")} />
-                <View style={styles.container_search_box}>
-                    <SearchBox placeholder="Tìm kiếm địa điểm" />
-                </View>
                 <CustomListview itemList={MockData} />
                 <View style={styles.container_button}>
                     <ButtonText
@@ -37,6 +33,7 @@ const HistoryScreen = ({ navigation }) => {
 const CustomListview = ({ itemList }) => (
     <View style={styles.customlist}>
         <FlatList
+            showsVerticalScrollIndicator={false}
             data={itemList}
             renderItem={({ item }) => (
                 <CustomRowHistory title={item.title} address={item.address} image_url={item.image_url} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Image, TextInput } from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 
 import rem from "./constant.unit";
 import Rating from "./rating.component";
@@ -7,15 +7,13 @@ import Rating from "./rating.component";
 const Feedback = ({ placeholder }) => (
     <View style={styles.container_feedback_content}>
         <Rating size={20} level={5} />
-        <View style={styles.textArea_block}>
-            <TextInput
-                style={styles.textArea}
-                placeholder={placeholder}
-                placeholderTextColor="grey"
-                numberOfLines={5}
-                multiline={true}
-            />
-        </View>
+        <TextInput
+            style={styles.textArea}
+            placeholder={placeholder}
+            placeholderTextColor="grey"
+            numberOfLines={5}
+            multiline={true}
+        />
     </View>
 );
 
@@ -36,9 +34,6 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginHorizontal: 3
-    },
-    textArea_block: {
-        flex: 3
     },
     textArea: {
         borderRadius: 10,

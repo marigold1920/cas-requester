@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, Modal } from "react-native";
+import { View, Image, Text } from "react-native";
 
 import ButtonText from "../../components/button-text.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -15,7 +15,7 @@ const FindCarScreen = ({ navigation }) => {
     return (
         <BackgroundImage>
             <KeyboardAvoiding style={styles.container}>
-                <View style={[styles.modal, modalVisible ? { opacity: 0.85 } : null]}>
+                <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
                     <View style={styles.modal__content}>
                         <Text style={styles.status}>Đánh giá thành công</Text>
                         <Text style={styles.message}>Cảm ơn bạn đã đánh giá dịch vụ!</Text>
@@ -25,7 +25,7 @@ const FindCarScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.space__full}>
-                    <HeaderTileWithBackBtn textContent="Lịch sử" gotoScreen={() => navigation.navigate("Feedback")} />
+                    <HeaderTileWithBackBtn textContent="Đánh giá" gotoScreen={() => navigation.navigate("History")} />
                     <View style={styles.container_logo_feedback}>
                         <Image style={styles.logo_img} source={require("../../../assets/icons/feedback-logo.png")} />
                         <Text style={styles.feedback_title}>Đánh giá dịch vụ</Text>

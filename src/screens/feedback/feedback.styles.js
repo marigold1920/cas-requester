@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#000",
-        zIndex: 10,
+        zIndex: -1,
         opacity: 0
     },
     modal__content: {
