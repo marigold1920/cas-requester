@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     },
     text: {
         width: "100%",
-        borderWidth: 0.25,
-        borderColor: "#6F6F6F",
+        borderWidth: 0.5,
+        borderColor: "#444444",
         borderRadius: 25,
         paddingVertical: 5,
         paddingHorizontal: 20,
         paddingLeft: 50,
-        marginVertical: 5,
+        marginVertical: 3,
         fontFamily: "Texgyreadventor-regular",
         fontSize: 16,
         color: "#444444"

@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     customlist: {
-        flex: 7
+        flex: 7,
+        marginTop: 10
     },
     container_button: {
         flex: 1,

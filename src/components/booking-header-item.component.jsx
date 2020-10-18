@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     active: {
         borderWidth: 1,
         borderColor: "#00B955",
-        borderRadius: 15
+        borderRadius: 20
     },
     active__text: {
         color: "#00B955"

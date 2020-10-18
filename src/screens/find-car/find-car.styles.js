@@ -20,16 +20,9 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 10
     },
-    container_car_finding: {
-        flex: 0.7,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 20
-    },
     map__view: {
         width: deviceRevolution.width,
-        height: deviceRevolution.height * 0.45
+        height: deviceRevolution.height * 0.4
     },
     loading: {
         height: deviceRevolution.height * 0.35,

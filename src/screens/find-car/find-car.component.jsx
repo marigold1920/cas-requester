@@ -17,14 +17,14 @@ const FindCarScreen = ({ navigation }) => {
         <View style={styles.container}>
             <HeaderTileWithBackBtn textContent="Tìm xe" gotoScreen={() => navigation.navigate("FindCar")} />
             <View style={[styles.order__container, isReverse ? styles.reverse__order : null]}>
-                <View style={styles.container_mapview}>
+                <View style={[styles.container_mapview, isOthers ? { marginTop: 0 } : null]}>
                     <MapView
                         style={[
                             styles.map__view,
                             isLoading
                                 ? { height: deviceRevolution.height * 0.6 }
                                 : isOthers
-                                ? { height: deviceRevolution.height * 0.35 }
+                                ? { height: deviceRevolution.height * 0.3, marginTop: 0 }
                                 : null
                         ]}
                     />
