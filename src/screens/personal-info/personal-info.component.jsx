@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, Text } from "react-native";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
@@ -10,9 +10,31 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./personal-info.styles";
 
 const PersonalInfoScreen = ({ navigation }) => {
+    const [modalVisible, setModalVisible] = useState(false);
     return (
         <BackgroundImage>
             <KeyboardAvoiding style={styles.container}>
+                <View
+                    style={[
+                        styles.modal,
+                        modalVisible ? { opacity: 0.85, zIndex: 10 } : null,
+                    ]}
+                >
+                    <View style={styles.modal__content}>
+                        <Text style={styles.status}>
+                            Lưu thông tin thành công
+                        </Text>
+                        <Text
+                            onPress={() => {
+                                setModalVisible(false);
+                                navigation.navigate("Home");
+                            }}
+                            style={styles.action}
+                        >
+                            Đóng
+                        </Text>
+                    </View>
+                </View>
                 <View style={{ flex: 1 }}>
                     <HeaderTileWithBackBtn
                         textContent="Thông tin cá nhân"
@@ -31,21 +53,30 @@ const PersonalInfoScreen = ({ navigation }) => {
                 <View style={styles.container_block_update_info}>
                     <View style={styles.container_text_input}>
                         <Text style={styles.label}>Tên *</Text>
-                        <TextInput style={styles.text_input} defaultValue="Tín Trần" />
+                        <TextInput
+                            style={styles.text_input}
+                            defaultValue="Tín Trần"
+                        />
                     </View>
                     <View style={styles.container_text_input}>
                         <Text style={styles.label}>Số điện thoại *</Text>
-                        <TextInput style={styles.text_input} defaultValue="+84 931 738 872" />
+                        <TextInput
+                            style={styles.text_input}
+                            defaultValue="+84 931 738 872"
+                        />
                     </View>
                     <View style={styles.container_button_save}>
                         <ButtonText
                             textContent="Lưu"
                             styleText={styles.button_text}
                             styleButton={styles.button_size}
-                            gotoScreen={() => navigation.navigate("Home")}
+                            gotoScreen={() => {
+                                setModalVisible(true);
+                            }}
                         />
                         <Text style={styles.text_policy}>
-                            * Các thông tin cá nhân được bảo mật theo chính sách, qui định của Nhà nước
+                            * Các thông tin cá nhân được bảo mật theo chính
+                            sách, qui định của Nhà nước
                         </Text>
                     </View>
                 </View>
