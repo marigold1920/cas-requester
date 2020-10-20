@@ -5,13 +5,16 @@ import { withNavigation } from "react-navigation";
 import ButtonText from "./button-text.component";
 import LabelIcon from "./label-icon.component";
 
-const CustomRowHistory = ({ title, address, image_url, navigation }) => {
+const CustomRowHistory = ({ item: { title, address, imageUrl, status }, navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.container_infor}>
-                <Image source={{ uri: image_url }} style={styles.image} />
+                <Image source={{ uri: imageUrl }} style={styles.image} />
                 <View style={styles.container_detail}>
-                    <Text style={styles.title}>{title}</Text>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>{title}</Text>
+                        <Text style={styles.status}>{status}</Text>
+                    </View>
                     <Text style={styles.description}>{address}</Text>
                     <View style={styles.container_date_time}>
                         <LabelIcon
@@ -67,7 +70,22 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginHorizontal: 10
     },
-
+    header: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    status: {
+        marginLeft: 10,
+        borderWidth: 0.5,
+        borderColor: "#00960F",
+        fontFamily: "Texgyreadventor-regular",
+        paddingVertical: 2,
+        paddingHorizontal: 10,
+        borderRadius: 15,
+        fontSize: 12,
+        color: "#00960F"
+    },
     container_detail: {
         flex: 1,
         flexDirection: "column",

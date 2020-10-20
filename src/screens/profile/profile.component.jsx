@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -16,16 +16,9 @@ const ProfileScreen = ({ navigation }) => {
     return (
         <BackgroundImage>
             <KeyboardAvoiding style={styles.container}>
-                <View
-                    style={[
-                        styles.modal,
-                        modalVisible ? { opacity: 0.85, zIndex: 10 } : null,
-                    ]}
-                >
+                <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
                     <View style={styles.modal__content}>
-                        <Text style={styles.status}>
-                            Cập nhật thông tin thành công
-                        </Text>
+                        <Text style={styles.status}>Cập nhật thông tin thành công</Text>
                         <Text
                             onPress={() => {
                                 setModalVisible(false);
@@ -37,18 +30,27 @@ const ProfileScreen = ({ navigation }) => {
                         </Text>
                     </View>
                 </View>
-                <HeaderTileWithBackBtn
-                    textContent="Hồ sơ bệnh"
-                    gotoScreen={() => navigation.navigate("Home")}
-                />
+                <HeaderTileWithBackBtn textContent="Hồ sơ bệnh" gotoScreen={() => navigation.navigate("Home")} />
                 <AvatarNameCol
                     imgSource={require("../../../assets/icons/mock-avatar.png")}
                     textContent="Tín Trần"
                     contStyle={{ flex: 2 }}
                 />
                 <View style={styles.container_button}>
+                    <View style={styles.group}>
+                        <Text style={styles.label}>
+                            Loại bệnh <Text style={styles.require}>*</Text>
+                        </Text>
+                        <TextInput style={styles.morbidity} placeholder="Bệnh mãng tính" />
+                    </View>
+                    <View style={styles.group}>
+                        <Text style={styles.label}>
+                            Thời gian bệnh <Text style={styles.require}>*</Text>
+                        </Text>
+                        <TextInput style={styles.morbidity} placeholder="6 tháng" />
+                    </View>
                     <TextArea
-                        textContent="Tình trạng hiện nay:"
+                        textContent="Tình trạng hiện nay"
                         defaultValue="Vài triệu chứng liên quan đến phổi, hay đau đầu, thị lực suy giảm"
                     />
                     <ButtonText

@@ -3,15 +3,38 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
+        position: "relative"
     },
     container_button: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20,
+        marginBottom: 20
+    },
+    button: {
+        elevation: 12
     },
     button_text: {
         color: "#26324A",
-        paddingVertical: 2,
+        paddingVertical: 2
+    },
+    group: {
+        width: "90%"
+    },
+    label: {
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 14,
+        color: "#787881"
+    },
+    morbidity: {
+        width: "100%",
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        opacity: 0.75,
+        marginVertical: 5,
+        fontFamily: "Texgyreadventor-regular",
+        color: "#787881"
     },
     modal: {
         position: "absolute",
@@ -23,7 +46,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#000",
         zIndex: -1,
-        opacity: 0,
+        opacity: 0
     },
     modal__content: {
         width: "90%",
@@ -33,12 +56,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#fff",
         borderRadius: 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: 10
     },
     status: {
         fontFamily: "Texgyreadventor-bold",
         fontSize: 18,
-        marginTop: 30,
+        marginTop: 30
     },
     action: {
         position: "absolute",
@@ -49,8 +72,11 @@ const styles = StyleSheet.create({
         fontFamily: "Texgyreadventor-regular",
         fontSize: 16,
         color: "#fff",
-        bottom: 10,
+        bottom: 10
     },
+    require: {
+        color: "#ff0000"
+    }
 });
 
 export default styles;

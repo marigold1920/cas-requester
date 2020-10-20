@@ -35,9 +35,7 @@ const CustomListview = ({ itemList }) => (
         <FlatList
             showsVerticalScrollIndicator={false}
             data={itemList}
-            renderItem={({ item }) => (
-                <CustomRowHistory title={item.title} address={item.address} image_url={item.image_url} />
-            )}
+            renderItem={({ item }) => <CustomRowHistory item={item} />}
         />
     </View>
 );

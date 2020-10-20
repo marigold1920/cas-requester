@@ -17,8 +17,8 @@ const FindCarScreen = ({ navigation }) => {
             <KeyboardAvoiding style={styles.container}>
                 <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
                     <View style={styles.modal__content}>
-                        <Text style={styles.status}>Đánh giá thành công</Text>
-                        <Text style={styles.message}>Cảm ơn bạn đã đánh giá dịch vụ!</Text>
+                        <Text style={styles.status}>Góp ý thành công</Text>
+                        <Text style={styles.message}>Cảm ơn bạn đã góp ý về dịch vụ!</Text>
                         <Text onPress={() => setModalVisible(false)} style={styles.action}>
                             Đóng
                         </Text>
@@ -28,13 +28,13 @@ const FindCarScreen = ({ navigation }) => {
                     <HeaderTileWithBackBtn textContent="Đánh giá" gotoScreen={() => navigation.navigate("History")} />
                     <View style={styles.container_logo_feedback}>
                         <Image style={styles.logo_img} source={require("../../../assets/icons/feedback-logo.png")} />
-                        <Text style={styles.feedback_title}>Đánh giá dịch vụ</Text>
+                        <Text style={styles.feedback_title}>Góp ý dịch vụ</Text>
                         <Text style={styles.feed_description}>
-                            Hãy giúp chúng tôi cải thiện dịch vụ bằng cách đánh giá
+                            Hãy giúp chúng tôi cải thiện dịch vụ bằng cách chia sẻ trải nghiệm của bạn
                         </Text>
                     </View>
-                    <Feedback placeholder="Đánh giá về dịch vụ" />
-                    <Feedback placeholder="Đánh giá về tài xế" />
+                    <Feedback placeholder="Góp ý về dịch vụ" />
+                    <Feedback placeholder="Góp ý về tài xế" />
                     <View style={styles.container_submit}>
                         <ButtonText
                             textContent="Thoát"

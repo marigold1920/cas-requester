@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     },
     header__wrapper__text: {
         color: "#444444",
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 14
     },
     active: {
         borderWidth: 1,
