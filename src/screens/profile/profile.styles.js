@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: "90%"
+        width: "100%",
+        position: "relative"
     },
     container_button: {
         alignItems: "center",
@@ -14,16 +15,25 @@ const styles = StyleSheet.create({
     },
     button_text: {
         color: "#26324A",
-        paddingVertical: 1,
-        paddingHorizontal: 5
+        paddingVertical: 2
     },
     group: {
-        width: "90%",
-        zIndex: -1
+        width: "90%"
     },
     label: {
         fontFamily: "Texgyreadventor-regular",
         fontSize: 14,
+        color: "#787881"
+    },
+    morbidity: {
+        width: "100%",
+        paddingVertical: 7,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: "#fff",
+        opacity: 0.75,
+        marginVertical: 5,
+        fontFamily: "Texgyreadventor-regular",
         color: "#787881"
     },
     modal: {
@@ -60,19 +70,12 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: "#5E00FF",
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
+        fontSize: 16,
         color: "#fff",
         bottom: 10
     },
     require: {
         color: "#ff0000"
-    },
-    option: {
-        fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
-        color: "#787881",
-        backgroundColor: "#fff",
-        opacity: 2
     }
 });
 

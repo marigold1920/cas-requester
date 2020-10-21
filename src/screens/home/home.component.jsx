@@ -50,8 +50,8 @@ const HomeScreen = ({ navigation }) => {
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
-                            title="Hồ sơ sức khỏe"
-                            content="Cập nhật thông tin về sức khỏe hiện tại của bạn"
+                            title="Hồ sơ bệnh"
+                            content="Cập nhật thông tin về tình trạng bệnh hiện tại của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("Profile")}

@@ -25,10 +25,7 @@ const FindCarScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.space__full}>
-                    <HeaderTileWithBackBtn
-                        textContent="Góp ý dich vụ"
-                        gotoScreen={() => navigation.navigate("History")}
-                    />
+                    <HeaderTileWithBackBtn textContent="Đánh giá" gotoScreen={() => navigation.navigate("History")} />
                     <View style={styles.container_logo_feedback}>
                         <Image style={styles.logo_img} source={require("../../../assets/icons/feedback-logo.png")} />
                         <Text style={styles.feedback_title}>Góp ý dịch vụ</Text>
