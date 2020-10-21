@@ -11,7 +11,7 @@ const TripInfoScreen = ({ navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate("Feedback");
-        }, 15000);
+        }, 5000);
     });
 
     return (
