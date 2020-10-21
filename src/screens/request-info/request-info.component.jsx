@@ -24,11 +24,11 @@ const TripInfoScreen = ({ navigation }) => {
                     <View style={styles.group}>
                         <Text style={styles.name}>Vương Đình Thái</Text>
                         <View style={styles.rating}>
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
+                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
+                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
+                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
+                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
+                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
                         </View>
                         <Text style={styles.license__plate}>71 - B1 836.56</Text>
                         <View style={styles.contact}>
