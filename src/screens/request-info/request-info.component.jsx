@@ -6,6 +6,7 @@ import styles from "./request-info.styles";
 import MapView from "react-native-maps";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
+import Rating from "../../components/rating.component";
 
 const TripInfoScreen = ({ navigation }) => {
     useEffect(() => {
@@ -23,13 +24,7 @@ const TripInfoScreen = ({ navigation }) => {
                     <Image style={styles.driver__image} source={{ uri: "https://i.ibb.co/3YCfN9p/person-3.jpg" }} />
                     <View style={styles.group}>
                         <Text style={styles.name}>Vương Đình Thái</Text>
-                        <View style={styles.rating}>
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }} />
-                        </View>
+                        <Rating level={5} size={10} />
                         <Text style={styles.license__plate}>71 - B1 836.56</Text>
                         <View style={styles.contact}>
                             <Text style={styles.driver__phone}>0931738872</Text>

@@ -25,17 +25,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#787881"
     },
-    morbidity: {
-        width: "100%",
-        paddingVertical: 7,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        backgroundColor: "#fff",
-        opacity: 0.75,
-        marginVertical: 5,
-        fontFamily: "Texgyreadventor-regular",
-        color: "#787881"
-    },
     modal: {
         position: "absolute",
         width: "100%",
@@ -73,9 +62,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#fff",
         bottom: 10
-    },
-    require: {
-        color: "#ff0000"
     }
 });
 
