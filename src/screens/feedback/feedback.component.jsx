@@ -40,13 +40,13 @@ const FindCarScreen = ({ navigation }) => {
                             textContent="Thoát"
                             styleText={styles.cancel_text}
                             styleButton={styles.cancel_button}
-                            gotoScreen={() => navigation.navigate("Home")}
+                            onPress={() => navigation.navigate("Home")}
                         />
                         <ButtonText
                             textContent="Gửi"
                             styleText={styles.submit_text}
                             styleButton={styles.submit_button}
-                            gotoScreen={() => {
+                            onPress={() => {
                                 setModalVisible(true);
                             }}
                         />

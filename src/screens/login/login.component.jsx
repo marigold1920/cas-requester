@@ -20,17 +20,18 @@ const LoginScreen = ({ navigation, currentUser, login }) => {
     const [username, setUsername] = useState("0931738872");
     const [password, setPassword] = useState("123");
 
-    useEffect(() => {
-        currentUser ? navigation.navigate("Home") : null;
-    }, [currentUser]);
+    // useEffect(() => {
+    //     currentUser ? navigation.navigate("Home") : null;
+    // }, [currentUser]);
 
     const handleLogin = () => {
-        api.post("/users/login", {
-            username,
-            password
-        }).then(response => {
-            login(response.data);
-        });
+        // api.post("/users/login", {
+        //     username,
+        //     password
+        // }).then(response => {
+        //     login(response.data);
+        // });
+        navigation.navigate("Home");
     };
 
     return (

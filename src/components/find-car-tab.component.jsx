@@ -11,13 +11,13 @@ import { deviceRevolution } from "./constant.unit";
 
 const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }) => {
     const [pickUp, setPickUp] = useState("Vị trí của bạn");
-    const [destination, setDestination] = useState("Bệnh viện Gia Định");
+    const [destination, setDestination] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [note, setNote] = useState("");
     const [profile, setProfile] = useState("");
     const [requestType, setRequestType] = useState("emergency");
-    const [status, setStatus] = useState("Tai nạn giao thông");
+    const [status, setStatus] = useState("");
 
     const handleAction = () => {
         setIsLoading(true);
@@ -29,7 +29,7 @@ const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }
 
     const handleRequestType = value => {
         setRequestType(value);
-        setDestination(value === "emergency" ? "Bệnh viện Gia Định" : "");
+        // setDestination(value === "emergency" ? "Bệnh viện Gia Định" : "");
     };
 
     const statusItems = [
@@ -94,6 +94,8 @@ const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }
                 />
                 {requestType === "emergency" ? (
                     <DropDownPicker
+                        placeholder="Tình trạng cấp cứu"
+                        placeholderStyle={{ color: "#999" }}
                         containerStyle={{ height: 45 }}
                         style={{
                             backgroundColor: "#fff",
@@ -109,17 +111,10 @@ const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }
                 ) : null}
                 <FormInput
                     onChangeText={value => setDestination(value)}
-                    placeholder="Điểm đến"
+                    placeholder="Điểm cần đến"
                     defaultValue={destination}
                     icon="https://i.ibb.co/gWdQ69d/radar.png"
                 />
-                {/* <TextInput
-                    style={styles.note}
-                    placeholder="Tình trạng bệnh hiện tại"
-                    numberOfLines={2}
-                    defaultValue={profile}
-                    onChangeText={value => setProfile(value)}
-                /> */}
                 {isOthers ? (
                     <>
                         <FormInput

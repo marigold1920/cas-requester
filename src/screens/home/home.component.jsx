@@ -15,9 +15,9 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./home.styles";
 
 const HomeScreen = ({ navigation, currentUser, logout }) => {
-    useEffect(() => {
-        !currentUser ? navigation.navigate("Login") : null;
-    }, [currentUser]);
+    // useEffect(() => {
+    //     !currentUser ? navigation.navigate("Login") : null;
+    // }, [currentUser]);
 
     const handleLogout = () => {
         logout();
@@ -63,8 +63,8 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
-                            title="Hồ sơ bệnh"
-                            content="Cập nhật thông tin về tình trạng bệnh hiện tại của bạn"
+                            title="Hồ sơ sức khỏe"
+                            content="Cập nhật thông tin về tình trạng sức khỏe hiện tại của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             gotoScreen={() => navigation.navigate("Profile")}
