@@ -4,8 +4,13 @@ import { deviceRevolution } from "../../components/constant.unit";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#fff"
+    },
+    content: {
+        width: deviceRevolution.width,
+        height: deviceRevolution.height,
         flexDirection: "column",
-        overflow: "hidden"
+        backgroundColor: "#fff"
     },
     order__container: {
         width: deviceRevolution.width,
@@ -21,7 +26,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     map__view: {
-        width: deviceRevolution.width,
         height: deviceRevolution.height * 0.4
     },
     loading: {

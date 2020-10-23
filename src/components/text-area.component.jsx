@@ -9,12 +9,14 @@ const TextArea = ({ textContent, contStyle, ...otherProps }) => {
     // StyleSheet.flatten giúp thay đổi bất cứ thuộc tính nào của container, nếu không thay đổi sẽ áp dụng thuộc tính default
     return (
         <View style={combineStylesContainer}>
-            <Text style={styles.text}>{textContent}</Text>
+            <Text style={styles.text}>
+                {textContent} <Text style={styles.require}>*</Text>
+            </Text>
             <TextInput
                 style={styles.textArea}
                 placeholder=""
                 placeholderTextColor="grey"
-                numberOfLines={5}
+                numberOfLines={4}
                 multiline={true}
                 {...otherProps}
             />
@@ -45,6 +47,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         color: "#787881",
         minHeight: 120
+    },
+    require: {
+        color: "#ff0000"
     }
 });
 

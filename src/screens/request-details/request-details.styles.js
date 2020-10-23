@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     status: {
         position: "absolute",
         bottom: -16,
-        backgroundColor: "#A147E4",
+        backgroundColor: "#00D816",
         color: "#fff",
         justifyContent: "center",
         alignItems: "center",

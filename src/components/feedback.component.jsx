@@ -6,7 +6,7 @@ import Rating from "./rating.component";
 
 const Feedback = ({ placeholder }) => (
     <View style={styles.container_feedback_content}>
-        <Rating size={20} level={5} />
+        <Rating size={18} level={5} />
         <TextInput
             style={styles.textArea}
             placeholder={placeholder}

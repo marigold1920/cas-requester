@@ -1,30 +1,71 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Text } from "react-native";
+import { RadioButton } from "react-native-paper";
 import { withNavigation } from "react-navigation";
+import DropDownPicker from "react-native-dropdown-picker";
 
 import BookingHeaderItem from "./booking-header-item.component";
-import { deviceRevolution } from "./constant.unit";
 import FormInput from "./form-input.component";
+import CustomOption from "./option.component";
+import { deviceRevolution } from "./constant.unit";
 
-const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading, navigation }) => {
-    const [pickUp, setPickUp] = useState("Vị trí hiện tại");
-    const [destination, setDestination] = useState("");
+const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }) => {
+    const [pickUp, setPickUp] = useState("Vị trí của bạn");
+    const [destination, setDestination] = useState("Bệnh viện Gia Định");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [note, setNote] = useState("");
     const [profile, setProfile] = useState("");
+    const [requestType, setRequestType] = useState("emergency");
+    const [status, setStatus] = useState("Tai nạn giao thông");
 
     const handleAction = () => {
         setIsLoading(true);
-        setIsReverse(false);
         setTimeout(() => {
             setIsLoading(false);
             navigation.navigate("RequestInfo");
         }, 5000);
     };
 
+    const handleRequestType = value => {
+        setRequestType(value);
+        setDestination(value === "emergency" ? "Bệnh viện Gia Định" : "");
+    };
+
+    const statusItems = [
+        {
+            value: "Tai nạn giao thông",
+            label: "Tai nạn giao thông"
+        },
+        {
+            value: "Tai nạn lao động",
+            label: "Tai nạn lao động"
+        },
+        {
+            value: "Tình trạng nguy kịch",
+            label: "Tình trạng nguy kịch"
+        },
+        {
+            value: "Đi sanh",
+            label: "Đi sanh"
+        }
+    ];
+
+    const options = [
+        {
+            itemId: 1,
+            value: "emergency",
+            label: "Cấp cứu"
+        },
+        {
+            itemId: 2,
+            value: "home",
+            label: "Đi về nhà"
+        }
+    ];
+
     return (
-        <View style={[styles.booking, isOthers ? { height: deviceRevolution.height * 0.65 } : null]}>
+        <View style={[styles.booking, isOthers ? { height: deviceRevolution.height * 0.7 } : null]}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
                     onPress={() => setIsOthers(false)}
@@ -38,31 +79,56 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
                 />
             </View>
             <View style={styles.places}>
+                <View style={styles.requestType}>
+                    <RadioButton.Group value={requestType} onValueChange={handleRequestType}>
+                        {options.map(({ itemId, ...otherProps }) => (
+                            <CustomOption key={itemId} {...otherProps} />
+                        ))}
+                    </RadioButton.Group>
+                </View>
                 <FormInput
-                    onFocus={() => setIsReverse(true)}
                     onChangeText={value => setPickUp(value)}
                     placeholder="Điểm đón"
                     defaultValue={pickUp}
                     icon="https://i.ibb.co/D8HPk12/placeholder.png"
                 />
+                {requestType === "emergency" ? (
+                    <DropDownPicker
+                        containerStyle={{ height: 45 }}
+                        style={{
+                            backgroundColor: "#fff",
+                            borderColor: "#444",
+                            borderWidth: 0.5,
+                            marginVertical: 2
+                        }}
+                        labelStyle={{ fontSize: 16, fontFamily: "Texgyreadventor-regular", color: "#444" }}
+                        items={statusItems}
+                        defaultValue={status}
+                        onChangeItem={item => setStatus(item.value)}
+                    />
+                ) : null}
                 <FormInput
-                    onFocus={() => setIsReverse(true)}
                     onChangeText={value => setDestination(value)}
                     placeholder="Điểm đến"
                     defaultValue={destination}
                     icon="https://i.ibb.co/gWdQ69d/radar.png"
                 />
+                {/* <TextInput
+                    style={styles.note}
+                    placeholder="Tình trạng bệnh hiện tại"
+                    numberOfLines={2}
+                    defaultValue={profile}
+                    onChangeText={value => setProfile(value)}
+                /> */}
                 {isOthers ? (
                     <>
                         <FormInput
-                            onFocus={() => setIsReverse(true)}
                             placeholder="Tên"
                             defaultValue={name}
                             onChangeText={value => setName(value)}
                             icon="https://i.ibb.co/9cR5tcy/name.png"
                         />
                         <FormInput
-                            onFocus={() => setIsReverse(true)}
                             placeholder="Số điện thoại"
                             defaultValue={phone}
                             onChangeText={value => setPhone(value)}
@@ -72,15 +138,6 @@ const FindOwnAmbulanceTab = ({ setIsReverse, isOthers, setIsOthers, setIsLoading
                 ) : null}
                 <TextInput
                     style={styles.note}
-                    onFocus={() => setIsReverse(true)}
-                    placeholder="Tình trạng bệnh hiện tại"
-                    numberOfLines={2}
-                    defaultValue={profile}
-                    onChangeText={value => setProfile(value)}
-                />
-                <TextInput
-                    style={styles.note}
-                    onFocus={() => setIsReverse(true)}
                     placeholder="Ghi chú"
                     numberOfLines={2}
                     defaultValue={note}
@@ -98,26 +155,31 @@ export default withNavigation(FindOwnAmbulanceTab);
 
 const styles = StyleSheet.create({
     booking: {
-        height: deviceRevolution.height * 0.55,
+        position: "relative",
+        height: deviceRevolution.height * 0.6,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: "#fff"
     },
     booking__header: {
         width: "85%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 5
+        justifyContent: "space-between"
     },
     places: {
         width: "85%",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        zIndex: 5
     },
-    item: {
-        position: "relative"
+    requestType: {
+        width: "80%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     action: {
         backgroundColor: "#FF8946",
@@ -125,20 +187,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingVertical: 8,
         paddingHorizontal: 40,
-        marginBottom: 10,
+        marginTop: 5,
         borderRadius: 25,
-        fontFamily: "Texgyreadventor-regular",
-        elevation: 12
+        fontFamily: "Texgyreadventor-regular"
     },
     note: {
         width: "100%",
         borderWidth: 0.5,
         borderColor: "#444444",
-        borderRadius: 10,
+        borderRadius: 5,
         paddingVertical: 5,
         paddingHorizontal: 20,
         marginVertical: 5,
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 16
+        fontSize: 16,
+        zIndex: -1
     }
 });
