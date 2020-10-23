@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderRadius: 40
     },
     headerText: {
-        fontSize: 24,
+        fontSize: 16,
         color: "#494958",
         fontFamily: "Texgyreadventor-bold",
         marginLeft: 5,

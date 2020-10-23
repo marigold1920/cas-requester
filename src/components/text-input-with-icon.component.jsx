@@ -1,15 +1,20 @@
 import React from "react";
 import { View, Image, StyleSheet, TextInput } from "react-native";
 
-const TextInputIcon = props => {
+const TextInputIcon = ({ imgSrc, placeholder, ...otherProps }) => {
     return (
         <View style={styles.container}>
-            {props.imgSrc ? (
+            {imgSrc ? (
                 <View style={styles.bgr_image}>
-                    <Image source={props.imgSrc} style={styles.image} />
+                    <Image source={imgSrc} style={styles.image} />
                 </View>
             ) : null}
-            <TextInput style={styles.text_input} placeholder={props.placeholder} placeholderTextColor="#FFF" />
+            <TextInput
+                {...otherProps}
+                style={styles.text_input}
+                placeholder={placeholder}
+                placeholderTextColor="#FFF"
+            />
         </View>
     );
 };

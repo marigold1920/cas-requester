@@ -5,26 +5,29 @@ import { withNavigation } from "react-navigation";
 import ButtonText from "./button-text.component";
 import LabelIcon from "./label-icon.component";
 
-const CustomRowHistory = ({ item: { title, address, imageUrl, status }, navigation }) => {
+const CustomRowHistory = ({
+    item: { requestId, destinationName, address, userImage, status, dateCreated, timeCreated },
+    navigation
+}) => {
     return (
         <View style={styles.container}>
             <View style={styles.container_infor}>
-                <Image source={{ uri: imageUrl }} style={styles.image} />
+                <Image source={{ uri: userImage }} style={styles.image} />
                 <View style={styles.container_detail}>
                     <View style={styles.header}>
-                        <Text style={styles.title}>{title}</Text>
+                        <Text style={styles.title}>{destinationName}</Text>
                         <Text style={styles.status}>{status}</Text>
                     </View>
                     <Text style={styles.description}>{address}</Text>
                     <View style={styles.container_date_time}>
                         <LabelIcon
                             iconSrc={require("../../assets/icons/date-icon.png")}
-                            title="21/09/2020"
+                            title={dateCreated}
                             titleStyle={styles.date}
                         />
                         <LabelIcon
                             iconSrc={require("../../assets/icons/time-icon.png")}
-                            title="10:50"
+                            title={timeCreated}
                             titleStyle={styles.time}
                         />
                     </View>
@@ -43,19 +46,21 @@ const CustomRowHistory = ({ item: { title, address, imageUrl, status }, navigati
                         textContent="Chi Tiết"
                         styleButton={styles.detail_feedback_button}
                         styleText={styles.detail_feedback_text}
-                        gotoScreen={() => navigation.navigate("RequestDetails")}
+                        onPress={() => navigation.navigate("RequestDetails", { requestId })}
                     />
                     <ButtonText
                         textContent="Đánh giá"
                         styleButton={styles.detail_feedback_button}
                         styleText={styles.detail_feedback_text}
-                        gotoScreen={() => navigation.navigate("Feedback")}
+                        onPress={() => navigation.navigate("Feedback")}
                     />
                 </View>
             </View>
         </View>
     );
 };
+
+export default withNavigation(CustomRowHistory);
 
 const styles = StyleSheet.create({
     container: {
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         paddingHorizontal: 10,
         borderRadius: 15,
-        fontSize: 12,
+        fontSize: 10,
         color: "#00960F"
     },
     container_detail: {
@@ -105,7 +110,7 @@ const styles = StyleSheet.create({
         marginBottom: 2
     },
     description: {
-        fontSize: 14,
+        fontSize: 12,
         color: "#3E5075",
         fontFamily: "Texgyreadventor-regular"
     },
@@ -141,5 +146,3 @@ const styles = StyleSheet.create({
         color: "#26324A"
     }
 });
-
-export default withNavigation(CustomRowHistory);

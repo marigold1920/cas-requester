@@ -1,9 +1,11 @@
 import React from "react";
-
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import { Provider } from "react-redux";
+
+import store from "./src/redux/store";
 
 import HomeScreen from "./src/screens/home/home.component";
 import ProfileScreen from "./src/screens/profile/profile.component";
@@ -64,6 +66,10 @@ export default class App extends React.Component {
             return <AppLoading />;
         }
         // from the custom App we return the component we assigned to AppContainer.
-        return <AppContainer />;
+        return (
+            <Provider store={store}>
+                <AppContainer />
+            </Provider>
+        );
     }
 }
