@@ -19,7 +19,7 @@ const FindCarScreen = ({ navigation }) => {
                     <View style={styles.modal__content}>
                         <Text style={styles.status}>Góp ý thành công</Text>
                         <Text style={styles.message}>Cảm ơn bạn đã góp ý về dịch vụ!</Text>
-                        <Text onPress={() => setModalVisible(false)} style={styles.action}>
+                        <Text onPress={() => navigation.navigate("Home")} style={styles.action}>
                             Đóng
                         </Text>
                     </View>

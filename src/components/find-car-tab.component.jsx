@@ -21,10 +21,10 @@ const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }
 
     const handleAction = () => {
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            navigation.navigate("RequestInfo");
-        }, 5000);
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        //     navigation.navigate("RequestInfo");
+        // }, 5000);
     };
 
     const handleRequestType = value => {
