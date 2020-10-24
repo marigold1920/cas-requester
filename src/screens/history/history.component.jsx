@@ -49,6 +49,7 @@ const CustomListview = ({ itemList }) => (
         <FlatList
             showsVerticalScrollIndicator={false}
             data={itemList}
+            keyExtractor={(item) => item.requestId}
             renderItem={({ item }) => <CustomRowHistory key={item.requestId} item={item} />}
         />
     </View>
