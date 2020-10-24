@@ -31,13 +31,13 @@ const PersonalInfoScreen = ({ navigation }) => {
                 <View style={{ flex: 1 }}>
                     <HeaderTileWithBackBtn
                         textContent="Thông tin cá nhân"
-                        gotoScreen={() => navigation.navigate("Home")}
+                        onPress={() => navigation.navigate("Home")}
                     />
                 </View>
                 <View style={styles.container_info}>
                     <AvatarNameCol
                         imgSource={require("../../../assets/icons/mock-avatar.png")}
-                        textContent="Tín Trần"
+                        textContent="Hữu Công"
                         contStyle={{ flex: 2 }}
                     />
                     <Text style={styles.joining_day_title}>Ngày tham gia</Text>
@@ -46,7 +46,7 @@ const PersonalInfoScreen = ({ navigation }) => {
                 <View style={styles.container_block_update_info}>
                     <View style={styles.container_text_input}>
                         <Text style={styles.label}>Tên *</Text>
-                        <TextInput style={styles.text_input} defaultValue="Tín Trần" />
+                        <TextInput style={styles.text_input} defaultValue="Hữu Công" />
                     </View>
                     <View style={styles.container_text_input}>
                         <Text style={styles.label}>Số điện thoại *</Text>

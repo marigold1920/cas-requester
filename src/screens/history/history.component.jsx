@@ -29,14 +29,14 @@ const HistoryScreen = ({ navigation, currentUser }) => {
     return (
         <View style={styles.container}>
             <BackgroundImage>
-                <HeaderTileWithBackBtn textContent="Lịch sử" gotoScreen={() => navigation.navigate("Home")} />
+                <HeaderTileWithBackBtn textContent="Lịch sử" onPress={() => navigation.navigate("Home")} />
                 <CustomListview itemList={DATA} />
                 <View style={styles.container_button}>
                     <ButtonText
                         textContent="Tìm xe"
                         styleButton={styles.button}
                         styleText={styles.button_text}
-                        gotoScreen={() => navigation.navigate("FindCar")}
+                        onPress={() => navigation.navigate("FindCar")}
                     />
                 </View>
             </BackgroundImage>
@@ -55,7 +55,7 @@ const CustomListview = ({ itemList }) => (
 );
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
 });
 
 export default connect(mapStateToProps)(HistoryScreen);

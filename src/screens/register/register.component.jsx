@@ -25,7 +25,7 @@ const RegisterScreen = ({ navigation }) => {
                     <ButtonText
                         styleButton={{ paddingVertical: 5 }}
                         textContent="TẠO TÀI KHOẢN"
-                        gotoScreen={() => navigation.navigate("Otp")}
+                        onPress={() => navigation.navigate("Otp")}
                     />
                     <TextLinking
                         contentText="Đã có tài khoản?"

@@ -34,16 +34,16 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                         onPress={() => navigation.navigate("PersonalInfo")}
                     />
                     <Text style={styles.headerText}>{currentUser ? currentUser.displayName : ""}</Text>
-                    <ButtonWithImage
+                    {/* <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
                         imgSrc={require("../../../assets/icons/notification.png")}
-                    />
+                    /> */}
                     <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
                         imgSrc={require("../../../assets/icons/sign-out.png")}
-                        onPress={handleLogout}
+                        onPress={() => navigation.navigate("Login")}
                     />
                 </View>
                 <View style={styles.searchBlock}>
@@ -58,7 +58,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("FindCar")}
+                            onPress={() => navigation.navigate("FindCar")}
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
@@ -67,7 +67,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             content="Cập nhật thông tin về tình trạng sức khỏe hiện tại của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("Profile")}
+                            onPress={() => navigation.navigate("Profile")}
                         />
                     </View>
                     <View style={styles.menuBlock_row}>
@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             content="Xem lịch sử gọi xe và gửi phản hồi về dịch vụ"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("History")}
+                            onPress={() => navigation.navigate("History")}
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
@@ -87,7 +87,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             content="Có thể giúp tài xế dễ dàng liên lạc với bạn khi gửi yêu cầu"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("PersonalInfo")}
+                            onPress={() => navigation.navigate("PersonalInfo")}
                         />
                     </View>
                 </View>
@@ -97,11 +97,11 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

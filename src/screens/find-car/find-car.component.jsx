@@ -24,7 +24,7 @@ const FindCarScreen = ({ navigation }) => {
         <View style={styles.container}>
             <HeaderTileWithBackBtn
                 textContent="Tìm xe"
-                gotoScreen={() => navigation.navigate("FindCar")}
+                onPress={() => navigation.navigate("FindCar")}
                 style={{ backgroundColor: "#fff" }}
             />
             <KeyboardAvoiding style={styles.content}>
@@ -37,7 +37,7 @@ const FindCarScreen = ({ navigation }) => {
                                     ? { height: deviceRevolution.height * 0.6 }
                                     : isOthers
                                     ? { height: deviceRevolution.height * 0.25, marginTop: 0 }
-                                    : null
+                                    : null,
                             ]}
                         />
                     </View>
