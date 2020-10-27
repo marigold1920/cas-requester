@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import MapView from "react-native-maps";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import styles from "./find-car.styles";
 
@@ -13,18 +14,15 @@ const FindCarScreen = ({ navigation }) => {
     const [isOthers, setIsOthers] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => {
-            isLoading ? navigation.navigate("RequestInfo") : null;
-            setIsLoading(false);
-        }, 3000);
-    });
+    const handeViewRequest = () => {
+        navigation.navigate("RequestInfo");
+    };
 
     return (
         <View style={styles.container}>
             <HeaderTileWithBackBtn
                 textContent="Tìm xe"
-                gotoScreen={() => navigation.navigate("FindCar")}
+                onPress={() => navigation.navigate("FindCar")}
                 style={{ backgroundColor: "#fff" }}
             />
             <KeyboardAvoiding style={styles.content}>
@@ -52,6 +50,9 @@ const FindCarScreen = ({ navigation }) => {
                             <Text onPress={() => setIsLoading(false)} style={styles.action}>
                                 Hủy yêu cầu
                             </Text>
+                            <View style={styles.floatingButton}>
+                                <Icon onPress={handeViewRequest} name="check" size={20} />
+                            </View>
                         </View>
                     ) : (
                         <FindOwnAmbulanceTab

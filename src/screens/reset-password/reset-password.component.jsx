@@ -25,7 +25,7 @@ const ResetPassScreen = ({ navigation }) => {
                     <ButtonText
                         styleButton={{ paddingVertical: 5 }}
                         textContent="Gửi mã OTP"
-                        gotoScreen={() => navigation.navigate("Otp")}
+                        onPress={() => navigation.navigate("Otp")}
                     />
                     <TextLinking
                         contentText="Chưa có tài khoản?"

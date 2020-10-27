@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     details: {
-        width: width,
+        width: "100%",
         height: "45%",
         display: "flex",
         flexDirection: "column",

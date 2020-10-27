@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Image, Text, Linking } from "react-native";
 import { withNavigation } from "react-navigation";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import styles from "./request-info.styles";
 import MapView from "react-native-maps";
@@ -9,11 +10,9 @@ import Location from "../../components/location.component";
 import Rating from "../../components/rating.component";
 
 const TripInfoScreen = ({ navigation }) => {
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate("Feedback");
-        }, 15000);
-    });
+    const handleViewRequest = () => {
+        navigation.navigate("Feedback");
+    };
 
     return (
         <View style={styles.container}>
@@ -51,6 +50,9 @@ const TripInfoScreen = ({ navigation }) => {
                         Liên hệ tài xế
                     </Text>
                 </View>
+            </View>
+            <View style={styles.floatingButton}>
+                <Icon onPress={handleViewRequest} name="check" size={20} />
             </View>
         </View>
     );

@@ -19,13 +19,13 @@ const FindCarScreen = ({ navigation }) => {
                     <View style={styles.modal__content}>
                         <Text style={styles.status}>Góp ý thành công</Text>
                         <Text style={styles.message}>Cảm ơn bạn đã góp ý về dịch vụ!</Text>
-                        <Text onPress={() => setModalVisible(false)} style={styles.action}>
+                        <Text onPress={() => navigation.navigate("Home")} style={styles.action}>
                             Đóng
                         </Text>
                     </View>
                 </View>
                 <View style={styles.space__full}>
-                    <HeaderTileWithBackBtn textContent="Đánh giá" gotoScreen={() => navigation.navigate("History")} />
+                    <HeaderTileWithBackBtn textContent="Đánh giá" onPress={() => navigation.navigate("History")} />
                     <View style={styles.container_logo_feedback}>
                         <Image style={styles.logo_img} source={require("../../../assets/icons/feedback-logo.png")} />
                         <Text style={styles.feedback_title}>Góp ý dịch vụ</Text>
@@ -40,13 +40,13 @@ const FindCarScreen = ({ navigation }) => {
                             textContent="Thoát"
                             styleText={styles.cancel_text}
                             styleButton={styles.cancel_button}
-                            gotoScreen={() => navigation.navigate("Home")}
+                            onPress={() => navigation.navigate("Home")}
                         />
                         <ButtonText
                             textContent="Gửi"
                             styleText={styles.submit_text}
                             styleButton={styles.submit_button}
-                            gotoScreen={() => {
+                            onPress={() => {
                                 setModalVisible(true);
                             }}
                         />

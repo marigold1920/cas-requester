@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         width: deviceRevolution.width,
         height: deviceRevolution.height * 0.95,
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        position: "relative"
     },
     reverse__order: {
         flexDirection: "column-reverse"
@@ -60,6 +61,20 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         fontFamily: "Texgyreadventor-regular",
         elevation: 12
+    },
+    floatingButton: {
+        position: "absolute",
+        width: 30,
+        height: 30,
+        right: 20,
+        bottom: 40,
+        borderWidth: 0.5,
+        borderRadius: 15,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        opacity: 0.25
     }
 });
 

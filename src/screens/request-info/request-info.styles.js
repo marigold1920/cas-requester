@@ -89,10 +89,24 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderColor: "transparent",
-        elevation: 30
+        elevation: 20
     },
     cancel: {
         backgroundColor: "#f30000"
+    },
+    floatingButton: {
+        position: "absolute",
+        width: 30,
+        height: 30,
+        right: 20,
+        bottom: 80,
+        borderWidth: 0.5,
+        borderRadius: 15,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        opacity: 0.25
     }
 });
 

@@ -22,15 +22,22 @@ const destination = {
     time: "12:20"
 };
 
-const RequestDetails = ({ navigation, isFeedback = true }) => {
+const RequestDetails = ({ navigation }) => {
     const requestId = navigation.state.params.requestId;
+    const isFeedback = navigation.state.params.isFeedback || true;
 
     return (
         <View style={styles.container}>
             <View style={styles.driverInfo}>
                 <Image style={styles.background} source={require("../../../assets/images/request-details-bg.png")} />
                 <View style={styles.content}>
-                    <Image style={styles.image} source={require("../../../assets/images/person-3.jpg")} />
+                    <Image
+                        style={styles.image}
+                        source={{
+                            uri:
+                                "https://scontent.fsgn10-1.fna.fbcdn.net/v/t1.0-9/83062929_1497625720414010_7821086320180068352_o.jpg?_nc_cat=108&ccb=2&_nc_sid=a4a2d7&_nc_ohc=PGaSMZlvgmMAX8SUyq0&_nc_ht=scontent.fsgn10-1.fna&oh=7736b1f3354a132524dc7fb0a4b3cf50&oe=5FB97C38"
+                        }}
+                    />
                     <Text style={styles.name}>Victor Nguyen</Text>
                     <Text style={styles.licensePlate}>71 - C1 852.23</Text>
                     <Text style={styles.phone}>0931738872</Text>
@@ -60,6 +67,10 @@ const RequestDetails = ({ navigation, isFeedback = true }) => {
                     <FeedbackShow
                         title="Tình trạng bệnh"
                         content="Chân bị phù nặng do nhiễm trùng máu, hôn mê sâu, khá nguy kịch"
+                    />
+                    <FeedbackShow
+                        title="Hồ sơ sức khỏe"
+                        content="Giới tính: Nam, 64 tuổi, huyết áp 134/85. Mắc bệnh huyết áp cao. Mẫn cảm với carbamazepine, phenobarbital và phenytoin."
                     />
                     <FeedbackShow title="Ghi chú" content="Bệnh nhân không có giấy tờ tùy thân" />
                 </ScrollView>
