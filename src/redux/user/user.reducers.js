@@ -1,10 +1,7 @@
 import UserActionTypes from "./user.tyles";
 
 const INITIAL_STATE = {
-    currentUser: {
-        displayName: "Hữu Công",
-        image: "https://i.ibb.co/3YCfN9p/person-3.jpg"
-    }
+    currentUser: null
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {

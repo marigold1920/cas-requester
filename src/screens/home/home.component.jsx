@@ -15,9 +15,9 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./home.styles";
 
 const HomeScreen = ({ navigation, currentUser, logout }) => {
-    // useEffect(() => {
-    //     !currentUser ? navigation.navigate("Login") : null;
-    // }, [currentUser]);
+    useEffect(() => {
+        !currentUser ? navigation.navigate("Login") : null;
+    }, [currentUser]);
 
     const handleLogout = () => {
         logout();
@@ -43,7 +43,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
                         imgSrc={require("../../../assets/icons/sign-out.png")}
-                        onPress={() => navigation.navigate("Login")}
+                        onPress={handleLogout}
                     />
                 </View>
                 <View style={styles.searchBlock}>
@@ -97,11 +97,11 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
+    currentUser: selectCurrentUser
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logout()),
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

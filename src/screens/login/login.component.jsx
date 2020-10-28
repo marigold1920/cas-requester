@@ -17,21 +17,20 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./login.styles";
 
 const LoginScreen = ({ navigation, currentUser, login }) => {
-    const [username, setUsername] = useState("0931738872");
+    const [username, setUsername] = useState("0988635032");
     const [password, setPassword] = useState("123");
 
-    // useEffect(() => {
-    //     currentUser ? navigation.navigate("Home") : null;
-    // }, [currentUser]);
+    useEffect(() => {
+        currentUser ? navigation.navigate("Home") : null;
+    }, [currentUser]);
 
     const handleLogin = () => {
-        // api.post("/users/login", {
-        //     username,
-        //     password
-        // }).then(response => {
-        //     login(response.data);
-        // });
-        navigation.navigate("Home");
+        api.post("/users/login", {
+            username,
+            password
+        }).then(response => {
+            login(response.data);
+        });
     };
 
     return (
@@ -43,14 +42,14 @@ const LoginScreen = ({ navigation, currentUser, login }) => {
                 <View style={styles.block_button}>
                     <TextInputIcon
                         defaultValue={username}
-                        onChangeText={(value) => setUsername(value)}
+                        onChangeText={value => setUsername(value)}
                         imgSrc={require("../../../assets/icons/phone.png")}
                         placeholder="Số điện thoại"
                         keyboardType="numeric"
                     />
                     <TextInputIcon
                         defaultValue={password}
-                        onChangeText={(value) => setPassword(value)}
+                        onChangeText={value => setPassword(value)}
                         imgSrc={require("../../../assets/icons/key.png")}
                         placeholder="Mật khẩu"
                         secureTextEntry={true}
@@ -69,11 +68,11 @@ const LoginScreen = ({ navigation, currentUser, login }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
+    currentUser: selectCurrentUser
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    login: (user) => dispatch(login(user)),
+const mapDispatchToProps = dispatch => ({
+    login: user => dispatch(login(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
