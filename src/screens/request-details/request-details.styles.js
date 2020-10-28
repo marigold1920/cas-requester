@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     status: {
         position: "absolute",
         bottom: -16,
-        backgroundColor: "#A147E4",
+        backgroundColor: "#00D816",
         color: "#fff",
         justifyContent: "center",
         alignItems: "center",
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     details: {
-        width: width,
+        width: "100%",
         height: "45%",
         display: "flex",
         flexDirection: "column",

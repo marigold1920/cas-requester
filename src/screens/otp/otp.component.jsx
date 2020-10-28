@@ -23,7 +23,7 @@ const OtpScreen = ({ navigation }) => {
                     <ButtonText
                         styleButton={{ paddingVertical: 5 }}
                         textContent="XÁC NHẬN"
-                        gotoScreen={() => navigation.navigate("Home")}
+                        onPress={() => navigation.navigate("Home")}
                     />
                     <TextLinking
                         contentText="Chưa nhận được mã OTP?"

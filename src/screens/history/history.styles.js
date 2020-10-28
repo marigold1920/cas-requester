@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     },
     button: {
         paddingVertical: 5,
-        backgroundColor: "#FFAB2E"
+        backgroundColor: "#FFAB2E",
+        elevation: 20
     },
     button_text: {
         color: "#FFF"

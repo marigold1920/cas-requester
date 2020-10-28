@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { View, Image, Text, Linking } from "react-native";
 import { withNavigation } from "react-navigation";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import styles from "./request-info.styles";
 import MapView from "react-native-maps";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
+import Rating from "../../components/rating.component";
 
 const TripInfoScreen = ({ navigation }) => {
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate("Feedback");
-        }, 15000);
-    });
+    const handleViewRequest = () => {
+        navigation.navigate("Feedback");
+    };
 
     return (
         <View style={styles.container}>
@@ -23,13 +23,7 @@ const TripInfoScreen = ({ navigation }) => {
                     <Image style={styles.driver__image} source={{ uri: "https://i.ibb.co/3YCfN9p/person-3.jpg" }} />
                     <View style={styles.group}>
                         <Text style={styles.name}>Vương Đình Thái</Text>
-                        <View style={styles.rating}>
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                            <Image style={styles.star} source={{ uri: "https://i.ibb.co/R6MPh1x/star.png" }} />
-                        </View>
+                        <Rating level={5} size={10} />
                         <Text style={styles.license__plate}>71 - B1 836.56</Text>
                         <View style={styles.contact}>
                             <Text style={styles.driver__phone}>0931738872</Text>
@@ -56,6 +50,9 @@ const TripInfoScreen = ({ navigation }) => {
                         Liên hệ tài xế
                     </Text>
                 </View>
+            </View>
+            <View style={styles.floatingButton}>
+                <Icon onPress={handleViewRequest} name="check" size={20} />
             </View>
         </View>
     );

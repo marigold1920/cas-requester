@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View } from "react-native";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { logout } from "../../redux/user/user.actions";
 
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonImgBgr from "../../components/button-image-background.component";
@@ -9,7 +14,15 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./home.styles";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, currentUser, logout }) => {
+    // useEffect(() => {
+    //     !currentUser ? navigation.navigate("Login") : null;
+    // }, [currentUser]);
+
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <BackgroundImage>
             <KeyboardAvoiding style={styles.container}>
@@ -17,20 +30,20 @@ const HomeScreen = ({ navigation }) => {
                     <ButtonWithImage
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
-                        imgSrc={require("../../../assets/icons/mock-avatar.png")}
-                        gotoScreen={() => navigation.navigate("PersonalInfo")}
+                        imgSrc={{ uri: currentUser ? currentUser.image : "https://i.ibb.co/G3KybLH/loading.png" }}
+                        onPress={() => navigation.navigate("PersonalInfo")}
                     />
-                    <Text style={styles.headerText}>Tín Trần</Text>
-                    <ButtonWithImage
+                    <Text style={styles.headerText}>{currentUser ? currentUser.displayName : ""}</Text>
+                    {/* <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
                         imgSrc={require("../../../assets/icons/notification.png")}
-                    />
+                    /> */}
                     <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
                         imgSrc={require("../../../assets/icons/sign-out.png")}
-                        gotoScreen={() => navigation.navigate("Login")}
+                        onPress={() => navigation.navigate("Login")}
                     />
                 </View>
                 <View style={styles.searchBlock}>
@@ -45,16 +58,16 @@ const HomeScreen = ({ navigation }) => {
                             content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("FindCar")}
+                            onPress={() => navigation.navigate("FindCar")}
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
-                            title="Hồ sơ bệnh"
-                            content="Cập nhật thông tin về tình trạng bệnh hiện tại của bạn"
+                            title="Hồ sơ sức khỏe"
+                            content="Cập nhật thông tin về tình trạng sức khỏe hiện tại của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("Profile")}
+                            onPress={() => navigation.navigate("Profile")}
                         />
                     </View>
                     <View style={styles.menuBlock_row}>
@@ -65,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
                             content="Xem lịch sử gọi xe và gửi phản hồi về dịch vụ"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("History")}
+                            onPress={() => navigation.navigate("History")}
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
@@ -74,7 +87,7 @@ const HomeScreen = ({ navigation }) => {
                             content="Có thể giúp tài xế dễ dàng liên lạc với bạn khi gửi yêu cầu"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            gotoScreen={() => navigation.navigate("PersonalInfo")}
+                            onPress={() => navigation.navigate("PersonalInfo")}
                         />
                     </View>
                 </View>
@@ -83,4 +96,12 @@ const HomeScreen = ({ navigation }) => {
     );
 };
 
-export default HomeScreen;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

@@ -4,14 +4,20 @@ import { deviceRevolution } from "../../components/constant.unit";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#fff"
+    },
+    content: {
+        width: deviceRevolution.width,
+        height: deviceRevolution.height,
         flexDirection: "column",
-        overflow: "hidden"
+        backgroundColor: "#fff"
     },
     order__container: {
         width: deviceRevolution.width,
         height: deviceRevolution.height * 0.95,
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        position: "relative"
     },
     reverse__order: {
         flexDirection: "column-reverse"
@@ -21,7 +27,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     map__view: {
-        width: deviceRevolution.width,
         height: deviceRevolution.height * 0.4
     },
     loading: {
@@ -56,6 +61,20 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         fontFamily: "Texgyreadventor-regular",
         elevation: 12
+    },
+    floatingButton: {
+        position: "absolute",
+        width: 30,
+        height: 30,
+        right: 20,
+        bottom: 40,
+        borderWidth: 0.5,
+        borderRadius: 15,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        opacity: 0.25
     }
 });
 
