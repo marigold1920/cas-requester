@@ -13,16 +13,16 @@ export default BookingHeaderItem;
 
 const styles = StyleSheet.create({
     header__wrapper: {
-        paddingVertical: 5,
+        paddingVertical: 4,
         paddingHorizontal: 10
     },
     header__wrapper__text: {
         color: "#444444",
-        fontFamily: "Texgyreadventor-bold",
+        fontFamily: "Texgyreadventor-regular",
         fontSize: 14
     },
     active: {
-        borderWidth: 1,
+        borderWidth: 0.75,
         borderColor: "#00B955",
         borderRadius: 20
     },

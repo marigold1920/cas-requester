@@ -32,13 +32,9 @@ const ProfileScreen = ({ navigation }) => {
                     </Text>
                 </View>
             </View>
+            <HeaderTileWithBackBtn textContent="Hồ sơ sức khỏe" onPress={() => navigation.navigate("Home")} />
+            <AvatarNameCol imgSource={require("../../../assets/icons/mock-avatar.png")} textContent="Hữu Công" />
             <KeyboardAvoiding style={styles.container}>
-                <HeaderTileWithBackBtn textContent="Hồ sơ sức khỏe" onPress={() => navigation.navigate("Home")} />
-                <AvatarNameCol
-                    imgSource={require("../../../assets/icons/mock-avatar.png")}
-                    textContent="Hữu Công"
-                    contStyle={{ flex: 2 }}
-                />
                 <View style={styles.container_button}>
                     <View style={styles.group}>
                         <Text style={styles.label}>Giới tính</Text>
@@ -49,7 +45,7 @@ const ProfileScreen = ({ navigation }) => {
                         items={[
                             { label: "Nam", value: "Nam" },
                             { label: "Nữ", value: "Nữ" },
-                            { label: "Khác", value: "Khác" },
+                            { label: "Khác", value: "Khác" }
                         ]}
                         defaultValue={"Nam"}
                     />
@@ -84,10 +80,10 @@ const ProfileScreen = ({ navigation }) => {
                             { label: "Suy giảm miễn dịch", value: "Suy giảm miễn dịch" },
                             { label: "Người nhận ghép tạng , Thủy xương", value: "Người nhận ghép tạng , Thủy xương" },
                             { label: "Tiểu đường", value: "Tiểu đường" },
-                            { label: "Ung thư", value: "Ung thư" },
+                            { label: "Ung thư", value: "Ung thư" }
                         ]}
                         defaultValue={morbidity}
-                        onChangeItem={(item) => setMorbidity(item)}
+                        onChangeItem={item => setMorbidity(item)}
                     />
                     <CustomInputLabel
                         label="Dược tính gây mẫn cảm, dị ứng"
@@ -96,14 +92,14 @@ const ProfileScreen = ({ navigation }) => {
                         numberOfLines={4}
                     />
                     <CustomInputLabel label="Vấn đề khác" multiline={true} numberOfLines={4} />
-                    <ButtonText
-                        textContent="Cập nhật"
-                        styleButton={styles.button}
-                        styleText={styles.button_text}
-                        onPress={() => setModalVisible(true)}
-                    />
                 </View>
             </KeyboardAvoiding>
+            <ButtonText
+                textContent="Cập nhật"
+                styleButton={styles.button}
+                styleText={styles.button_text}
+                onPress={() => setModalVisible(true)}
+            />
         </BackgroundImage>
     );
 };

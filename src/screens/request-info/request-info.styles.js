@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        position: "relative",
-        backgroundColor: "#fff"
+        position: "relative"
     },
     map: {
         height: deviceRevolution.height * 0.45,

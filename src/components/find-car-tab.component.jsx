@@ -100,10 +100,14 @@ const FindOwnAmbulanceTab = ({ isOthers, setIsOthers, setIsLoading, navigation }
                         style={{
                             backgroundColor: "#fff",
                             borderColor: "#444",
-                            borderWidth: 0.5,
+                            borderWidth: 0.1,
                             marginVertical: 2
                         }}
-                        labelStyle={{ fontSize: 16, fontFamily: "Texgyreadventor-regular", color: "#444" }}
+                        labelStyle={{
+                            fontSize: 16,
+                            fontFamily: "Texgyreadventor-regular",
+                            color: "#444"
+                        }}
                         items={statusItems}
                         defaultValue={status}
                         onChangeItem={item => setStatus(item.value)}
@@ -151,12 +155,11 @@ export default withNavigation(FindOwnAmbulanceTab);
 const styles = StyleSheet.create({
     booking: {
         position: "relative",
-        height: deviceRevolution.height * 0.6,
+        height: deviceRevolution.height * 0.55,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#fff"
+        justifyContent: "center"
     },
     booking__header: {
         width: "85%",
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     action: {
-        backgroundColor: "#FF8946",
+        backgroundColor: "#FF8A00",
         color: "#fff",
         fontSize: 18,
         paddingVertical: 8,
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
     },
     note: {
         width: "100%",
-        borderWidth: 0.5,
+        borderWidth: 0.1,
         borderColor: "#444444",
         borderRadius: 5,
         paddingVertical: 5,
@@ -196,6 +199,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         fontFamily: "Texgyreadventor-regular",
         fontSize: 16,
+        backgroundColor: "#fff",
         zIndex: -1
     }
 });

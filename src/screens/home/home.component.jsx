@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
                             title="Hồ sơ sức khỏe"
-                            content="Cập nhật thông tin về tình trạng sức khỏe hiện tại của bạn"
+                            content="Cập nhật thông tin về tình trạng sức khỏe của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
                             onPress={() => navigation.navigate("Profile")}

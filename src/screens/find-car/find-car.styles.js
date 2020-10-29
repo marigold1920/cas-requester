@@ -3,14 +3,12 @@ import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "#fff"
+        flex: 1
     },
     content: {
         width: deviceRevolution.width,
         height: deviceRevolution.height,
-        flexDirection: "column",
-        backgroundColor: "#fff"
+        flexDirection: "column"
     },
     order__container: {
         width: deviceRevolution.width,

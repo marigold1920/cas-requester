@@ -2,7 +2,7 @@ import React from "react";
 import { ImageBackground, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import rem from "../components/constant.unit";
-const ButtonImgBgr = (props) => {
+const ButtonImgBgr = props => {
     return (
         <TouchableOpacity onPress={props.onPress}>
             <ImageBackground source={props.imgSrc} style={styles.menu_Img}>
@@ -15,10 +15,12 @@ const ButtonImgBgr = (props) => {
 
 const styles = StyleSheet.create({
     menu_Img: {
-        height: 18 * rem,
-        width: 14 * rem,
+        height: 17 * rem,
+        width: 13 * rem,
         alignItems: "center",
         justifyContent: "center",
+        margin: 5,
+        borderRadius: 2 * rem
     },
     menu_title: {
         fontSize: 16,
@@ -26,14 +28,14 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontFamily: "Texgyreadventor-bold",
         textAlign: "center",
-        color: "#494958",
+        color: "#494958"
     },
     menu_content: {
         textAlign: "center",
-        fontSize: 14,
+        fontSize: 13,
         fontFamily: "Texgyreadventor-regular",
         marginHorizontal: 10,
-        color: "#8D8D8D",
-    },
+        color: "#8D8D8D"
+    }
 });
 export default ButtonImgBgr;

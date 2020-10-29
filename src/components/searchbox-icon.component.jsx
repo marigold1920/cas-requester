@@ -11,7 +11,7 @@ const SearchBox = ({ placeholder }) => {
 };
 const styles = StyleSheet.create({
     container: {
-        padding: 12,
+        padding: 10,
         marginVertical: 8,
         alignItems: "center",
         marginHorizontal: 25,

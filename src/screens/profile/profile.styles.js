@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         width: "100%",
         position: "relative"
     },
@@ -11,7 +10,10 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     button: {
-        elevation: 12
+        elevation: 20,
+        paddingVertical: 8,
+        paddingHorizontal: 15,
+        opacity: 0.65
     },
     button_text: {
         color: "#26324A",
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
+        fontSize: 13,
         color: "#787881"
     },
     modal: {
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     },
     action: {
         position: "absolute",
-        paddingVertical: 8,
+        paddingVertical: 5,
         paddingHorizontal: 40,
         borderRadius: 20,
         backgroundColor: "#5E00FF",

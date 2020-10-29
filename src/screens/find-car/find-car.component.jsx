@@ -9,6 +9,7 @@ import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.comp
 import FindOwnAmbulanceTab from "../../components/find-car-tab.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import { deviceRevolution } from "../../components/constant.unit";
+import BackgroundImage from "../../components/background-screen.component";
 
 const FindCarScreen = ({ navigation }) => {
     const [isOthers, setIsOthers] = useState(false);
@@ -19,12 +20,8 @@ const FindCarScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <HeaderTileWithBackBtn
-                textContent="Tìm xe"
-                onPress={() => navigation.navigate("FindCar")}
-                style={{ backgroundColor: "#fff" }}
-            />
+        <BackgroundImage>
+            <HeaderTileWithBackBtn textContent="Tìm xe" onPress={() => navigation.navigate("FindCar")} />
             <KeyboardAvoiding style={styles.content}>
                 <View style={[styles.order__container]}>
                     <View style={[styles.container_mapview, isOthers ? { marginTop: 0 } : null]}>
@@ -63,7 +60,7 @@ const FindCarScreen = ({ navigation }) => {
                     )}
                 </View>
             </KeyboardAvoiding>
-        </View>
+        </BackgroundImage>
     );
 };
 

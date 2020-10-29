@@ -3,24 +3,16 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     //css container:
     container: {
-        flex: 1,
-        height: "100%",
-        position: "relative"
+        width: "75%",
+        display: "flex"
     },
     container_info: {
-        flex: 3,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    container_block_update_info: {
-        display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center"
     },
     container_text_input: {
-        width: "75%",
+        width: "100%",
         marginTop: 15,
         borderBottomWidth: 0.5,
         borderBottomColor: "#B9C5E6",

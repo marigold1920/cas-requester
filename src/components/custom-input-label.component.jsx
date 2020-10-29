@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
+        fontSize: 13,
         color: "#787881"
     },
     value: {
