@@ -16,6 +16,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: null
             };
+        case UserActionTypes.UPDATE_IMAGE:
+            return {
+                //currentUser
+                ...state,
+                currentUser: { ...state.currentUser, image: action.payload.image, displayName: action.payload.displayName, phone: action.payload.phone }
+
+            }
         default:
             return state;
     }

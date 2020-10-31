@@ -12,10 +12,25 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./personal-info.styles";
 
-const PersonalInfoScreen = ({ navigation,  currentUser}) => {
+const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [avatarSource, setAvatarSource] = useState(currentUser.image);
-    const linkAvatar = 'https://cas-capstone.s3-ap-southeast-1.amazonaws.com/' + currentUser.image;
+    const [linkImage, setLinkImage] = useState(currentUser.image);
+
+
+
+    const handlerUploadImage = () => {
+
+        api.put(`/storage/update-profile-image/${currentUser.userId}`, {
+            headers: {
+                Authorization: `Bearer ${currentUser.token}`
+            }
+            //Success
+        }).then(response => {
+
+            updateUser(response.data);
+        });
+    };
+
     return (
         <BackgroundImage>
             <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
@@ -36,7 +51,11 @@ const PersonalInfoScreen = ({ navigation,  currentUser}) => {
                 <HeaderTileWithBackBtn textContent="Thông tin cá nhân" onPress={() => navigation.navigate("Home")} />
             </View>
             <View style={styles.container_info}>
-                <AvatarNameCol imgSource={avatarSource} textContent={currentUser.displayName} />
+                <AvatarNameCol 
+                    linkImage={linkImage}
+                    setLinkImage={setLinkImage}
+                    textContent={currentUser.displayName} 
+                />
                 <Text style={styles.joining_day_title}>Ngày tham gia</Text>
                 <Text style={styles.joining_day}>15/09/2020</Text>
             </View>
@@ -55,9 +74,7 @@ const PersonalInfoScreen = ({ navigation,  currentUser}) => {
                     textContent="Lưu"
                     styleText={styles.button_text}
                     styleButton={styles.button_size}
-                    onPress={() => {
-                        setModalVisible(true);
-                    }}
+                    onPress={() => handlerUploadImage()}
                 />
                 <Text style={styles.text_policy}>
                     * Các thông tin cá nhân được bảo mật theo chính sách, qui định của Nhà nước
@@ -71,4 +88,8 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(PersonalInfoScreen);
+const mapDispatchToProps = dispatch => ({
+    updateUser: user => dispatch(updateUser(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalInfoScreen);

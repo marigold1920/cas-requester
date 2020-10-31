@@ -19,7 +19,6 @@ import { selectCurrentUser } from "../../redux/user/user.selectors";
 const ProfileScreen = ({ navigation, currentUser }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [morbidity, setMorbidity] = useState([]);
-    const linkAvatar = 'https://cas-capstone.s3-ap-southeast-1.amazonaws.com/' + currentUser.image;
     return (
         <BackgroundImage>
             <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
@@ -37,7 +36,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                 </View>
             </View>
             <HeaderTileWithBackBtn textContent="Hồ sơ sức khỏe" onPress={() => navigation.navigate("Home")} />
-            <AvatarNameCol imgSource={linkAvatar} textContent={currentUser.displayName} />
+            <AvatarNameCol imgSource={currentUser.image} textContent={currentUser.displayName} />
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_button}>
                     <View style={styles.group}>

@@ -8,3 +8,9 @@ export const login = user => ({
 export const logout = () => ({
     type: UserActionTypes.LOGOUT
 });
+
+export const updateUser = user => ({
+    type: UserActionTypes.UPDATE_USER,
+    payload: user
+});
+

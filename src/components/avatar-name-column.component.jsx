@@ -3,8 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Text, View, Image, StyleSheet, Platform, TouchableHighlight } from "react-native";
 import rem from "./constant.unit";
 
-const AvatarNameCol = ({ imgSource, textContent, contStyle, imgStyle, textStyle }) => {
-    const [linkImage, setLinkImage] = useState(imgSource);
+const AvatarNameCol = ({ linkImage, setLinkImage, textContent, contStyle, imgStyle, textStyle }) => {
     const { container, image, text } = styles;
     const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
     const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
@@ -24,7 +23,7 @@ const AvatarNameCol = ({ imgSource, textContent, contStyle, imgStyle, textStyle 
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
@@ -33,6 +32,7 @@ const AvatarNameCol = ({ imgSource, textContent, contStyle, imgStyle, textStyle 
         console.log(result.uri);
 
         if (!result.cancelled) {
+            //File anh
             setLinkImage(result.uri);
         }
     };
