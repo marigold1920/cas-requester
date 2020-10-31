@@ -12,10 +12,14 @@ import CustomInputLabel from "../../components/custom-input-label.component";
 import styles from "./profile.styles";
 import DropDownPicker from "react-native-dropdown-picker";
 
-const ProfileScreen = ({ navigation }) => {
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+
+const ProfileScreen = ({ navigation, currentUser }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [morbidity, setMorbidity] = useState([]);
-
+    const linkAvatar = 'https://cas-capstone.s3-ap-southeast-1.amazonaws.com/' + currentUser.image;
     return (
         <BackgroundImage>
             <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
@@ -33,7 +37,7 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
             </View>
             <HeaderTileWithBackBtn textContent="Hồ sơ sức khỏe" onPress={() => navigation.navigate("Home")} />
-            <AvatarNameCol imgSource={require("../../../assets/icons/mock-avatar.png")} textContent="Hữu Công" />
+            <AvatarNameCol imgSource={linkAvatar} textContent={currentUser.displayName} />
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_button}>
                     <View style={styles.group}>
@@ -104,4 +108,8 @@ const ProfileScreen = ({ navigation }) => {
     );
 };
 
-export default ProfileScreen;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+})
+
+export default connect(mapStateToProps)(ProfileScreen);

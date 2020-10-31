@@ -1,17 +1,47 @@
-import React from "react";
-
-import { Text, View, Image, StyleSheet } from "react-native";
+import React, {useEffect, useState} from "react";
+import * as ImagePicker from 'expo-image-picker';
+import { Text, View, Image, StyleSheet, Platform, TouchableHighlight } from "react-native";
 import rem from "./constant.unit";
 
 const AvatarNameCol = ({ imgSource, textContent, contStyle, imgStyle, textStyle }) => {
+    const [linkImage, setLinkImage] = useState(imgSource);
     const { container, image, text } = styles;
     const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
     const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
     const combineStylesText = StyleSheet.flatten([text, textStyle]);
     // StyleSheet.flatten giúp thay đổi bất cứ thuộc tính nào của container, nếu không thay đổi sẽ áp dụng thuộc tính default
+
+    useEffect(() => {
+        (async () => {
+          if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+            if (status !== 'granted') {
+              alert('Sorry, we need camera roll permissions to make this work!');
+            }
+          }
+        })();
+      }, []);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result.uri);
+
+        if (!result.cancelled) {
+            setLinkImage(result.uri);
+        }
+    };
+
     return (
         <View style={combineStylesContainer}>
-            <Image style={combineStylesImage} source={imgSource} />
+            <TouchableHighlight onPress={pickImage}>
+                <Image style={combineStylesImage} source={{ uri: linkImage }} />
+            </TouchableHighlight>
             <Text style={combineStylesText}>{textContent}</Text>
         </View>
     );

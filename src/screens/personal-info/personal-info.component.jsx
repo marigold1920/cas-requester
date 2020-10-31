@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { View, TextInput, Text } from "react-native";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -9,8 +12,10 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./personal-info.styles";
 
-const PersonalInfoScreen = ({ navigation }) => {
+const PersonalInfoScreen = ({ navigation,  currentUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [avatarSource, setAvatarSource] = useState(currentUser.image);
+    const linkAvatar = 'https://cas-capstone.s3-ap-southeast-1.amazonaws.com/' + currentUser.image;
     return (
         <BackgroundImage>
             <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
@@ -31,18 +36,18 @@ const PersonalInfoScreen = ({ navigation }) => {
                 <HeaderTileWithBackBtn textContent="Thông tin cá nhân" onPress={() => navigation.navigate("Home")} />
             </View>
             <View style={styles.container_info}>
-                <AvatarNameCol imgSource={require("../../../assets/icons/mock-avatar.png")} textContent="Hữu Công" />
+                <AvatarNameCol imgSource={avatarSource} textContent={currentUser.displayName} />
                 <Text style={styles.joining_day_title}>Ngày tham gia</Text>
                 <Text style={styles.joining_day}>15/09/2020</Text>
             </View>
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_text_input}>
                     <Text style={styles.label}>Tên *</Text>
-                    <TextInput style={styles.text_input} defaultValue="Hữu Công" />
+                    <TextInput style={styles.text_input} defaultValue={currentUser.displayName} />
                 </View>
                 <View style={styles.container_text_input}>
                     <Text style={styles.label}>Số điện thoại *</Text>
-                    <TextInput style={styles.text_input} defaultValue="+84 931 738 872" />
+                    <TextInput style={styles.text_input} defaultValue={currentUser.phone} />
                 </View>
             </KeyboardAvoiding>
             <View style={styles.container_button_save}>
@@ -62,4 +67,8 @@ const PersonalInfoScreen = ({ navigation }) => {
     );
 };
 
-export default PersonalInfoScreen;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(PersonalInfoScreen);
