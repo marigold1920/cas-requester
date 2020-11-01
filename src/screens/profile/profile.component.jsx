@@ -36,7 +36,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                 </View>
             </View>
             <HeaderTileWithBackBtn textContent="Hồ sơ sức khỏe" onPress={() => navigation.navigate("Home")} />
-            <AvatarNameCol imgSource={currentUser.image} textContent={currentUser.displayName} />
+            <AvatarNameCol imgSource={currentUser.imageUrl} textContent={currentUser.displayName} />
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_button}>
                     <View style={styles.group}>

@@ -20,7 +20,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 //currentUser
                 ...state,
-                currentUser: { ...state.currentUser, image: action.payload.image, displayName: action.payload.displayName, phone: action.payload.phone }
+                currentUser: { ...state.currentUser, image: action.payload.imageUrl, displayName: action.payload.displayName, phone: action.payload.phone }
 
             }
         default:

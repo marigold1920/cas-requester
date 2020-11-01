@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                     <ButtonWithImage
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
-                        imgSrc={{ uri: currentUser ? currentUser.image : "https://i.ibb.co/G3KybLH/loading.png" }}
+                        imgSrc={{ uri: currentUser ? currentUser.imageUrl : "https://i.ibb.co/G3KybLH/loading.png" }}
                         onPress={() => navigation.navigate("PersonalInfo")}
                     />
                     <Text style={styles.headerText}>{currentUser ? currentUser.displayName : ""}</Text>

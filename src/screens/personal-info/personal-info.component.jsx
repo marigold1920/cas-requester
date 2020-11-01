@@ -3,6 +3,8 @@ import { View, TextInput, Text } from "react-native";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
+import {updateUser} from '../../redux/user/user.actions';
+
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -14,7 +16,7 @@ import styles from "./personal-info.styles";
 
 const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [linkImage, setLinkImage] = useState(currentUser.image);
+    const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
 
 
 
