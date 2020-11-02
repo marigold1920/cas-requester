@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import {updateUser} from '../../redux/user/user.actions';
 
-
+import api from "../../apis/api";
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
@@ -17,20 +17,34 @@ import styles from "./personal-info.styles";
 const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
-
-
+    const [displayName, setDisplayName] = useState(currentUser.displayName);
+    const [phone, setPhone] = useState(currentUser.phone);
+    const [imageDecodeBase64, setImageDecodeBase64] = useState('');
 
     const handlerUploadImage = () => {
 
-        api.put(`/storage/update-profile-image/${currentUser.userId}`, {
-            headers: {
-                Authorization: `Bearer ${currentUser.token}`
-            }
-            //Success
-        }).then(response => {
+        console.log(currentUser.userId);
+        console.log(displayName);
+        console.log(imageDecodeBase64);
+        // api.put('/storage/update-profile-image', {
+        //         userId: currentUser.userId,
+        //         displayName: displayName,
+        //         phone: phone,
+        //         imageDecodeBase64: imageDecodeBase64
+        //     },
+        //     {
+        //         headers: {
+        //             Authorization: `Bearer ${currentUser.token}`
+        //         }
+        //     }
+            
+        //     //Success
+        // )
+        // .then(response => {
 
-            updateUser(response.data);
-        });
+        //     updateUser(response.data);
+        // })
+        // .catch(error => console.log(error));
     };
 
     return (
@@ -56,6 +70,7 @@ const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
                 <AvatarNameCol 
                     linkImage={linkImage}
                     setLinkImage={setLinkImage}
+                    setImageDecodeBase64={setImageDecodeBase64}
                     textContent={currentUser.displayName} 
                 />
                 <Text style={styles.joining_day_title}>Ngày tham gia</Text>
@@ -64,11 +79,19 @@ const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_text_input}>
                     <Text style={styles.label}>Tên *</Text>
-                    <TextInput style={styles.text_input} defaultValue={currentUser.displayName} />
+                    <TextInput 
+                        style={styles.text_input} 
+                        defaultValue={displayName}
+                        onChangeText={value => setDisplayName(value)} 
+                    />
                 </View>
                 <View style={styles.container_text_input}>
                     <Text style={styles.label}>Số điện thoại *</Text>
-                    <TextInput style={styles.text_input} defaultValue={currentUser.phone} />
+                    <TextInput 
+                        style={styles.text_input} 
+                        defaultValue={phone} 
+                        onChangeText={value => setPhone(value)}
+                    />
                 </View>
             </KeyboardAvoiding>
             <View style={styles.container_button_save}>
