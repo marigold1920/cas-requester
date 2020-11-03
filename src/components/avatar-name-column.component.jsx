@@ -2,9 +2,8 @@ import React, {useEffect, useState} from "react";
 import * as ImagePicker from 'expo-image-picker';
 import { Text, View, Image, StyleSheet, Platform, TouchableHighlight } from "react-native";
 import rem from "./constant.unit";
-import * as FileSystem from 'expo-file-system';
 
-const AvatarNameCol = ({ linkImage, setLinkImage, setImageDecodeBase64, textContent, contStyle, imgStyle, textStyle }) => {
+const AvatarNameCol = ({ linkImage, setLinkImage, textContent, contStyle, imgStyle, textStyle }) => {
     const { container, image, text } = styles;
     const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
     const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
@@ -30,15 +29,10 @@ const AvatarNameCol = ({ linkImage, setLinkImage, setImageDecodeBase64, textCont
             quality: 1,
         });
 
-        console.log(result.uri);
 
         if (!result.cancelled) {
-            //File anh
-            const base64 = await FileSystem.EncodingType.Base64(result.uri);
-            const arrBuffer = decode(base64);
-            setImageDecodeBase64(arrBuffer);
+            //Anh tra ve thanh cong
             setLinkImage(result.uri);
-
         }
     };
 

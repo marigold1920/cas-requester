@@ -11,6 +11,8 @@ import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
+import aws from '../../config/awskey';
+import {RNS3} from 'react-native-aws3';
 
 import styles from "./personal-info.styles";
 
@@ -19,32 +21,46 @@ const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
     const [displayName, setDisplayName] = useState(currentUser.displayName);
     const [phone, setPhone] = useState(currentUser.phone);
-    const [imageDecodeBase64, setImageDecodeBase64] = useState('');
 
     const handlerUploadImage = () => {
 
-        console.log(currentUser.userId);
-        console.log(displayName);
-        console.log(imageDecodeBase64);
-        // api.put('/storage/update-profile-image', {
-        //         userId: currentUser.userId,
-        //         displayName: displayName,
-        //         phone: phone,
-        //         imageDecodeBase64: imageDecodeBase64
-        //     },
-        //     {
-        //         headers: {
-        //             Authorization: `Bearer ${currentUser.token}`
-        //         }
-        //     }
-            
-        //     //Success
-        // )
-        // .then(response => {
+        const file = {
+            uri: linkImage,
+            name:  linkImage.substring(linkImage.lastIndexOf('/') + 1),
+            type: 'image/png'
+        }
+        console.log(file);
+        const config = {
+            bucket: aws.bucketName,
+            region: 'ap-southeast-1',
+            accessKey: aws.accessKey,
+            secretKey: aws.secretKey,
+            successActionStatus: 201
+        }
 
-        //     updateUser(response.data);
-        // })
-        // .catch(error => console.log(error));
+        RNS3.put(file, config)
+            .then((response) => {
+                console.log(response);
+            })
+        api.put('/storage/update-profile-image', {
+                userId: currentUser.userId,
+                displayName: displayName,
+                phone: phone,
+                imageDecodeBase64: imageDecodeBase64
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${currentUser.token}`
+                }
+            }
+            
+            //Success
+        )
+        .then(response => {
+
+            updateUser(response.data);
+        })
+        .catch(error => console.log(error));
     };
 
     return (
@@ -70,7 +86,6 @@ const PersonalInfoScreen = ({ navigation,  currentUser, updateUser}) => {
                 <AvatarNameCol 
                     linkImage={linkImage}
                     setLinkImage={setLinkImage}
-                    setImageDecodeBase64={setImageDecodeBase64}
                     textContent={currentUser.displayName} 
                 />
                 <Text style={styles.joining_day_title}>Ngày tham gia</Text>
