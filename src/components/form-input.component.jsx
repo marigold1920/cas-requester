@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         marginVertical: 3,
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 16,
+        fontSize: 14,
         color: "#444444",
         backgroundColor: "#fff"
     }

@@ -3,9 +3,8 @@ import { View } from "react-native";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
-import { login } from "../../redux/user/user.actions";
+import { signIn } from "../../redux/user/user.actions";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import api from "../../apis/api";
 
 import TextInputIcon from "../../components/text-input-with-icon.component";
 import ButtonText from "../../components/button-text.component";
@@ -16,26 +15,17 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./login.styles";
 
-const LoginScreen = ({ navigation, currentUser, login }) => {
+const LoginScreen = ({ navigation, currentUser, signIn }) => {
     const [username, setUsername] = useState("0988635032");
     const [password, setPassword] = useState("123");
 
     useEffect(() => {
-        currentUser ? navigation.navigate("Home") : null;
+        currentUser && navigation.navigate("Home");
     }, [currentUser]);
-
-    const handleLogin = () => {
-        api.post("/users/login", {
-            username,
-            password
-        }).then(response => {
-            login(response.data);
-        });
-    };
 
     return (
         <BackgroundLogin>
-            <KeyboardAvoiding style={styles.container}>
+            <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.block_logo_name}>
                     <LogoName />
                 </View>
@@ -54,13 +44,20 @@ const LoginScreen = ({ navigation, currentUser, login }) => {
                         placeholder="Mật khẩu"
                         secureTextEntry={true}
                     />
-                    <ButtonText styleButton={{ paddingVertical: 5 }} textContent="ĐĂNG NHẬP" onPress={handleLogin} />
+                    <ButtonText
+                        styleButton={{ paddingVertical: 5 }}
+                        textContent="ĐĂNG NHẬP"
+                        onPress={() => signIn({ username, password })}
+                    />
                     <TextLinking
                         contentText="Chưa có tài khoản?"
                         contentLink="Đăng ký"
                         link={() => navigation.navigate("Register")}
                     />
-                    <TextLinking contentLink="Quên mật khẩu?" link={() => navigation.navigate("ResetPass")} />
+                    <TextLinking
+                        contentLink="Quên mật khẩu?"
+                        link={() => navigation.navigate("ResetPass")}
+                    />
                 </View>
             </KeyboardAvoiding>
         </BackgroundLogin>
@@ -72,7 +69,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    login: user => dispatch(login(user))
+    signIn: user => dispatch(signIn(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -18,7 +18,7 @@ const RequestDetails = ({ navigation, token }) => {
     const [request, setRequest] = useState(null);
 
     useEffect(() => {
-        api.get(`/requests/history/${requestId}`, {
+        api.get(`/requests/history/details/${requestId}`, {
             headers: {
                 Authorization: token
             }

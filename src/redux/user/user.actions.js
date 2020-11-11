@@ -1,8 +1,18 @@
 import UserActionTypes from "./user.tyles";
 
-export const login = user => ({
-    type: UserActionTypes.LOGIN,
+export const signIn = user => ({
+    type: UserActionTypes.SIGNIN_START,
     payload: user
+});
+
+export const signInSuccess = user => ({
+    type: UserActionTypes.SIGNIN_SUCCESS,
+    payload: user
+});
+
+export const signInFail = error => ({
+    type: UserActionTypes.SIGNIN_FAIL,
+    payload: error
 });
 
 export const logout = () => ({
@@ -13,4 +23,3 @@ export const updateUser = user => ({
     type: UserActionTypes.UPDATE_USER,
     payload: user
 });
-

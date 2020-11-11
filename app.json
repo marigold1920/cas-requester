@@ -14,8 +14,22 @@
             "fallbackToCacheTimeout": 0
         },
         "assetBundlePatterns": ["**/*"],
+        "android": {
+            "package": "com.cas",
+            "versionCode": 1,
+            "config": {
+                "googleMaps": {
+                    "apiKey": "AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8"
+                }
+            }
+        },
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.fpt.cas",
+            "buildNumber": "1.0.0",
+            "config": {
+                "googleMapsApiKey": "AIzaSyAbZrwzQWym5Sd9QlmXtqt5Nf3ZPYhCags"
+            }
         },
         "web": {
             "favicon": "./assets/favicon.png"

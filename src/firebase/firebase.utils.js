@@ -1,5 +1,6 @@
-import * as firebase from "firebase";
-import "@firebase/auth";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import * as geofirestore from "geofirestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA1akYjqm5cVgCJvcgAFVguS0sw70hv4ds",
@@ -12,5 +13,56 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+export const firestore = firebase.firestore();
+
+const GeoFirestore = geofirestore.initializeApp(firestore);
+const geocollection = GeoFirestore.collection("drivers");
+
+// geocollection.doc("0345896985").set({
+//     coordinates: new firebase.firestore.GeoPoint(10.02566, 106.05963)
+// });
+
+export const findNearest = async (latitude, longitude) => {
+    const query = geocollection
+        .near({
+            center: new firebase.firestore.GeoPoint(latitude, longitude),
+            radius: 200
+        })
+        .limit(5);
+
+    return query;
+};
+
+export const fillRequest = async (drivers, requestId) => {
+    const batch = firestore.batch();
+    const collectionDriverRef = firestore.collection("drivers");
+
+    drivers.forEach(driver => {
+        const documentRef = collectionDriverRef.doc(driver);
+        batch.update(documentRef, {
+            requestId: requestId
+        });
+    });
+
+    await batch.commit();
+};
+
+export const createRequest = async (
+    requestId,
+    sourceLatitude,
+    sourceLongitude,
+    destinationLatitude,
+    destinationLongitude
+) => {
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
+
+    await requestRef.set({
+        sourceLatitude,
+        sourceLongitude,
+        destinationLatitude,
+        destinationLongitude
+    });
+};
 
 export default firebase;

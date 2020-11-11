@@ -23,7 +23,9 @@ const RegisterScreen = ({ navigation }) => {
 
     const handleRegister = () => {
         const phoneProvider = new firebase.auth.PhoneAuthProvider();
-        phoneProvider.verifyPhoneNumber(username, recaptchaVerifier.current).then(setVerificationId);
+        phoneProvider
+            .verifyPhoneNumber(username, recaptchaVerifier.current)
+            .then(setVerificationId);
     };
 
     const confirmCode = () => {
@@ -32,8 +34,11 @@ const RegisterScreen = ({ navigation }) => {
 
     return (
         <BackgroundLogin>
-            <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebase.app().options} />
-            <KeyboardAvoiding style={styles.container}>
+            <FirebaseRecaptchaVerifierModal
+                ref={recaptchaVerifier}
+                firebaseConfig={firebase.app().options}
+            />
+            <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.block_logo_name}>
                     <LogoName />
                 </View>

@@ -4,15 +4,15 @@ import { StyleSheet, View, TextInput } from "react-native";
 import rem from "./constant.unit";
 import Rating from "./rating.component";
 
-const Feedback = ({ placeholder }) => (
+const Feedback = ({ level, action, ...otherProps }) => (
     <View style={styles.container_feedback_content}>
-        <Rating size={18} level={5} />
+        <Rating size={18} level={level} setLevel={action} />
         <TextInput
             style={styles.textArea}
-            placeholder={placeholder}
             placeholderTextColor="grey"
             numberOfLines={5}
             multiline={true}
+            {...otherProps}
         />
     </View>
 );

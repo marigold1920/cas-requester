@@ -1,13 +1,15 @@
 import { StyleSheet } from "react-native";
+import { deviceRevolution } from "../../components/constant.unit";
 const styles = StyleSheet.create({
     container: {
-        width: "100%",
         position: "relative"
     },
-    container_button: {
+    profile: {
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20
+        marginBottom: 20,
+        width: deviceRevolution.width * 0.95
     },
     button: {
         elevation: 20,

@@ -1,10 +1,12 @@
 import { StyleSheet } from "react-native";
+import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     //css container:
     container: {
-        width: "75%",
-        display: "flex"
+        width: "100%",
+        display: "flex",
+        flexDirection: "column"
     },
     container_info: {
         flexDirection: "column",
@@ -12,7 +14,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     container_text_input: {
-        width: "100%",
         marginTop: 15,
         borderBottomWidth: 0.5,
         borderBottomColor: "#B9C5E6",
@@ -75,13 +76,14 @@ const styles = StyleSheet.create({
         fontFamily: "Texgyreadventor-regular"
     },
     label: {
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: "Texgyreadventor-regular",
         color: "#787881"
     },
     text_input: {
+        width: deviceRevolution.width * 0.85,
         marginTop: 3,
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: "Texgyreadventor-regular",
         color: "#494958"
     },
@@ -94,7 +96,8 @@ const styles = StyleSheet.create({
     },
     button_text: {
         color: "#26324A",
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 16
     },
     text_policy: {
         marginTop: 10,

@@ -1,15 +1,21 @@
 import UserActionTypes from "./user.tyles";
 
 const INITIAL_STATE = {
-    currentUser: null
+    currentUser: null,
+    error: null
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case UserActionTypes.LOGIN:
+        case UserActionTypes.SIGNIN_SUCCESS:
             return {
                 ...state,
                 currentUser: action.payload
+            };
+        case UserActionTypes.SIGNIN_FAIL:
+            return {
+                ...state,
+                error: action.payload
             };
         case UserActionTypes.LOGOUT:
             return {
@@ -18,11 +24,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
             };
         case UserActionTypes.UPDATE_IMAGE:
             return {
-                //currentUser
                 ...state,
-                currentUser: { ...state.currentUser, image: action.payload.imageUrl, displayName: action.payload.displayName, phone: action.payload.phone }
-
-            }
+                currentUser: {
+                    ...state.currentUser,
+                    image: action.payload.imageUrl,
+                    displayName: action.payload.displayName,
+                    phone: action.payload.phone
+                }
+            };
         default:
             return state;
     }

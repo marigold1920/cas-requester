@@ -1,35 +1,45 @@
 import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 
-const Rating = ({ level, size }) => (
+const Rating = ({ level, size, setLevel }) => (
     <View style={styles.rating}>
-        <Image
-            style={{ width: size, height: size, marginHorizontal: 2 }}
-            source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
-        />
-        {level >= 2 ? (
+        <View onPress={() => setLevel(1)}>
             <Image
                 style={{ width: size, height: size, marginHorizontal: 2 }}
                 source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
             />
+        </View>
+        {level >= 2 ? (
+            <View onPress={() => setLevel(2)}>
+                <Image
+                    style={{ width: size, height: size, marginHorizontal: 2 }}
+                    source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
+                />
+            </View>
         ) : null}
         {level >= 3 ? (
-            <Image
-                style={{ width: size, height: size, marginHorizontal: 2 }}
-                source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
-            />
+            <View onPress={() => setLevel(3)}>
+                <Image
+                    style={{ width: size, height: size, marginHorizontal: 2 }}
+                    source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
+                />
+            </View>
         ) : null}
         {level >= 4 ? (
-            <Image
-                style={{ width: size, height: size, marginHorizontal: 2 }}
-                source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
-            />
+            <View onPress={() => setLevel(4)}>
+                <Image
+                    style={{ width: size, height: size, marginHorizontal: 2 }}
+                    source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
+                />
+            </View>
         ) : null}
         {level == 5 ? (
-            <Image
-                style={{ width: size, height: size, marginHorizontal: 2 }}
-                source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
-            />
+            <View onPress={() => setLevel(5)}>
+                <Image
+                    style={{ width: size, height: size, marginHorizontal: 2 }}
+                    source={{ uri: "https://i.ibb.co/DR4mTc0/heart.png" }}
+                />
+            </View>
         ) : null}
     </View>
 );

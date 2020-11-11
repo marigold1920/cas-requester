@@ -12,8 +12,8 @@ import ProfileScreen from "./src/screens/profile/profile.component";
 import LoginScreen from "./src/screens/login/login.component";
 import RegisterScreen from "./src/screens/register/register.component";
 import HistoryScreen from "./src/screens/history/history.component";
-import FindCarScreen from "./src/screens/find-car/find-car.component";
-import RequestInfo from "./src/screens/request-info/request-info.component";
+import FindAmbulanceScreen from "./src/screens/find-ambulance/find-ambulance.component";
+import RequestInfoScreen from "./src/screens/request-info/request-info.component";
 import RequestDetails from "./src/screens/request-details/request-details.conponent";
 import FeedbackScreen from "./src/screens/feedback/feedback.component";
 import PersonalInfoScreen from "./src/screens/personal-info/personal-info.component";
@@ -28,8 +28,8 @@ const MainNavigator = createStackNavigator(
         Login: LoginScreen,
         Register: RegisterScreen,
         History: HistoryScreen,
-        FindCar: FindCarScreen,
-        RequestInfo: RequestInfo,
+        FindAmbulance: FindAmbulanceScreen,
+        RequestInfo: RequestInfoScreen,
         RequestDetails: RequestDetails,
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,

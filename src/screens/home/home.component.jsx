@@ -5,6 +5,8 @@ import { createStructuredSelector } from "reselect";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { logout } from "../../redux/user/user.actions";
+import { findNearestDrivers } from "../../redux/geofirestore/geofirestore.actions";
+import { findNearest } from "../../firebase/firebase.utils";
 
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonImgBgr from "../../components/button-image-background.component";
@@ -14,9 +16,13 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./home.styles";
 
-const HomeScreen = ({ navigation, currentUser, logout }) => {
+const HomeScreen = ({ navigation, currentUser, logout, findNearestDrivers }) => {
     useEffect(() => {
-        !currentUser ? navigation.navigate("Login") : null;
+        !currentUser && navigation.navigate("Login");
+        if (currentUser) {
+            const drivers = findNearest(10.16494, 106.61501);
+            // findNearestDrivers(drivers);
+        }
     }, [currentUser]);
 
     const handleLogout = () => {
@@ -25,20 +31,21 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
 
     return (
         <BackgroundImage>
-            <KeyboardAvoiding style={styles.container}>
+            <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.headerBlock}>
                     <ButtonWithImage
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
-                        imgSrc={{ uri: currentUser ? currentUser.imageUrl : "https://i.ibb.co/G3KybLH/loading.png" }}
+                        imgSrc={{
+                            uri: currentUser
+                                ? currentUser.imageUrl
+                                : "https://i.ibb.co/G3KybLH/loading.png"
+                        }}
                         onPress={() => navigation.navigate("PersonalInfo")}
                     />
-                    <Text style={styles.headerText}>{currentUser ? currentUser.displayName : ""}</Text>
-                    {/* <ButtonWithImage
-                        buttonStyle={styles.headerButton}
-                        styleImg={styles.headerImg}
-                        imgSrc={require("../../../assets/icons/notification.png")}
-                    /> */}
+                    <Text style={styles.headerText}>
+                        {currentUser ? currentUser.displayName : ""}
+                    </Text>
                     <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
@@ -58,7 +65,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                             content="Tài xế sẽ giúp bạn đến bệnh viện hoặc về nhà"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
-                            onPress={() => navigation.navigate("FindCar")}
+                            onPress={() => navigation.navigate("FindAmbulance")}
                         />
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
@@ -101,7 +108,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    findNearestDrivers: drivers => dispatch(findNearestDrivers(drivers))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

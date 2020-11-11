@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         flexWrap: "nowrap",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 20
+        marginVertical: 10
     },
     action: {
         fontFamily: "Texgyreadventor-regular",
@@ -85,27 +85,13 @@ const styles = StyleSheet.create({
         color: "#fff",
         backgroundColor: "#0CBA70",
         borderRadius: 25,
-        paddingVertical: 10,
+        paddingVertical: 8,
         paddingHorizontal: 15,
         borderColor: "transparent",
         elevation: 20
     },
     cancel: {
         backgroundColor: "#f30000"
-    },
-    floatingButton: {
-        position: "absolute",
-        width: 30,
-        height: 30,
-        right: 20,
-        bottom: 80,
-        borderWidth: 0.5,
-        borderRadius: 15,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        opacity: 0.25
     }
 });
 

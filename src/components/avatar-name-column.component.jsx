@@ -1,34 +1,34 @@
-import React, {useEffect, useState} from "react";
-import * as ImagePicker from 'expo-image-picker';
+import React, { useEffect } from "react";
+import * as ImagePicker from "expo-image-picker";
 import { Text, View, Image, StyleSheet, Platform, TouchableHighlight } from "react-native";
 import rem from "./constant.unit";
 
-const AvatarNameCol = ({ linkImage, setLinkImage, textContent, contStyle, imgStyle, textStyle }) => {
-    const { container, image, text } = styles;
-    const combineStylesContainer = StyleSheet.flatten([container, contStyle]);
-    const combineStylesImage = StyleSheet.flatten([image, imgStyle]);
-    const combineStylesText = StyleSheet.flatten([text, textStyle]);
-    // StyleSheet.flatten giúp thay đổi bất cứ thuộc tính nào của container, nếu không thay đổi sẽ áp dụng thuộc tính default
-
+const AvatarNameCol = ({
+    linkImage,
+    setLinkImage,
+    textContent,
+    contStyle,
+    imgStyle,
+    textStyle
+}) => {
     useEffect(() => {
         (async () => {
-          if (Platform.OS !== 'web') {
-            const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-            if (status !== 'granted') {
-              alert('Sorry, we need camera roll permissions to make this work!');
+            if (Platform.OS !== "web") {
+                const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+                if (status !== "granted") {
+                    alert("Sorry, we need camera roll permissions to make this work!");
+                }
             }
-          }
         })();
-      }, []);
+    }, []);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1,
+            quality: 1
         });
-
 
         if (!result.cancelled) {
             //Anh tra ve thanh cong
@@ -37,11 +37,11 @@ const AvatarNameCol = ({ linkImage, setLinkImage, textContent, contStyle, imgSty
     };
 
     return (
-        <View style={combineStylesContainer}>
+        <View style={[styles.container, contStyle]}>
             <TouchableHighlight onPress={pickImage}>
-                <Image style={combineStylesImage} source={{ uri: linkImage }} />
+                <Image style={[styles.image, imgStyle]} source={{ uri: linkImage }} />
             </TouchableHighlight>
-            <Text style={combineStylesText}>{textContent}</Text>
+            <Text style={[styles.text, textStyle]}>{textContent}</Text>
         </View>
     );
 };
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
         width: 11 * rem,
         height: 11 * rem,
         borderRadius: 100,
-        marginBottom: 10
+        marginBottom: 10,
+        backgroundColor: "#000"
     },
     text: {
         fontFamily: "Texgyreadventor-bold",

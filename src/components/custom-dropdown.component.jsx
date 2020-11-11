@@ -11,7 +11,12 @@ const CustomDropdown = ({ items, action, defaultValue }) => {
                 <Text onPress={() => setIsActive(!isActive)} style={styles.defaultValue}>
                     {defaultValue}
                 </Text>
-                <Icon onPress={() => setIsActive(!isActive)} name={isActive ? "up" : "down"} size={16} color="#444" />
+                <Icon
+                    onPress={() => setIsActive(!isActive)}
+                    name={isActive ? "up" : "down"}
+                    size={16}
+                    color="#444"
+                />
             </View>
             <View style={[styles.options, isActive ? { opacity: 1, zIndex: 10 } : null]}>
                 {items.map(({ itemId, value }) => (
@@ -43,7 +48,7 @@ const styles = StyleSheet.create({
     defaultValue: {
         fontFamily: "Texgyreadventor-regular",
         color: "#444",
-        fontSize: 16,
+        fontSize: 14,
         paddingHorizontal: 20
     },
     options: {
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
     },
     option: {
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 16,
+        fontSize: 14,
         color: "#444",
         marginVertical: 8
     }

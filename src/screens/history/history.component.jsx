@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -17,7 +17,7 @@ const HistoryScreen = ({ navigation, currentUser }) => {
     const [history, setHistory] = useState([]);
 
     useEffect(() => {
-        api.get(`/requests/history/${currentUser.userId}/paging?pageIndex=0`, {
+        api.get(`/requests/history/${currentUser.userId}?pageIndex=0`, {
             headers: {
                 Authorization: `Bearer ${currentUser.token}`
             }
@@ -27,7 +27,10 @@ const HistoryScreen = ({ navigation, currentUser }) => {
     return (
         <View style={styles.container}>
             <BackgroundImage>
-                <HeaderTileWithBackBtn textContent="Lịch sử" onPress={() => navigation.navigate("Home")} />
+                <HeaderTileWithBackBtn
+                    textContent="Lịch sử"
+                    onPress={() => navigation.navigate("Home")}
+                />
                 <CustomListview itemList={history} />
                 <View style={styles.container_button}>
                     <ButtonText

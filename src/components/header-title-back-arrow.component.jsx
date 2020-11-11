@@ -7,7 +7,12 @@ const HeaderTileWithBackBtn = ({ textContent, onPress, style }) => {
     return (
         <View style={[styles.container, style]}>
             <View style={styles.container_back_button}>
-                <MaterialCommunityIcons name="chevron-left" size={28} color="#494958" onPress={() => onPress()} />
+                <MaterialCommunityIcons
+                    name="chevron-left"
+                    size={28}
+                    color="#494958"
+                    onPress={onPress}
+                />
             </View>
             <View style={styles.container_header_title}>
                 <Text style={styles.text_content}>{textContent}</Text>

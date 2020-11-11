@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
     container: {
         height: "100%",
         width: "100%",
-        flex: 1,
         flexDirection: "column",
         position: "relative"
     },
     space__full: {
+        width: deviceRevolution.width,
         height: deviceRevolution.height,
         display: "flex"
     },
