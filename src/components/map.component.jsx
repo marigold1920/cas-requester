@@ -42,14 +42,6 @@ const Map = ({
     });
 
     useEffect(() => {
-        // if (request) {
-        //     request.status === "finished"
-        //         ? handleFinished()
-        //         : setDriver({
-        //               latitude: request.driverLatitude,
-        //               longitude: request.driverLongitude
-        //           });
-        // }
         request && request.status === "finished" && handleFinished();
     }, [request]);
 
@@ -66,8 +58,6 @@ const Map = ({
     const handleLocationChange = coordinate => {
         setOwnPosition(coordinate);
     };
-
-    console.log(driver);
 
     return (
         <View

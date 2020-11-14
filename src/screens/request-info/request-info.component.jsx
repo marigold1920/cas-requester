@@ -11,6 +11,7 @@ import {
 } from "../../redux/request/request.selectors";
 import { selectToken } from "../../redux/user/user.selectors";
 import { fetchRequest } from "../../redux/request/request.actions";
+import { clearDrivers } from "../../redux/geofirestore/geofirestore.actions";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
@@ -26,10 +27,12 @@ const RequestInfoScreen = ({
     fetchRequest,
     token,
     source,
-    destination
+    destination,
+    clearDrivers
 }) => {
     useEffect(() => {
         fetchRequest(token, currentRequest.requestId);
+        clearDrivers();
     }, []);
 
     return (
@@ -103,7 +106,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId))
+    fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId)),
+    clearDrivers: () => dispatch(clearDrivers())
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(RequestInfoScreen));
