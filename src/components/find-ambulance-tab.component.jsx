@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Alert } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { withNavigation } from "react-navigation";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -25,8 +25,8 @@ const FindAmbulanceTab = ({
     destination,
     token,
     username,
-    findNearestDrivers,
-    saveRequest
+    saveRequest,
+    findNearestDrivers
 }) => {
     const [patientName, setPatientName] = useState("Victor");
     const [patientPhone, setPatientPhone] = useState("0988635032");
@@ -34,7 +34,7 @@ const FindAmbulanceTab = ({
     const [requestType, setRequestType] = useState("emergency");
     const [morbidity, setMorbidity] = useState("Tai nạn giao thông");
 
-    const handleAction = () => {
+    const handleAction = async () => {
         findNearestDrivers(pickUp.coordinates.latitude, pickUp.coordinates.longitude);
         saveRequest(
             token,

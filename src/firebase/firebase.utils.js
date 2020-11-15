@@ -19,17 +19,22 @@ export const firestore = firebase.firestore();
 const GeoFirestore = geofirestore.initializeApp(firestore);
 const geocollection = GeoFirestore.collection("drivers");
 
-// geocollection.doc("0345896985").set({
-//     coordinates: new firebase.firestore.GeoPoint(10.02566, 106.05963)
-// });
-
 export const findNearest = async (latitude, longitude) => {
+    // let results = [];
     const query = geocollection
         .near({
             center: new firebase.firestore.GeoPoint(latitude, longitude),
             radius: 200
         })
         .limit(5);
+
+    // query.onSnapshot(snapshot => {
+    //     snapshot.docs.forEach(item => {
+    //         results.push(item.id);
+    //     });
+    // });
+
+    // console.log(results.length || "NO THINGGGGGGGGGGGGGGGGGGGGGGGG");
 
     return query;
 };

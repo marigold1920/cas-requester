@@ -14,3 +14,7 @@ export const findNearestDriversFail = error => ({
     type: GeofirestoreActionTypes.FIND_NEAREST_FAIL,
     payload: error
 });
+
+export const clearDrivers = () => ({
+    type: GeofirestoreActionTypes.CLEAR_DRIVERS
+});

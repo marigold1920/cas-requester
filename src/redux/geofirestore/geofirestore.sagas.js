@@ -10,7 +10,7 @@ import GeofirestoreActionTypes from "./geofirestore.types";
 export function* findNearestDrivers({ payload: { latitude, longitude } }) {
     const query = yield call(findNearest, latitude, longitude);
     const channel = new eventChannel(emiter => {
-        const listener = query.onSnapshot(snapshot => {
+        const listener = query.get().then(snapshot => {
             emiter({ data: snapshot.docs.map(item => item.id) });
         });
 

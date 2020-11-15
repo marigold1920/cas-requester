@@ -68,7 +68,6 @@ const FindAmbulanceScreen = ({ navigation }) => {
                             setIsLoading={setIsLoading}
                             handleViewRequest={handleViewRequest}
                             navigation={navigation}
-                            // showRequest={() => navigation.navigate("RequestInfo")}
                         />
                     ) : (
                         <FindAmbulanceTab

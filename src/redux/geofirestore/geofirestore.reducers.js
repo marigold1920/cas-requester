@@ -17,6 +17,16 @@ const geofirestoreReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 error: action.payload
             };
+        case GeofirestoreActionTypes.SAVE_NEAREST_DRIVERS:
+            return {
+                ...state,
+                drivers: action.payload
+            };
+        case GeofirestoreActionTypes.CLEAR_DRIVERS:
+            return {
+                ...state,
+                drivers: []
+            };
         default:
             return state;
     }

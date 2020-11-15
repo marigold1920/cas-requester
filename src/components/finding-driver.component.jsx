@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 import { syncPoolData } from "../redux/request/request.actions";
+import { clearDrivers } from "../redux/geofirestore/geofirestore.actions";
 import { selectDrivers } from "../redux/geofirestore/geofirestore.selectors";
 import { selectRequestId } from "../redux/request/request.selectors";
 
@@ -17,7 +18,8 @@ const FindingDriver = ({
     pickUp,
     destination,
     requestId,
-    syncPoolData
+    syncPoolData,
+    clearDrivers
 }) => {
     const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestRef);
@@ -32,6 +34,7 @@ const FindingDriver = ({
                 destination.coordinates.latitude,
                 destination.coordinates.longitude
             );
+            clearDrivers();
         }
     }, [drivers, requestId]);
 
@@ -63,7 +66,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    syncPoolData: poolId => dispatch(syncPoolData(poolId))
+    syncPoolData: poolId => dispatch(syncPoolData(poolId)),
+    clearDrivers: () => dispatch(clearDrivers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindingDriver);
