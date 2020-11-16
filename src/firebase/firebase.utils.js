@@ -20,21 +20,12 @@ const GeoFirestore = geofirestore.initializeApp(firestore);
 const geocollection = GeoFirestore.collection("drivers");
 
 export const findNearest = async (latitude, longitude) => {
-    // let results = [];
     const query = geocollection
         .near({
             center: new firebase.firestore.GeoPoint(latitude, longitude),
             radius: 200
         })
         .limit(5);
-
-    // query.onSnapshot(snapshot => {
-    //     snapshot.docs.forEach(item => {
-    //         results.push(item.id);
-    //     });
-    // });
-
-    // console.log(results.length || "NO THINGGGGGGGGGGGGGGGGGGGGGGGG");
 
     return query;
 };
@@ -67,6 +58,14 @@ export const createRequest = async (
         sourceLongitude,
         destinationLatitude,
         destinationLongitude
+    });
+};
+
+export const cancelRequestFirestore = async requestId => {
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
+
+    await requestRef.update({
+        status: "cancelled"
     });
 };
 

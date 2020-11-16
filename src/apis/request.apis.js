@@ -34,3 +34,15 @@ export const feedbackRequest = (token, requestId, feedback) => {
         }
     });
 };
+
+export const cancelRequest = (token, requestId) => {
+    return api.put(
+        `/cancel/${requestId}`,
+        {},
+        {
+            headers: {
+                Authorization: token
+            }
+        }
+    );
+};

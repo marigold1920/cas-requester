@@ -30,8 +30,6 @@ const FindAmbulanceScreen = ({ navigation }) => {
         navigation.navigate("RequestInfo");
     };
 
-    const handleFinish = () => {};
-
     return (
         <BackgroundImage>
             <HeaderTileWithBackBtn
@@ -46,12 +44,7 @@ const FindAmbulanceScreen = ({ navigation }) => {
                     ]}
                 >
                     {pickUp && (
-                        <Map
-                            source={pickUp}
-                            destination={destination}
-                            isSearching={placeType}
-                            handleFinished={handleFinish}
-                        >
+                        <Map source={pickUp} destination={destination} isSearching={placeType}>
                             {placeType && (
                                 <GooglePlaceSearch
                                     onBackward={() => setPlaceType(null)}

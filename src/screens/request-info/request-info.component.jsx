@@ -1,23 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Text, Linking } from "react-native";
 import { withNavigation } from "react-navigation";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 import {
     selectCurrentRequest,
     selectDestination,
-    selectPickUp
+    selectPickUp,
+    selectRequestId
 } from "../../redux/request/request.selectors";
 import { selectToken } from "../../redux/user/user.selectors";
-import { fetchRequest } from "../../redux/request/request.actions";
-import { clearDrivers } from "../../redux/geofirestore/geofirestore.actions";
+import { clearRequest, fetchRequest } from "../../redux/request/request.actions";
+import { firestore } from "../../firebase/firebase.utils";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
 import Rating from "../../components/rating.component";
 import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
+import CancelRequestModal from "../../components/cancel-request-modal.component";
 
 import styles from "./request-info.styles";
 
@@ -28,23 +31,39 @@ const RequestInfoScreen = ({
     token,
     source,
     destination,
-    clearDrivers
+    requestId,
+    clearRequest
 }) => {
+    const [isCancelled, setIsCancelled] = useState(false);
+    const requestDocumentRef = firestore.collection("requests").doc(`${requestId}`);
+    const [request] = useDocumentData(requestDocumentRef);
+
     useEffect(() => {
         fetchRequest(token, currentRequest.requestId);
-        clearDrivers();
     }, []);
+
+    useEffect(() => {
+        if (request && request.status === "rejected") {
+            setIsCancelled(true);
+        }
+    }, [request]);
+
+    useEffect(() => {
+        request && request.status === "finished" && navigation.navigate("Feedback");
+    }, [request]);
+
+    const handleConfirmCancelledRequest = () => {
+        setIsCancelled(false);
+        clearRequest();
+        navigation.navigate("FindAmbulance");
+    };
 
     return (
         <BackgroundImage>
+            <CancelRequestModal action={handleConfirmCancelledRequest} visible={isCancelled} />
             <View style={styles.container}>
                 <HeaderTileWithBackBtn textContent="Thông tin tài xế" />
-                <Map
-                    source={source}
-                    destination={destination}
-                    isControl={true}
-                    handleFinished={() => navigation.navigate("Feedback")}
-                />
+                <Map source={source} destination={destination} isControl={true} />
                 {currentRequest && currentRequest.pickUp && (
                     <View style={styles.request__info}>
                         <View style={styles.driver__info}>
@@ -79,7 +98,7 @@ const RequestInfoScreen = ({
                         </View>
                         <View style={styles.group__action}>
                             <Text
-                                onPress={() => navigation.navigate("FindCar")}
+                                onPress={handleConfirmCancelledRequest}
                                 style={[styles.action, styles.cancel]}
                             >
                                 Hủy yêu cầu
@@ -102,12 +121,13 @@ const mapStateToProps = createStructuredSelector({
     currentRequest: selectCurrentRequest,
     token: selectToken,
     source: selectPickUp,
-    destination: selectDestination
+    destination: selectDestination,
+    requestId: selectRequestId
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId)),
-    clearDrivers: () => dispatch(clearDrivers())
+    clearRequest: () => dispatch(clearRequest())
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(RequestInfoScreen));

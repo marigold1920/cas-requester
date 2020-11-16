@@ -33,6 +33,8 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 error: action.payload
             };
         case RequestActionTypes.FEEDBACK_REQUEST_SUCCESS:
+        case RequestActionTypes.CLEAR_REQUEST:
+        case RequestActionTypes.CANCEL_REQUEST_SUCCESS:
             return {
                 ...state,
                 currentRequest: null,
@@ -49,6 +51,15 @@ const requestReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 poolId: action.payload
+            };
+        case RequestActionTypes.CANCEL_REQUEST_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+                currentRequest: null,
+                error: null,
+                pickUp: null,
+                destination: null
             };
         default:
             return state;

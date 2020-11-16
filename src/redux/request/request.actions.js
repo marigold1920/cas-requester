@@ -53,3 +53,21 @@ export const syncPoolData = poolId => ({
     type: RequestActionTypes.SYNC_POOL_DATA,
     payload: poolId
 });
+
+export const clearRequest = () => ({
+    type: RequestActionTypes.CLEAR_REQUEST
+});
+
+export const cancelRequest = (token, requestId) => ({
+    type: RequestActionTypes.CANCEL_REQUEST_START,
+    payload: { token, requestId }
+});
+
+export const cancelRequestSuccess = () => ({
+    type: RequestActionTypes.CANCEL_REQUEST_SUCCESS
+});
+
+export const cancelRequestFail = error => ({
+    type: RequestActionTypes.CANCEL_REQUEST_FAIL,
+    payload: error
+});
