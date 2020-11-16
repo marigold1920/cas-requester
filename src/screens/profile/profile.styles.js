@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     button: {
         elevation: 20,
-        paddingVertical: 8,
+        paddingVertical: 5,
         paddingHorizontal: 15,
         opacity: 0.65
     },

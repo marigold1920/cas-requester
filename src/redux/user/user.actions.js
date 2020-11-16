@@ -20,6 +20,21 @@ export const logout = () => ({
 });
 
 export const updateUser = user => ({
-    type: UserActionTypes.UPDATE_USER,
+    type: UserActionTypes.UPDATE_USER_START,
     payload: user
+});
+
+export const updateProfile = (userId, token, healthInformation) => ({
+    type: UserActionTypes.UPDATE_PROFILE_START,
+    payload: { userId, token, healthInformation }
+});
+
+export const updateProfileSuccess = healthInformation => ({
+    type: UserActionTypes.UPDATE_PROFILE_SUCCESS,
+    payload: healthInformation
+});
+
+export const updateProfileFail = error => ({
+    type: UserActionTypes.UPDATE_PROFILE_FAIL,
+    payload: error
 });
