@@ -5,19 +5,10 @@ const height = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         width: width,
-        height: height,
+        height: height * 0.9,
         position: "relative",
         alignItems: "center"
-    },
-    details: {
-        width: "100%",
-        height: "45%",
-        display: "flex",
-        flexDirection: "column",
-        marginTop: 30,
-        paddingHorizontal: 30
     },
     action: {
         position: "absolute",

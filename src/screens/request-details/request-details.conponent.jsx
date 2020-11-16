@@ -5,11 +5,12 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import { selectToken } from "../../redux/user/user.selectors";
-import api from "../../apis/api";
+import { fetchRequestDetails } from "../../apis/core.api";
 
 import DriverInfo from "../../components/driver-info.component";
 import RequestHistoryInfo from "../../components/request-history-info.component";
 import BackgroundImage from "../../components/background-screen.component";
+import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 
 import styles from "./request-details.styles";
 
@@ -18,22 +19,19 @@ const RequestDetails = ({ navigation, token }) => {
     const [request, setRequest] = useState(null);
 
     useEffect(() => {
-        api.get(`/requests/history/details/${requestId}`, {
-            headers: {
-                Authorization: token
-            }
-        }).then(response => setRequest(response.data));
-    }, []);
+        fetchRequestDetails(token, requestId).then(response => setRequest(response.data));
+    }, [token, requestId]);
 
     return (
         <BackgroundImage>
+            <HeaderTileWithBackBtn textContent="Chi tiết" onPress={() => navigation.goBack()} />
             <View style={styles.container}>
-                {request ? (
+                {request && (
                     <>
-                        <DriverInfo driver={request.driver} licensePlate={request.licensePlate} />
+                        <DriverInfo request={request} />
                         <RequestHistoryInfo request={request} />
                     </>
-                ) : null}
+                )}
             </View>
         </BackgroundImage>
     );

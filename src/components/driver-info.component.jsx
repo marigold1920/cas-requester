@@ -1,16 +1,29 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 
-const DriverInfo = ({ driver: { imageUrl, displayName, phone }, licensePlate }) => (
+const DriverInfo = ({ request: { driver, licensePlate, status } }) => (
     <View style={styles.driverInfo}>
-        <Image style={styles.background} source={require("../../assets/images/request-details-bg.png")} />
-        <View style={styles.content}>
-            <Image style={styles.image} source={{ uri: imageUrl }} />
-            <Text style={styles.name}>{displayName}</Text>
-            <Text style={styles.licensePlate}>{licensePlate}</Text>
-            <Text style={styles.phone}>{phone}</Text>
-        </View>
-        <Text style={styles.status}>Thành công</Text>
+        <Image
+            style={styles.background}
+            source={require("../../assets/images/request-details-bg.png")}
+        />
+        {driver ? (
+            <View style={styles.content}>
+                <Image style={styles.image} source={{ uri: driver.imageUrl }} />
+                <Text style={styles.name}>{driver.displayName}</Text>
+                <Text style={styles.licensePlate}>{licensePlate}</Text>
+                <Text style={styles.phone}>{driver.phone}</Text>
+            </View>
+        ) : (
+            <View style={[styles.content, { justifyContent: "center" }]}>
+                <Image
+                    style={styles.noData}
+                    source={{ uri: "https://i.ibb.co/G3KybLH/loading.png" }}
+                />
+                <Text style={styles.noDataMessage}>Không có dữ liệu của tài xế</Text>
+            </View>
+        )}
+        <Text style={styles.status}>{status}</Text>
     </View>
 );
 
@@ -18,23 +31,22 @@ export default DriverInfo;
 
 const styles = StyleSheet.create({
     driverInfo: {
-        height: "40%",
+        height: "auto",
         justifyContent: "center",
         alignItems: "center",
         position: "relative"
     },
     content: {
         width: "100%",
+        height: "100%",
         position: "absolute",
         top: 0,
         left: 0,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center"
     },
     background: {
-        flex: 1,
         borderBottomLeftRadius: 50,
         borderBottomRightRadius: 50
     },
@@ -43,6 +55,15 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 45,
         marginTop: 50
+    },
+    noData: {
+        width: 100,
+        height: 100
+    },
+    noDataMessage: {
+        fontFamily: "Texgyreadventor-regular",
+        marginTop: 10,
+        color: "#888"
     },
     name: {
         fontSize: 20,

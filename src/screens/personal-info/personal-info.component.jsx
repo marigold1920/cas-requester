@@ -2,64 +2,32 @@ import React, { useState } from "react";
 import { View, TextInput, Text } from "react-native";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+
+import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
 import { updateUser } from "../../redux/user/user.actions";
 
-import api from "../../apis/api";
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
-import aws from "../../config/awskey";
-import { RNS3 } from "react-native-aws3";
 
 import styles from "./personal-info.styles";
 
-const PersonalInfoScreen = ({ navigation, currentUser, updateUser }) => {
+const PersonalInfoScreen = ({ navigation, currentUser, token, updateUser }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
     const [displayName, setDisplayName] = useState(currentUser.displayName);
     const [phone, setPhone] = useState(currentUser.phone);
 
     const handlerUploadImage = () => {
-        const file = {
+        const image = {
             uri: linkImage,
             name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
             type: "image/png"
         };
-        console.log(file);
-        const config = {
-            bucket: aws.bucketName,
-            region: "ap-southeast-1",
-            accessKey: aws.accessKey,
-            secretKey: aws.secretKey,
-            successActionStatus: 201
-        };
-
-        RNS3.put(file, config).then(response => {
-            console.log(response);
-        });
-        api.put(
-            "/storage/update-profile-image",
-            {
-                userId: currentUser.userId,
-                displayName: displayName,
-                phone: phone,
-                imageDecodeBase64: imageDecodeBase64
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${currentUser.token}`
-                }
-            }
-
-            //Success
-        )
-            .then(response => {
-                updateUser(response.data);
-            })
-            .catch(error => console.log(error));
+        updateUser(currentUser.userId, token, { displayName, phone, image });
+        setModalVisible(true);
     };
 
     return (
@@ -116,7 +84,7 @@ const PersonalInfoScreen = ({ navigation, currentUser, updateUser }) => {
                     textContent="Lưu"
                     styleText={styles.button_text}
                     styleButton={styles.button_size}
-                    onPress={() => handlerUploadImage()}
+                    onPress={handlerUploadImage}
                 />
                 <Text style={styles.text_policy}>
                     * Các thông tin cá nhân được bảo mật theo chính sách, qui định của Nhà nước
@@ -127,11 +95,12 @@ const PersonalInfoScreen = ({ navigation, currentUser, updateUser }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    token: selectToken
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateUser: user => dispatch(updateUser(user))
+    updateUser: (userId, token, user) => dispatch(updateUser(userId, token, user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalInfoScreen);

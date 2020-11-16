@@ -3,38 +3,32 @@ import { StyleSheet, Text, Image, View } from "react-native";
 
 const Place = ({ place: { name, address, date, time }, icon, placeName }) => (
     <View style={styles.place}>
-        <View
-            style={{
-                flexDirection: "column",
-                marginRight: 5,
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Image
-                style={{ width: 25, height: 25, marginRight: 10 }}
-                source={{ uri: icon }}
-            />
+        <View style={styles.pointName}>
+            <Image style={{ width: 25, height: 25, marginRight: 10 }} source={{ uri: icon }} />
             <Text style={styles.placeName}>{placeName}</Text>
         </View>
         <View style={styles.location}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.address}>{address}</Text>
             <View style={styles.dateTime}>
-                <View style={styles.item}>
-                    <Image
-                        style={styles.icon}
-                        source={require("../../assets/icons/date-icon.png")}
-                    />
-                    <Text style={styles.value}>{date}</Text>
-                </View>
-                <View style={styles.item}>
-                    <Image
-                        style={styles.icon}
-                        source={require("../../assets/icons/time-icon.png")}
-                    />
-                    <Text style={styles.value}>{time}</Text>
-                </View>
+                {date && (
+                    <View style={styles.item}>
+                        <Image
+                            style={styles.icon}
+                            source={require("../../assets/icons/date-icon.png")}
+                        />
+                        <Text style={styles.value}>{date}</Text>
+                    </View>
+                )}
+                {time && (
+                    <View style={styles.item}>
+                        <Image
+                            style={styles.icon}
+                            source={require("../../assets/icons/time-icon.png")}
+                        />
+                        <Text style={styles.value}>{time}</Text>
+                    </View>
+                )}
             </View>
         </View>
     </View>
@@ -44,7 +38,7 @@ export default Place;
 
 const styles = StyleSheet.create({
     place: {
-        flex: 1,
+        display: "flex",
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: "#fff",
@@ -53,50 +47,57 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        marginBottom: 5,
+        marginBottom: 5
+    },
+    pointName: {
+        flexDirection: "column",
+        marginRight: 5,
+        justifyContent: "center",
+        alignItems: "center"
     },
     location: {
+        width: "82%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "center"
     },
     name: {
         fontSize: 14,
         color: "#26324A",
-        fontFamily: "Texgyreadventor-bold",
+        fontFamily: "Texgyreadventor-bold"
     },
     address: {
         fontSize: 12,
         color: "#4F5C77",
         marginBottom: 5,
-        fontFamily: "Texgyreadventor-regular",
+        fontFamily: "Texgyreadventor-regular"
     },
     dateTime: {
         width: "80%",
         flexDirection: "row",
         flexWrap: "nowrap",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "center"
     },
     item: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "center"
     },
     icon: {
         width: 30,
         height: 30,
-        borderRadius: 15,
+        borderRadius: 15
     },
     value: {
         color: "#26324A",
         fontSize: 13,
-        fontFamily: "Texgyreadventor-regular",
+        fontFamily: "Texgyreadventor-regular"
     },
     placeName: {
         marginTop: 5,
         fontSize: 12,
         color: "#4F5C77",
-        fontFamily: "Texgyreadventor-regular",
-    },
+        fontFamily: "Texgyreadventor-regular"
+    }
 });

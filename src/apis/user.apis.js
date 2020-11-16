@@ -21,3 +21,11 @@ export const updateProfile = (userId, token, healthInformation) => {
         }
     });
 };
+
+export const updateUser = (userId, token, user) => {
+    return api.put(`/storage/update-profile-image/${userId}`, user, {
+        headers: {
+            Authorization: token
+        }
+    });
+};

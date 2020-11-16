@@ -29,7 +29,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    image: action.payload.imageUrl,
+                    imageUrl: action.payload.imageUrl,
                     displayName: action.payload.displayName,
                     phone: action.payload.phone
                 }
