@@ -41,12 +41,12 @@ const FindAmbulanceTab = ({
             {
                 username,
                 pickUp: {
-                    name: pickUp.address.substring(0, destination.address.indexOf(",")),
-                    address: pickUp.address.substring(destination.address.indexOf(","))
+                    name: pickUp.name,
+                    address: pickUp.address
                 },
                 destination: {
-                    name: destination.address.substring(0, destination.address.indexOf(",")),
-                    address: destination.address.substring(destination.address.indexOf(","))
+                    name: destination.name,
+                    address: destination.address
                 },
                 patientName,
                 patientPhone,
@@ -119,9 +119,7 @@ const FindAmbulanceTab = ({
                 <FormInput
                     onFocus={() => setPlaceType("pickUp")}
                     placeholder="Điểm đón"
-                    defaultValue={
-                        pickUp && pickUp.address.substring(0, pickUp.address.indexOf(","))
-                    }
+                    defaultValue={pickUp && pickUp.name}
                     icon="https://i.ibb.co/D8HPk12/placeholder.png"
                 />
                 {requestType === "emergency" && (
@@ -139,10 +137,7 @@ const FindAmbulanceTab = ({
                 <FormInput
                     onFocus={() => setPlaceType("destination")}
                     placeholder="Điểm cần đến"
-                    defaultValue={
-                        destination &&
-                        destination.address.substring(0, destination.address.indexOf(","))
-                    }
+                    defaultValue={destination && destination.name}
                     icon="https://i.ibb.co/gWdQ69d/radar.png"
                 />
                 {isOthers && (
