@@ -32,7 +32,7 @@ export const findNearest = async (latitude, longitude) => {
 
 export const fillRequest = async (drivers, requestId) => {
     const batch = firestore.batch();
-    const collectionDriverRef = firestore.collection("drivers");
+    const collectionDriverRef = firestore.collection("confirmations");
 
     drivers.forEach(driver => {
         const documentRef = collectionDriverRef.doc(driver);
