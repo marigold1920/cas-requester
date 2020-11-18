@@ -66,6 +66,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#fff",
         bottom: 10
+    },
+    textError:{
+        color:'red',
+        fontSize:10,
+        textAlign:'left'
     }
 });
 

@@ -15,6 +15,7 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import CustomInputLabel from "../../components/custom-input-label.component";
 
 import styles from "./profile.styles";
+import { bool } from "yup";
 
 const ProfileScreen = ({
     navigation,
@@ -35,6 +36,7 @@ const ProfileScreen = ({
     const [others, setOthers] = useState((profile && profile.others) || "");
 
     const handleUpdate = () => {
+       
         updateProfile(userId, token, {
             gender,
             age,
@@ -46,6 +48,64 @@ const ProfileScreen = ({
         });
         setModalVisible(true);
     };
+
+    var errAge = '';
+    var errMorbidity='';
+    var errBloodPressure='';
+
+    const disableButton=()=>{
+        console.log(errAge + " " + errMorbidity  + " "+ errBloodPressure );
+        if(errAge.trim()!='' || errMorbidity.trim()!='' || errBloodPressure.trim()!=''){ 
+            return true;
+        }
+        return false;
+    }
+
+    const validateAge=(age)=>{
+        errAge = '';
+        var valid = false;
+        if(age.trim()==''){
+            errAge='Tuổi không được để trông';
+        }
+        else if(isNaN(age) || age<=0 || age>300 || !Number.isInteger(parseFloat(age)) ){
+            errAge='Tuổi không hợp lệ';
+        }
+        else{
+            valid = true;
+            errAge = '';
+        }
+        return valid;
+    }
+
+    const validateBloodPressure=(bloodPressure)=>{
+        errBloodPressure='';
+        var valid = false;
+        var regexBloodPressure = new RegExp("^(29[0-9]|2[0-9][0-9]|[01]?[0-9][0-9]?)/(29[0-9]|2[0-9][0-9]|[01]?[0-9][0-9]?)$");
+        if(bloodPressure.trim()==''){
+          valid=true;
+        }
+        else if(!regexBloodPressure.test(bloodPressure)){
+            errBloodPressure='Huyết áp không hợp lệ';
+        }
+        else{
+            valid= true;
+            errBloodPressure='';
+        }
+        return valid;
+    }
+
+    const validateMorbidity=(morbidity)=>{
+        errMorbidity='';
+        var valid = true;
+        if(morbidity.trim()==''){
+            errMorbidity='Tình trạng hiện nay không được để trống';
+            valid = false;
+        }
+        else{
+            errMorbidity='';
+        }
+        return valid;
+    }
 
     return (
         <BackgroundImage>
@@ -87,24 +147,29 @@ const ProfileScreen = ({
                         label="Tuổi"
                         placeholder="64"
                         defaultValue={age}
-                        onChangeText={value => setAge(value)}
+                        onChangeText ={(value)=>{setAge(value) ; validateAge(value)}}
                         keyboardType="numeric"
                         isRequire
                     />
+                    {!validateAge(age) ?  <View><Text style={styles.textError}>{errAge}</Text></View>  : null}
+                        
                     <CustomInputLabel
                         label="Huyết áp"
                         defaultValue={bloodPressure}
-                        onChangeText={value => setBloodPressure(value)}
+                        onChangeText={(value) => {setBloodPressure(value); validateBloodPressure(value) }}
                         placeholder="135/80"
                     />
+                    {!validateBloodPressure(bloodPressure) ? <Text style={styles.textError}>{errBloodPressure}</Text> : null}
                     <CustomInputLabel
                         label="Tình trạng hiện nay"
                         defaultValue={morbidity}
-                        onChangeText={value => setMorbidity(value)}
+                        onChangeText={(value) => {setMorbidity(value) ; validateMorbidity(value) }} 
                         isRequire
                         multiline={true}
                         numberOfLines={4}
                     />
+                    {!validateMorbidity(morbidity) ?   <Text style={styles.textError}>{errMorbidity}</Text> : null}
+
                     <View style={styles.group}>
                         <Text style={styles.label}>Tiền sử bệnh</Text>
                     </View>
@@ -115,6 +180,7 @@ const ProfileScreen = ({
                         labelStyle={{ fontFamily: "Texgyreadventor-regular", color: "#787881" }}
                         itemStyle={{ marginVertical: 2 }}
                         searchable={true}
+                        multipleText=" Đã chọn %d mục"
                         searchablePlaceholder={"Tìm kiếm"}
                         searchableStyle={{
                             fontFamily: "Texgyreadventor-regular",
@@ -158,8 +224,12 @@ const ProfileScreen = ({
             <ButtonText
                 textContent="Cập nhật"
                 styleButton={styles.button}
-                styleText={styles.button_text}
-                onPress={handleUpdate}
+                styleText={styles.button_text}      
+                onPress={()=>{ 
+                    if(!disableButton()){
+                        handleUpdate();
+                    }
+                }}
             />
         </BackgroundImage>
     );
