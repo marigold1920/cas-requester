@@ -2,6 +2,8 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 
 import RequestActionTypes from "./request.types";
 import {
+    cancelRequestFail,
+    cancelRequestSuccess,
     feedbackRequestFail,
     feedbackRequestSuccess,
     fetchRequestFail,
@@ -9,7 +11,7 @@ import {
     saveRequestFail,
     saveRequestSuccess
 } from "./request.actions";
-import { feedbackRequest, fetchRequest, saveRequest } from "../../apis/request.apis";
+import { cancelRequest, feedbackRequest, fetchRequest, saveRequest } from "../../apis/request.apis";
 
 function* saveRequestStart({ payload: { token, request, pickUp, destination } }) {
     try {
@@ -46,6 +48,15 @@ function* feedbackRequestStart({ payload: { token, requestId, feedback } }) {
     }
 }
 
+function* cancelRequestStart({ payload: { token, requestId } }) {
+    try {
+        yield call(cancelRequest, token, requestId);
+        yield put(cancelRequestSuccess());
+    } catch (error) {
+        yield put(cancelRequestFail(error));
+    }
+}
+
 export function* onSaveRequest() {
     yield takeLatest(RequestActionTypes.SAVE_REQUEST_START, saveRequestStart);
 }
@@ -58,6 +69,15 @@ export function* onFeedbackRequest() {
     yield takeLatest(RequestActionTypes.FEEDBACK_REQUEST_START, feedbackRequestStart);
 }
 
+export function* onCancelRequest() {
+    yield takeLatest(RequestActionTypes.CANCEL_REQUEST_START, cancelRequestStart);
+}
+
 export default function* requestSagas() {
-    yield all([call(onSaveRequest), call(onFetchRequest), call(onFeedbackRequest)]);
+    yield all([
+        call(onSaveRequest),
+        call(onFetchRequest),
+        call(onFeedbackRequest),
+        call(onCancelRequest)
+    ]);
 }

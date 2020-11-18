@@ -3,8 +3,8 @@ import { View, FlatList } from "react-native";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import api from "../../apis/api";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { fetchHistories } from "../../apis/core.api";
+import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
 
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
@@ -13,16 +13,12 @@ import CustomRowHistory from "../../components/history-custom-row.component";
 
 import styles from "./history.styles";
 
-const HistoryScreen = ({ navigation, currentUser }) => {
-    const [history, setHistory] = useState([]);
+const HistoryScreen = ({ navigation, currentUser, token }) => {
+    const [histories, setHistories] = useState([]);
 
     useEffect(() => {
-        api.get(`/requests/history/${currentUser.userId}?pageIndex=0`, {
-            headers: {
-                Authorization: `Bearer ${currentUser.token}`
-            }
-        }).then(response => setHistory(response.data));
-    }, []);
+        fetchHistories(token, currentUser.userId).then(res => setHistories(res.data));
+    }, [token]);
 
     return (
         <View style={styles.container}>
@@ -31,7 +27,7 @@ const HistoryScreen = ({ navigation, currentUser }) => {
                     textContent="Lịch sử"
                     onPress={() => navigation.navigate("Home")}
                 />
-                <CustomListview itemList={history} />
+                <CustomListview itemList={histories} />
                 <View style={styles.container_button}>
                     <ButtonText
                         textContent="Tìm xe"
@@ -57,7 +53,8 @@ const CustomListview = ({ itemList }) => (
 );
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    token: selectToken
 });
 
 export default connect(mapStateToProps)(HistoryScreen);

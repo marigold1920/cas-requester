@@ -66,14 +66,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        marginBottom: 20
+        marginBottom: 10
     },
     container_infor: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        backgroundColor: "#fff",
+        borderRadius: 10
     },
     header: {
         display: "flex",
@@ -94,17 +96,15 @@ const styles = StyleSheet.create({
     container_detail: {
         flex: 1,
         flexDirection: "column",
-        marginLeft: 12,
+        marginLeft: 5,
         justifyContent: "center",
         backgroundColor: "white",
         opacity: 1,
         borderRadius: 15,
-        paddingRight: 8,
-        paddingLeft: 8,
-        paddingTop: 5
+        paddingHorizontal: 5,
+        paddingTop: 10
     },
     title: {
-        fontSize: 16,
         fontFamily: "Texgyreadventor-bold",
         color: "#26324A",
         marginBottom: 2
@@ -115,9 +115,9 @@ const styles = StyleSheet.create({
         fontFamily: "Texgyreadventor-regular"
     },
     image: {
-        height: 80,
-        width: 80,
-        borderRadius: 15
+        height: 70,
+        width: 70,
+        borderRadius: 35
     },
     container_date_time: {
         flex: 1,
@@ -127,10 +127,12 @@ const styles = StyleSheet.create({
     date: {
         fontFamily: "Texgyreadventor-regular",
         width: 120,
-        marginRight: 10
+        marginRight: 10,
+        fontSize: 12
     },
     time: {
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 12
     },
     container_detail_feedback: {
         flex: 1,
@@ -138,11 +140,11 @@ const styles = StyleSheet.create({
     },
     detail_feedback_button: {
         marginRight: 20,
-        paddingVertical: 3,
+        paddingVertical: 2,
         paddingHorizontal: 5
     },
     detail_feedback_text: {
-        fontSize: 15,
+        fontSize: 13,
         color: "#26324A"
     }
 });

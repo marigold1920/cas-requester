@@ -4,12 +4,18 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
-import { syncPoolData } from "../redux/request/request.actions";
+import { cancelRequest, syncPoolData } from "../redux/request/request.actions";
 import { clearDrivers } from "../redux/geofirestore/geofirestore.actions";
 import { selectDrivers } from "../redux/geofirestore/geofirestore.selectors";
 import { selectRequestId } from "../redux/request/request.selectors";
+import { selectToken } from "../redux/user/user.selectors";
 
-import { createRequest, fillRequest, firestore } from "../firebase/firebase.utils";
+import {
+    cancelRequestFirestore,
+    createRequest,
+    fillRequest,
+    firestore
+} from "../firebase/firebase.utils";
 
 const FindingDriver = ({
     navigation,
@@ -18,8 +24,10 @@ const FindingDriver = ({
     pickUp,
     destination,
     requestId,
+    token,
     syncPoolData,
-    clearDrivers
+    clearDrivers,
+    cancelRequest
 }) => {
     const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestRef);
@@ -38,9 +46,16 @@ const FindingDriver = ({
         }
     }, [drivers, requestId]);
 
+    const handleCancelRequest = () => {
+        cancelRequestFirestore(requestId);
+        cancelRequest(token, requestId);
+        setIsLoading(false);
+    };
+
     useEffect(() => {
         if (request && request.status === "accepted") {
             syncPoolData(request.poolId);
+            setIsLoading(false);
             navigation.navigate("RequestInfo");
         }
     }, [request]);
@@ -53,7 +68,7 @@ const FindingDriver = ({
                 style={styles.loading__icon}
             />
             <Text style={styles.time__counter}>4:59</Text>
-            <Text onPress={() => setIsLoading(false)} style={styles.action}>
+            <Text onPress={handleCancelRequest} style={styles.action}>
                 Hủy yêu cầu
             </Text>
         </View>
@@ -62,12 +77,14 @@ const FindingDriver = ({
 
 const mapStateToProps = createStructuredSelector({
     drivers: selectDrivers,
-    requestId: selectRequestId
+    requestId: selectRequestId,
+    token: selectToken
 });
 
 const mapDispatchToProps = dispatch => ({
     syncPoolData: poolId => dispatch(syncPoolData(poolId)),
-    clearDrivers: () => dispatch(clearDrivers())
+    clearDrivers: () => dispatch(clearDrivers()),
+    cancelRequest: (token, requestId) => dispatch(cancelRequest(token, requestId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindingDriver);

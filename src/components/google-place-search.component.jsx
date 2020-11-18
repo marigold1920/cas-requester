@@ -19,7 +19,8 @@ const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
                 placeholder="Tìm kiếm địa điểm?"
                 onPress={(data, details) => {
                     setValue({
-                        address: data.description,
+                        name: data.structured_formatting.main_text,
+                        address: data.structured_formatting.secondary_text,
                         coordinates: {
                             latitude: details.geometry.location.lat || null,
                             longitude: details.geometry.location.lng || null

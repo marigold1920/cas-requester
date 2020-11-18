@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import Geocoder from "react-native-geocoding";
 
 import styles from "./find-ambulance.styles";
 
@@ -9,6 +10,8 @@ import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
 import FindingDriver from "../../components/finding-driver.component";
 import GooglePlaceSearch from "../../components/google-place-search.component";
+
+Geocoder.init("AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8", { language: "vi" });
 
 const FindAmbulanceScreen = ({ navigation }) => {
     const [isOthers, setIsOthers] = useState(false);
@@ -22,15 +25,19 @@ const FindAmbulanceScreen = ({ navigation }) => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(async position => {
             let { latitude, longitude } = position.coords;
-            setPickUp({ address: "Vị trí hiện tại,", coordinates: { latitude, longitude } });
+            Geocoder.from(latitude, longitude).then(json =>
+                setPickUp({
+                    name: json.results[0].address_components[0].long_name,
+                    address: json.results[0].formatted_address,
+                    coordinates: { latitude, longitude }
+                })
+            );
         });
     }, []);
 
     const handleViewRequest = () => {
         navigation.navigate("RequestInfo");
     };
-
-    const handleFinish = () => {};
 
     return (
         <BackgroundImage>
@@ -46,12 +53,7 @@ const FindAmbulanceScreen = ({ navigation }) => {
                     ]}
                 >
                     {pickUp && (
-                        <Map
-                            source={pickUp}
-                            destination={destination}
-                            isSearching={placeType}
-                            handleFinished={handleFinish}
-                        >
+                        <Map source={pickUp} destination={destination} isSearching={placeType}>
                             {placeType && (
                                 <GooglePlaceSearch
                                     onBackward={() => setPlaceType(null)}

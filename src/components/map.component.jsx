@@ -11,16 +11,7 @@ import { selectRequestId, selectPoolId } from "../redux/request/request.selector
 import MapDirection from "./map-direction.component";
 import { deviceRevolution } from "./constant.unit";
 
-const Map = ({
-    handleFinished,
-    source,
-    isSearching,
-    children,
-    destination,
-    isControl,
-    requestId,
-    poolId
-}) => {
+const Map = ({ source, isSearching, children, destination, isControl, poolId }) => {
     const mapRef = useRef(null);
     const [region, setRegion] = useState({
         latitude: 10.16494,
@@ -28,9 +19,7 @@ const Map = ({
         latitudeDelta: 0.0343,
         longitudeDelta: 0.0134
     });
-    const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const driverPositionRef = firestore.collection("drivers").doc(`${poolId}`);
-    const [request] = useDocumentData(requestRef);
     const [driverPosition] = useDocumentData(driverPositionRef);
     const [ownPosition, setOwnPosition] = useState({
         latitude: 10.16494,
@@ -40,10 +29,6 @@ const Map = ({
         latitude: 10.16494,
         longitude: 106.61501
     });
-
-    useEffect(() => {
-        request && request.status === "finished" && handleFinished();
-    }, [request]);
 
     useEffect(() => {
         if (driverPosition && driverPosition.latitude) {

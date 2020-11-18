@@ -2,11 +2,21 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Rating from "./rating.component";
 
-const FeedbackShow = ({ title, content, ...otherProps }) => (
+const FeedbackShow = ({ title, content, secondTitle, secondContent, ...otherProps }) => (
     <View style={styles.feedback}>
-        <Text style={styles.header}>{title}</Text>
-        <Rating {...otherProps} />
-        <Text style={styles.feedbackContent}>{content}</Text>
+        {content && (
+            <>
+                <Text style={styles.header}>{title}</Text>
+                <Rating {...otherProps} />
+                <Text style={styles.feedbackContent}>{content}</Text>
+            </>
+        )}
+        {secondContent && (
+            <>
+                <Text style={styles.header}>{secondTitle}</Text>
+                <Text style={styles.feedbackContent}>{secondContent}</Text>
+            </>
+        )}
     </View>
 );
 

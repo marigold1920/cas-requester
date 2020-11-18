@@ -20,7 +20,6 @@ const GeoFirestore = geofirestore.initializeApp(firestore);
 const geocollection = GeoFirestore.collection("drivers");
 
 export const findNearest = async (latitude, longitude) => {
-    // let results = [];
     const query = geocollection
         .near({
             center: new firebase.firestore.GeoPoint(latitude, longitude),
@@ -28,20 +27,12 @@ export const findNearest = async (latitude, longitude) => {
         })
         .limit(5);
 
-    // query.onSnapshot(snapshot => {
-    //     snapshot.docs.forEach(item => {
-    //         results.push(item.id);
-    //     });
-    // });
-
-    // console.log(results.length || "NO THINGGGGGGGGGGGGGGGGGGGGGGGG");
-
     return query;
 };
 
 export const fillRequest = async (drivers, requestId) => {
     const batch = firestore.batch();
-    const collectionDriverRef = firestore.collection("drivers");
+    const collectionDriverRef = firestore.collection("confirmations");
 
     drivers.forEach(driver => {
         const documentRef = collectionDriverRef.doc(driver);
@@ -67,6 +58,14 @@ export const createRequest = async (
         sourceLongitude,
         destinationLatitude,
         destinationLongitude
+    });
+};
+
+export const cancelRequestFirestore = async requestId => {
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
+
+    await requestRef.update({
+        status: "cancelled"
     });
 };
 

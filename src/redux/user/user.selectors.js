@@ -7,3 +7,5 @@ export const selectCurrentUser = createSelector([selectUser], user => user.curre
 export const selectToken = createSelector([selectCurrentUser], user => "Bearer " + user.token);
 
 export const selectUsername = createSelector([selectCurrentUser], user => user.username);
+
+export const selectProfile = createSelector([selectUser], user => user.healthInformation);

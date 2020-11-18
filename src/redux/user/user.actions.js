@@ -19,7 +19,32 @@ export const logout = () => ({
     type: UserActionTypes.LOGOUT
 });
 
-export const updateUser = user => ({
-    type: UserActionTypes.UPDATE_USER,
+export const updateUser = (userId, token, user) => ({
+    type: UserActionTypes.UPDATE_USER_START,
+    payload: { userId, token, user }
+});
+
+export const updateUserSuccess = user => ({
+    type: UserActionTypes.UPDATE_USER_SUCCESS,
     payload: user
+});
+
+export const updateUserFail = error => ({
+    type: UserActionTypes.UPDATE_USER_FAIL,
+    payload: error
+});
+
+export const updateProfile = (userId, token, healthInformation) => ({
+    type: UserActionTypes.UPDATE_PROFILE_START,
+    payload: { userId, token, healthInformation }
+});
+
+export const updateProfileSuccess = healthInformation => ({
+    type: UserActionTypes.UPDATE_PROFILE_SUCCESS,
+    payload: healthInformation
+});
+
+export const updateProfileFail = error => ({
+    type: UserActionTypes.UPDATE_PROFILE_FAIL,
+    payload: error
 });

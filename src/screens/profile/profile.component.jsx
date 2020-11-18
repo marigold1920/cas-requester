@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { selectCurrentUser, selectProfile, selectToken } from "../../redux/user/user.selectors";
+import { updateProfile } from "../../redux/user/user.actions";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -11,23 +16,36 @@ import CustomInputLabel from "../../components/custom-input-label.component";
 
 import styles from "./profile.styles";
 
-import { createStructuredSelector } from "reselect";
-import { connect } from "react-redux";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
-
-const ProfileScreen = ({ navigation, currentUser }) => {
+const ProfileScreen = ({
+    navigation,
+    currentUser: { userId, displayName, imageUrl },
+    profile,
+    token,
+    updateProfile
+}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [morbidity, setMorbidity] = useState("");
-    const [gender, setGender] = useState("Nam");
-    const [age, setAge] = useState(0);
-    const [bloodPressure, setBloodPressure] = useState("");
-    const [medicalHistories, setMedicalHistories] = useState([]);
-    const [allergy, setAllergy] = useState("");
-    const [others, setOthers] = useState("");
+    const [morbidity, setMorbidity] = useState((profile && profile.morbidity) || "");
+    const [gender, setGender] = useState((profile && profile.gender) || "Nam");
+    const [age, setAge] = useState((profile && profile.age) || "0");
+    const [bloodPressure, setBloodPressure] = useState((profile && profile.bloodPressure) || "");
+    const [medicalHistories, setMedicalHistories] = useState(
+        (profile && profile.medicalHistories && profile.medicalHistories.split(", ")) || []
+    );
+    const [allergy, setAllergy] = useState((profile && profile.allergy) || "");
+    const [others, setOthers] = useState((profile && profile.others) || "");
 
-    const { displayName, imageUrl, healthInformation } = currentUser;
-
-    const handleUpdate = () => {};
+    const handleUpdate = () => {
+        updateProfile(userId, token, {
+            gender,
+            age,
+            bloodPressure,
+            morbidity,
+            medicalHistories: medicalHistories.join(", "),
+            allergy,
+            others
+        });
+        setModalVisible(true);
+    };
 
     return (
         <BackgroundImage>
@@ -37,7 +55,6 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                     <Text
                         onPress={() => {
                             setModalVisible(false);
-                            navigation.navigate("Home");
                         }}
                         style={styles.action}
                     >
@@ -47,7 +64,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
             </View>
             <HeaderTileWithBackBtn
                 textContent="Hồ sơ sức khỏe"
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.goBack()}
             />
             <AvatarNameCol linkImage={imageUrl} textContent={displayName} />
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
@@ -63,25 +80,26 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                             { label: "Nữ", value: "Nữ" },
                             { label: "Khác", value: "Khác" }
                         ]}
-                        defaultValue={(healthInformation && healthInformation.gender) || gender}
+                        defaultValue={gender}
                         onChangeItem={item => setGender(item.value)}
                     />
                     <CustomInputLabel
                         label="Tuổi"
                         placeholder="64"
-                        defaultValue={healthInformation && healthInformation.age}
+                        defaultValue={age}
                         onChangeText={value => setAge(value)}
+                        keyboardType="numeric"
                         isRequire
                     />
                     <CustomInputLabel
                         label="Huyết áp"
-                        defaultValue={healthInformation && healthInformation.bloodPressure}
+                        defaultValue={bloodPressure}
                         onChangeText={value => setBloodPressure(value)}
                         placeholder="135/80"
                     />
                     <CustomInputLabel
                         label="Tình trạng hiện nay"
-                        defaultValue={healthInformation && healthInformation.morbidity}
+                        defaultValue={morbidity}
                         onChangeText={value => setMorbidity(value)}
                         isRequire
                         multiline={true}
@@ -92,10 +110,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                     </View>
                     <DropDownPicker
                         placeholder="Bệnh đã từng mắc"
-                        defaultValue={
-                            (healthInformation && [healthInformation.medicalHistories]) ||
-                            medicalHistories
-                        }
+                        defaultValue={medicalHistories}
                         containerStyle={{ width: "90%", marginVertical: 5 }}
                         labelStyle={{ fontFamily: "Texgyreadventor-regular", color: "#787881" }}
                         itemStyle={{ marginVertical: 2 }}
@@ -124,7 +139,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                         onChangeItem={item => setMedicalHistories(item)}
                     />
                     <CustomInputLabel
-                        defaultValue={healthInformation && healthInformation.allergy}
+                        defaultValue={allergy}
                         onChangeText={value => setAllergy(value)}
                         label="Dược tính gây mẫn cảm, dị ứng"
                         placeholder="carbamazepine, phenobarbital và phenytoin"
@@ -132,7 +147,7 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                         numberOfLines={4}
                     />
                     <CustomInputLabel
-                        defaultValue={healthInformation && healthInformation.others}
+                        defaultValue={others}
                         onChangeText={value => setOthers(value)}
                         label="Vấn đề khác"
                         multiline={true}
@@ -144,14 +159,21 @@ const ProfileScreen = ({ navigation, currentUser }) => {
                 textContent="Cập nhật"
                 styleButton={styles.button}
                 styleText={styles.button_text}
-                onPress={() => setModalVisible(true)}
+                onPress={handleUpdate}
             />
         </BackgroundImage>
     );
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
+    profile: selectProfile,
+    token: selectToken
 });
 
-export default connect(mapStateToProps)(ProfileScreen);
+const mapDispatchToProps = dispatch => ({
+    updateProfile: (userId, token, healthInformation) =>
+        dispatch(updateProfile(userId, token, healthInformation))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
