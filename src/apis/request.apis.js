@@ -3,6 +3,7 @@ import axios from "axios";
 export const api = axios.create({
     baseURL:
         "http://caselastic-env-1.eba-rh86ed2y.ap-southeast-1.elasticbeanstalk.com/api/requester/requests"
+    // baseURL: "http://192.168.1.170:5000/api/requester/requests"
 });
 
 export const saveRequest = (token, request) => {
