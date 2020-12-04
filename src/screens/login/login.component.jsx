@@ -16,7 +16,7 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./login.styles";
 
 const LoginScreen = ({ navigation, currentUser, signIn }) => {
-    const [username, setUsername] = useState("0988635032");
+    const [username, setUsername] = useState("0359680538");
     const [password, setPassword] = useState("123");
 
     useEffect(() => {

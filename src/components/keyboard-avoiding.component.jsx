@@ -14,7 +14,7 @@ export default KeyboardAvoiding;
 
 const styles = StyleSheet.create({
     keyboardContainer: {
-        display: "flex",
+        flex: 1,
         width: "100%",
         flexDirection: "column",
         justifyContent: "center",

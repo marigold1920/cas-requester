@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { View } from "react-native";
 
@@ -12,6 +12,11 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import styles from "./reset-password.styles";
 
 const ResetPassScreen = ({ navigation }) => {
+
+    const [username, setUsername] = useState("+84359680538");
+    const [password, setPassword] = useState("3333");
+    const [confirmPassword, setConfirmPassword] = useState("3333");
+
     return (
         <BackgroundLogin>
             <KeyboardAvoiding style={styles.container}>
@@ -19,13 +24,22 @@ const ResetPassScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    <TextInputIcon placeholder="Số điện thoại" />
-                    <TextInputIcon placeholder="Mật khẩu" />
-                    <TextInputIcon placeholder="Xác nhận mật khẩu" />
+                    <TextInputIcon
+                        onChangeText={value => setUsername(value)} 
+                        placeholder="Số điện thoại" 
+                        defaultValue={username}/>
+                    <TextInputIcon 
+                        onChangeText={value => setPassword(value)}
+                        placeholder="Mật khẩu" 
+                        defaultValue={password}/>
+                    <TextInputIcon 
+                        onChangeText={value => setConfirmPassword(value)}
+                        placeholder="Xác nhận mật khẩu" 
+                        defaultValue={confirmPassword}/>
                     <ButtonText
                         styleButton={{ paddingVertical: 5 }}
                         textContent="Gửi mã OTP"
-                        onPress={() => navigation.navigate("Otp")}
+                        onPress={() => navigation.navigate("Otp2")}
                     />
                     <TextLinking
                         contentText="Chưa có tài khoản?"

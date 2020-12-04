@@ -17,7 +17,7 @@ import RequestInfoScreen from "./src/screens/request-info/request-info.component
 import RequestDetails from "./src/screens/request-details/request-details.conponent";
 import FeedbackScreen from "./src/screens/feedback/feedback.component";
 import PersonalInfoScreen from "./src/screens/personal-info/personal-info.component";
-import OtpScreen from "./src/screens/otp/otp.component";
+import OtpScreen from "./src/screens/otp2/otp.component";
 
 import ResetPassScreen from "./src/screens/reset-password/reset-password.component";
 
@@ -33,7 +33,7 @@ const MainNavigator = createStackNavigator(
         RequestDetails: RequestDetails,
         Feedback: FeedbackScreen,
         PersonalInfo: PersonalInfoScreen,
-        Otp: OtpScreen,
+        Otp2: OtpScreen,
         ResetPass: ResetPassScreen
     },
     {
