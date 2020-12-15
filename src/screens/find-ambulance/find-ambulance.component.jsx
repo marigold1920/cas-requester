@@ -14,7 +14,6 @@ import GooglePlaceSearch from "../../components/google-place-search.component";
 Geocoder.init("AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8", { language: "vi" });
 
 const FindAmbulanceScreen = ({ navigation }) => {
-    const [isOthers, setIsOthers] = useState(false);
     const [isFocus, setIsFocus] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -73,8 +72,6 @@ const FindAmbulanceScreen = ({ navigation }) => {
                         />
                     ) : (
                         <FindAmbulanceTab
-                            isOthers={isOthers}
-                            setIsOthers={setIsOthers}
                             setIsLoading={setIsLoading}
                             setIsFocus={setIsFocus}
                             pickUp={pickUp}

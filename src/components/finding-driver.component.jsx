@@ -59,7 +59,6 @@ const FindingDriver = ({
             navigation.navigate("RequestInfo");
         }
     }, [request]);
-
     return (
         <View style={styles.loading}>
             <Text style={styles.message}>Đang tìm tài xế phù hợp cho bạn...</Text>

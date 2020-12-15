@@ -8,7 +8,7 @@ import { createStructuredSelector } from "reselect";
 
 import { findNearestDrivers } from "../redux/geofirestore/geofirestore.actions";
 import { saveRequest } from "../redux/request/request.actions";
-import { selectToken, selectUsername } from "../redux/user/user.selectors";
+import { selectProfile, selectToken, selectUsername } from "../redux/user/user.selectors";
 
 import BookingHeaderItem from "./booking-header-item.component";
 import FormInput from "./form-input.component";
@@ -16,8 +16,6 @@ import CustomOption from "./option.component";
 import KeyboardAvoiding from "./keyboard-avoiding.component";
 
 const FindAmbulanceTab = ({
-    isOthers,
-    setIsOthers,
     setIsLoading,
     setPlaceType,
     setIsFocus,
@@ -25,14 +23,16 @@ const FindAmbulanceTab = ({
     destination,
     token,
     username,
+    profile,
     saveRequest,
     findNearestDrivers
 }) => {
-    const [patientName, setPatientName] = useState("Victor");
-    const [patientPhone, setPatientPhone] = useState("0988635032");
-    const [note, setNote] = useState("Cần dụng cụ sơ cứu tại chỗ");
+    const [isOthers, setIsOthers] = useState(false);
+    const [patientName, setPatientName] = useState(null);
+    const [patientPhone, setPatientPhone] = useState(null);
+    const [morbidityNote, setMorbidityNote] = useState(null);
     const [requestType, setRequestType] = useState("emergency");
-    const [morbidity, setMorbidity] = useState("Tai nạn giao thông");
+    const [morbidity, setMorbidity] = useState(null);
 
     const handleAction = async () => {
         findNearestDrivers(pickUp.coordinates.latitude, pickUp.coordinates.longitude);
@@ -51,12 +51,30 @@ const FindAmbulanceTab = ({
                 patientName,
                 patientPhone,
                 morbidity,
-                note
+                morbidityNote,
+                isEmergency: requestType === "emergency",
+                isOthers,
+                healthInformation: !isOthers ? parseProfileToString() : null
             },
             pickUp,
             destination
         );
         setIsLoading(true);
+    };
+
+    const parseProfileToString = () => {
+        if (!profile) return null;
+
+        let result = "";
+        result += profile.gender && `Giới tính: ${profile.gender}`;
+        result += profile.age && `, tuổi: ${profile.age}`;
+        result += profile.bloodPressure && `, huyết áp: ${profile.bloodPressure}.`;
+        result += profile.morbidity && ` Tình trạng hiện nay: ${profile.bloodPressure}`;
+        result += profile.medicalHistories && `, Tiền sử bệnh: ${profile.medicalHistories}.`;
+        result += profile.allergy && ` Dị ứng: ${profile.allergy}.`;
+        result += profile.others && ` ${profile.others}`;
+
+        return result;
     };
 
     const statusItems = [
@@ -109,7 +127,10 @@ const FindAmbulanceTab = ({
                 <View style={styles.requestType}>
                     <RadioButton.Group
                         value={requestType}
-                        onValueChange={value => setRequestType(value)}
+                        onValueChange={value => {
+                            setRequestType(value);
+                            value === "home" && setMorbidity(null);
+                        }}
                     >
                         {options.map(({ itemId, ...otherProps }) => (
                             <CustomOption key={itemId} {...otherProps} />
@@ -169,8 +190,8 @@ const FindAmbulanceTab = ({
                     onBlur={() => setIsFocus(false)}
                     placeholder="Ghi chú"
                     numberOfLines={2}
-                    defaultValue={note}
-                    onChangeText={value => setNote(value)}
+                    defaultValue={morbidityNote}
+                    onChangeText={value => setMorbidityNote(value)}
                 />
             </KeyboardAvoiding>
             <Text onPress={handleAction} style={styles.action}>
@@ -182,7 +203,8 @@ const FindAmbulanceTab = ({
 
 const mapStateToProps = createStructuredSelector({
     token: selectToken,
-    username: selectUsername
+    username: selectUsername,
+    profile: selectProfile
 });
 
 const mapDispatchToProps = dispatch => ({
