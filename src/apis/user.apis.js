@@ -8,7 +8,7 @@ export const api = axios.create({
 });
 
 export const login = (username, password) => {
-    return api.post("/users/login", {
+    return api.post("/users/login_requester", {
         username,
         password
     });
