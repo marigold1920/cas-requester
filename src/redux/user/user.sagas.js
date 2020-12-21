@@ -2,6 +2,7 @@ import { put, all, call, takeLatest } from "redux-saga/effects";
 
 import { uploadImageToS3 } from "../../apis/core.api";
 import { login, updateProfile, updateUser } from "../../apis/user.apis";
+import { updateStatusCode } from "../message/message.action";
 import {
     signInFail,
     signInSuccess,
@@ -20,6 +21,7 @@ function* signInStart({ payload: { username, password } }) {
         yield put(signInSuccess(response.data));
     } catch (error) {
         yield put(signInFail(error));
+        yield put(updateStatusCode(401));
     }
 }
 
@@ -28,8 +30,10 @@ function* updateProfileStart({ payload: { userId, token, healthInformation } }) 
         const response = yield call(updateProfile, userId, token, healthInformation);
 
         yield put(updateProfileSuccess(response.data));
+        yield put(updateStatusCode(203));
     } catch (error) {
         yield put(updateProfileFail(error));
+        yield put(updateStatusCode(403));
     }
 }
 
@@ -40,8 +44,10 @@ function* updateUserStart({ payload: { userId, token, user } }) {
         const response = yield call(updateUser, userId, token, _user);
 
         yield put(updateUserSuccess(response.data));
+        yield put(updateStatusCode(202));
     } catch (error) {
         yield put(updateUserFail(error));
+        yield put(updateStatusCode(402));
     }
 }
 

@@ -1,13 +1,13 @@
 import GeofirestoreActionTypes from "./geofirestore.types";
 
-export const findNearestDrivers = coordinates => ({
+export const findNearestDrivers = (latitude, longitude, radius, numOfDrivers, extraRadius) => ({
     type: GeofirestoreActionTypes.FIND_NEAREST_START,
-    payload: coordinates
+    payload: { latitude, longitude, radius, numOfDrivers, extraRadius }
 });
 
-export const findNearestDriversSuccess = drivers => ({
+export const findNearestDriversSuccess = (drivers, radius, extraRadius) => ({
     type: GeofirestoreActionTypes.FIND_NEAREST_SUCCESS,
-    payload: drivers
+    payload: { drivers, radius, extraRadius }
 });
 
 export const findNearestDriversFail = error => ({

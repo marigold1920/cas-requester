@@ -6,12 +6,17 @@ import {
     cancelRequestSuccess,
     feedbackRequestFail,
     feedbackRequestSuccess,
+    fetchConfigFail,
+    fetchConfigSuccess,
     fetchRequestFail,
     fetchRequestSuccess,
     saveRequestFail,
     saveRequestSuccess
 } from "./request.actions";
 import { cancelRequest, feedbackRequest, fetchRequest, saveRequest } from "../../apis/request.apis";
+import { fetchConfig } from "../../apis/core.api";
+import { clearDrivers } from "../geofirestore/geofirestore.actions";
+import { updateStatusCode } from "../message/message.action";
 
 function* saveRequestStart({ payload: { token, request, pickUp, destination } }) {
     try {
@@ -51,9 +56,22 @@ function* feedbackRequestStart({ payload: { token, requestId, feedback } }) {
 function* cancelRequestStart({ payload: { token, requestId } }) {
     try {
         yield call(cancelRequest, token, requestId);
+        yield put(clearDrivers());
         yield put(cancelRequestSuccess());
+        yield put(updateStatusCode(204));
     } catch (error) {
         yield put(cancelRequestFail(error));
+        yield put(updateStatusCode(405));
+    }
+}
+
+function* fetchConfigStart({ payload: token }) {
+    try {
+        const response = yield call(fetchConfig, token);
+
+        yield put(fetchConfigSuccess(response.data));
+    } catch (error) {
+        yield put(fetchConfigFail(error));
     }
 }
 
@@ -73,11 +91,16 @@ export function* onCancelRequest() {
     yield takeLatest(RequestActionTypes.CANCEL_REQUEST_START, cancelRequestStart);
 }
 
+export function* onFetchConfig() {
+    yield takeLatest(RequestActionTypes.FETCH_CONFIG_START, fetchConfigStart);
+}
+
 export default function* requestSagas() {
     yield all([
         call(onSaveRequest),
         call(onFetchRequest),
         call(onFeedbackRequest),
-        call(onCancelRequest)
+        call(onCancelRequest),
+        call(onFetchConfig)
     ]);
 }

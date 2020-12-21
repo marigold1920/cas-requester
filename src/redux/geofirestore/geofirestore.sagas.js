@@ -7,8 +7,10 @@ import { findNearestDriversFail, findNearestDriversSuccess } from "./geofirestor
 
 import GeofirestoreActionTypes from "./geofirestore.types";
 
-export function* findNearestDrivers({ payload: { latitude, longitude } }) {
-    const query = yield call(findNearest, latitude, longitude);
+export function* findNearestDrivers({
+    payload: { latitude, longitude, radius, numOfDrivers, extraRadius }
+}) {
+    const query = yield call(findNearest, latitude, longitude, radius, numOfDrivers);
     const channel = new eventChannel(emiter => {
         const listener = query.get().then(snapshot => {
             emiter({ data: snapshot.docs.map(item => item.id) });
@@ -21,7 +23,7 @@ export function* findNearestDrivers({ payload: { latitude, longitude } }) {
     try {
         while (true) {
             const data = yield take(channel);
-            yield put(findNearestDriversSuccess(data.data));
+            yield put(findNearestDriversSuccess(data.data, radius, extraRadius));
         }
     } catch (error) {
         yield put(findNearestDriversFail(error));

@@ -5,8 +5,6 @@ import { createStructuredSelector } from "reselect";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { logout } from "../../redux/user/user.actions";
-import { findNearestDrivers } from "../../redux/geofirestore/geofirestore.actions";
-import { findNearest } from "../../firebase/firebase.utils";
 
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonImgBgr from "../../components/button-image-background.component";
@@ -16,13 +14,9 @@ import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 
 import styles from "./home.styles";
 
-const HomeScreen = ({ navigation, currentUser, logout, findNearestDrivers }) => {
+const HomeScreen = ({ navigation, currentUser, logout }) => {
     useEffect(() => {
         !currentUser && navigation.navigate("Login");
-        if (currentUser) {
-            const drivers = findNearest(10.16494, 106.61501);
-            // findNearestDrivers(drivers);
-        }
     }, [currentUser]);
 
     const handleLogout = () => {
@@ -52,9 +46,6 @@ const HomeScreen = ({ navigation, currentUser, logout, findNearestDrivers }) => 
                         imgSrc={require("../../../assets/icons/sign-out.png")}
                         onPress={handleLogout}
                     />
-                </View>
-                <View style={styles.searchBlock}>
-                    <SearchBox placeholder="Tìm kiếm bệnh viện" />
                 </View>
                 <View style={styles.menuBlock_column}>
                     <View style={styles.menuBlock_row}>
@@ -108,8 +99,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout()),
-    findNearestDrivers: drivers => dispatch(findNearestDrivers(drivers))
+    logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

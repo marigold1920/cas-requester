@@ -85,16 +85,19 @@ const RequestInfoScreen = ({
                             </View>
                         </View>
                         <View style={styles.location}>
-                            <Location
-                                name={currentRequest.pickUp.name}
-                                value={currentRequest.pickUp.address}
-                                icon="https://i.ibb.co/D8HPk12/placeholder.png"
-                            />
-                            <Location
-                                name={currentRequest.destination.name}
-                                value={currentRequest.destination.address}
-                                icon="https://i.ibb.co/gWdQ69d/radar.png"
-                            />
+                            {request && request.status === "picked" ? (
+                                <Location
+                                    name={currentRequest.destination.name}
+                                    value={currentRequest.destination.address}
+                                    icon="https://i.ibb.co/gWdQ69d/radar.png"
+                                />
+                            ) : (
+                                <Location
+                                    name={currentRequest.pickUp.name}
+                                    value={currentRequest.pickUp.address}
+                                    icon="https://i.ibb.co/D8HPk12/placeholder.png"
+                                />
+                            )}
                         </View>
                         <View style={styles.group__action}>
                             <Text

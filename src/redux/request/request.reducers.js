@@ -5,7 +5,17 @@ const INITIAL_STATE = {
     error: null,
     pickUp: null,
     destination: null,
-    poolId: null
+    poolId: null,
+    config: null,
+    isOthers: false
+};
+
+const mapKey = {
+    1: "requestTimeout",
+    2: "confirmationTimeout",
+    3: "radius",
+    4: "numOfDrivers",
+    5: "extraRadius"
 };
 
 const requestReducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +26,11 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 currentRequest: { requestId: action.payload.requestId },
                 pickUp: action.payload.pickUp,
                 destination: action.payload.destination
+            };
+        case RequestActionTypes.SET_REQUEST_TYPE:
+            return {
+                ...state,
+                isOthers: action.payload
             };
         case RequestActionTypes.SAVE_REQUEST_FAIL:
             return {
@@ -35,12 +50,14 @@ const requestReducer = (state = INITIAL_STATE, action) => {
         case RequestActionTypes.FEEDBACK_REQUEST_SUCCESS:
         case RequestActionTypes.CLEAR_REQUEST:
         case RequestActionTypes.CANCEL_REQUEST_SUCCESS:
+        case RequestActionTypes.CLEAN_UP:
             return {
                 ...state,
                 currentRequest: null,
                 error: null,
                 pickUp: null,
-                destination: null
+                destination: null,
+                poolId: null
             };
         case RequestActionTypes.FEEDBACK_REQUEST_FAIL:
             return {
@@ -60,6 +77,21 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 error: null,
                 pickUp: null,
                 destination: null
+            };
+        case RequestActionTypes.FETCH_CONFIG_SUCCESS:
+            return {
+                ...state,
+                config: action.payload.reduce((acc, cur) => {
+                    return {
+                        ...acc,
+                        [mapKey[cur.itemId]]: cur.value
+                    };
+                }, {})
+            };
+        case RequestActionTypes.CANCEL_REQUEST_FAIL:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;

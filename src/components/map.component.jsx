@@ -4,14 +4,16 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import * as Location from "expo-location";
 
 import { firestore } from "../firebase/firebase.utils";
-import { selectRequestId, selectPoolId } from "../redux/request/request.selectors";
+import { selectRequestId, selectPoolId, selectIsOthers } from "../redux/request/request.selectors";
+import { configureTask } from "../utils/background-task.services";
 
 import MapDirection from "./map-direction.component";
 import { deviceRevolution } from "./constant.unit";
 
-const Map = ({ source, isSearching, children, destination, isControl, poolId }) => {
+const Map = ({ source, isSearching, children, destination, requestId, isControl, poolId }) => {
     const mapRef = useRef(null);
     const [region, setRegion] = useState({
         latitude: 10.16494,
@@ -20,7 +22,9 @@ const Map = ({ source, isSearching, children, destination, isControl, poolId }) 
         longitudeDelta: 0.0134
     });
     const driverPositionRef = firestore.collection("drivers").doc(`${poolId}`);
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [driverPosition] = useDocumentData(driverPositionRef);
+    const [request] = useDocumentData(requestRef);
     const [ownPosition, setOwnPosition] = useState({
         latitude: 10.16494,
         longitude: 106.61501
@@ -79,7 +83,11 @@ const Map = ({ source, isSearching, children, destination, isControl, poolId }) 
                 {destination && (
                     <>
                         <MapDirection
-                            origin={source.coordinates || ownPosition}
+                            origin={
+                                request && request.status === "picked"
+                                    ? destination.coordinates
+                                    : source.coordinates
+                            }
                             destination={isControl ? driver : destination.coordinates}
                             onReady={results =>
                                 mapRef.current.fitToCoordinates(results.coordinates, {
@@ -95,9 +103,16 @@ const Map = ({ source, isSearching, children, destination, isControl, poolId }) 
                         <Marker
                             coordinate={isControl ? driver : destination.coordinates}
                             pinColor="red"
+                            image={isControl ? "https://i.ibb.co/Qf8Xb5g/ambulance.png" : ""}
                         />
-
-                        <Marker coordinate={source.coordinates || ownPosition} pinColor="red" />
+                        <Marker
+                            coordinate={
+                                request && request.status === "picked"
+                                    ? destination.coordinates
+                                    : source.coordinates
+                            }
+                            pinColor="red"
+                        />
                     </>
                 )}
             </MapView>
@@ -121,5 +136,10 @@ const styles = StyleSheet.create({
     map__view: {
         width: "100%",
         height: "100%"
+    },
+    driverImage: {
+        width: 25,
+        height: 25,
+        borderRadius: 15
     }
 });
