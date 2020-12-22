@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     //css for parents:
     container: {
         flexDirection: "row",
-        marginTop: 20,
+        marginTop: 15,
         justifyContent: "center",
         paddingLeft: 10
     },

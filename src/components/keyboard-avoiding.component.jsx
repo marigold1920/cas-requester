@@ -1,6 +1,5 @@
 import React from "react";
 import { KeyboardAvoidingView, StyleSheet, ScrollView } from "react-native";
-import { deviceRevolution } from "./constant.unit";
 
 const KeyboardAvoiding = ({ conatainerStyle, style, children }) => (
     <KeyboardAvoidingView style={[styles.keyboardContainer, conatainerStyle]} behavior="height">

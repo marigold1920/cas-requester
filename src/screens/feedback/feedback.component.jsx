@@ -3,9 +3,10 @@ import { View, Image, Text } from "react-native";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { feedbackRequest } from "../../redux/request/request.actions";
+import { cleanUp, feedbackRequest } from "../../redux/request/request.actions";
 import { selectToken } from "../../redux/user/user.selectors";
 import { selectRequestId } from "../../redux/request/request.selectors";
+import { clearDrivers } from "../../redux/geofirestore/geofirestore.actions";
 
 import ButtonText from "../../components/button-text.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -15,7 +16,14 @@ import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.comp
 
 import styles from "./feedback.styles";
 
-const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId }) => {
+const FeedbackScreen = ({
+    navigation,
+    feedbackRequest,
+    token,
+    requestId,
+    cleanUp,
+    clearDrivers
+}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [feedbackService, setFeedback] = useState("Dịch vụ hữu ích, cần được phổ biến rộng rãi");
     const [ratingService, setRating] = useState(5);
@@ -32,6 +40,14 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId }) => {
             ratingDriver
         });
         setModalVisible(true);
+        cleanUp();
+        clearDrivers();
+    };
+
+    const handleExit = () => {
+        clearDrivers();
+        cleanUp();
+        navigation.navigate("Home");
     };
 
     return (
@@ -63,14 +79,12 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId }) => {
                         </Text>
                     </View>
                     <Feedback
-                        level={ratingService}
                         action={setRating}
                         defaultValue={feedbackService}
                         onChangeText={value => setFeedback(value)}
                         placeholder="Góp ý về dịch vụ"
                     />
                     <Feedback
-                        level={ratingDriver}
                         action={setRatingDriver}
                         defaultValue={feedbackDriver}
                         onChangeText={value => setFeedbackDriver(value)}
@@ -81,7 +95,7 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId }) => {
                             textContent="Thoát"
                             styleText={styles.cancel_text}
                             styleButton={styles.cancel_button}
-                            onPress={() => navigation.navigate("Home")}
+                            onPress={handleExit}
                         />
                         <ButtonText
                             textContent="Gửi"
@@ -103,7 +117,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     feedbackRequest: (token, requestId, feedback) =>
-        dispatch(feedbackRequest(token, requestId, feedback))
+        dispatch(feedbackRequest(token, requestId, feedback)),
+    cleanUp: () => dispatch(cleanUp()),
+    clearDrivers: () => dispatch(clearDrivers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedbackScreen);

@@ -12,8 +12,10 @@ import {
     selectRequestId
 } from "../../redux/request/request.selectors";
 import { selectToken } from "../../redux/user/user.selectors";
-import { clearRequest, fetchRequest } from "../../redux/request/request.actions";
-import { firestore } from "../../firebase/firebase.utils";
+import { clearRequest, fetchRequest, cancelRequest } from "../../redux/request/request.actions";
+import { cancelRequestFirestore, firestore } from "../../firebase/firebase.utils";
+import { clearDrivers } from "../../redux/geofirestore/geofirestore.actions";
+import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
@@ -21,6 +23,7 @@ import Rating from "../../components/rating.component";
 import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
 import CancelRequestModal from "../../components/cancel-request-modal.component";
+import ConfirmModal from "../../components/confirm-modal.component";
 
 import styles from "./request-info.styles";
 
@@ -32,9 +35,12 @@ const RequestInfoScreen = ({
     source,
     destination,
     requestId,
-    clearRequest
+    clearRequest,
+    cancelRequest,
+    clearDrivers
 }) => {
     const [isCancelled, setIsCancelled] = useState(false);
+    const [confirm, setConfirm] = useState(false);
     const requestDocumentRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestDocumentRef);
 
@@ -58,8 +64,22 @@ const RequestInfoScreen = ({
         navigation.navigate("FindAmbulance");
     };
 
+    const handleCancelRequest = () => {
+        clearDrivers();
+        cancelRequestFirestore(requestId);
+        cancelRequest(token, requestId);
+        navigation.navigate("FindAmbulance");
+    };
+
     return (
         <BackgroundImage>
+            {confirm && (
+                <ConfirmModal
+                    message={message.cancelRequest}
+                    onConfirm={handleCancelRequest}
+                    onClose={() => setConfirm(false)}
+                />
+            )}
             <CancelRequestModal action={handleConfirmCancelledRequest} visible={isCancelled} />
             <View style={styles.container}>
                 <HeaderTileWithBackBtn textContent="Thông tin tài xế" />
@@ -85,31 +105,40 @@ const RequestInfoScreen = ({
                             </View>
                         </View>
                         <View style={styles.location}>
-                            <Location
-                                name={currentRequest.pickUp.name}
-                                value={currentRequest.pickUp.address}
-                                icon="https://i.ibb.co/D8HPk12/placeholder.png"
-                            />
-                            <Location
-                                name={currentRequest.destination.name}
-                                value={currentRequest.destination.address}
-                                icon="https://i.ibb.co/gWdQ69d/radar.png"
-                            />
+                            {request && request.status === "picked" ? (
+                                <Location
+                                    name={currentRequest.destination.name}
+                                    value={currentRequest.destination.address}
+                                    icon="https://i.ibb.co/gWdQ69d/radar.png"
+                                />
+                            ) : (
+                                <Location
+                                    name={currentRequest.pickUp.name}
+                                    value={currentRequest.pickUp.address}
+                                    icon="https://i.ibb.co/D8HPk12/placeholder.png"
+                                />
+                            )}
                         </View>
-                        <View style={styles.group__action}>
-                            <Text
-                                onPress={handleConfirmCancelledRequest}
-                                style={[styles.action, styles.cancel]}
-                            >
-                                Hủy yêu cầu
-                            </Text>
-                            <Text
-                                onPress={() => Linking.openURL("tel: 0931738872")}
-                                style={styles.action}
-                            >
-                                Liên hệ tài xế
-                            </Text>
-                        </View>
+                        {!(request && request.status === "picked") && (
+                            <View style={styles.group__action}>
+                                <Text
+                                    onPress={() => setConfirm(true)}
+                                    style={[styles.action, styles.cancel]}
+                                >
+                                    Hủy yêu cầu
+                                </Text>
+                                <Text
+                                    onPress={() =>
+                                        Linking.openURL(
+                                            `tel: ${currentRequest.phone || "0931738872"}`
+                                        )
+                                    }
+                                    style={styles.action}
+                                >
+                                    Liên hệ tài xế
+                                </Text>
+                            </View>
+                        )}
                     </View>
                 )}
             </View>
@@ -127,7 +156,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId)),
-    clearRequest: () => dispatch(clearRequest())
+    clearRequest: () => dispatch(clearRequest()),
+    cancelRequest: (token, requestId) => dispatch(cancelRequest(token, requestId)),
+    clearDrivers: () => dispatch(clearDrivers())
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(RequestInfoScreen));

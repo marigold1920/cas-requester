@@ -1,18 +1,18 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 
-const DriverInfo = ({ request: { driver, licensePlate, status } }) => (
+const DriverInfo = ({ request: { user, licensePlate, status } }) => (
     <View style={styles.driverInfo}>
         <Image
             style={styles.background}
             source={require("../../assets/images/request-details-bg.png")}
         />
-        {driver ? (
+        {user ? (
             <View style={styles.content}>
-                <Image style={styles.image} source={{ uri: driver.imageUrl }} />
-                <Text style={styles.name}>{driver.displayName}</Text>
+                <Image style={styles.image} source={{ uri: user.imageUrl }} />
+                <Text style={styles.name}>{user.displayName}</Text>
                 <Text style={styles.licensePlate}>{licensePlate}</Text>
-                <Text style={styles.phone}>{driver.phone}</Text>
+                <Text style={styles.phone}>{user.phone}</Text>
             </View>
         ) : (
             <View style={[styles.content, { justifyContent: "center" }]}>

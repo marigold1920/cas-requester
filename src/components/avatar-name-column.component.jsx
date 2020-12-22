@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
         width: 11 * rem,
         height: 11 * rem,
         borderRadius: 100,
-        marginBottom: 10,
-        backgroundColor: "#000"
+        marginBottom: 10
     },
     text: {
         fontFamily: "Texgyreadventor-bold",

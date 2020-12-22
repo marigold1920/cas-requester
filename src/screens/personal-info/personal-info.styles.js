@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#000",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
         zIndex: -1,
         opacity: 0
     },

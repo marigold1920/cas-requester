@@ -34,3 +34,27 @@ export const fetchRequestDetails = (token, requestId) => {
         }
     });
 };
+
+export const checkExistedPhoneNumber = phone => {
+    return api.get(`/users/exist?username=${phone}`);
+};
+
+export const checkIsRegister = phone => {
+    return api.get(`/users/requesters/check_exist?username=${phone}`);
+};
+
+export const registerAccount = user => {
+    return api.post("/users/signup_requester", user);
+};
+
+export const fetchConfig = token => {
+    return api.get("/system/configurations", {
+        headers: {
+            Authorization: token
+        }
+    });
+};
+
+export const resetPassword = user => {
+    return api.put("/users/requesters/forget_password", user);
+};

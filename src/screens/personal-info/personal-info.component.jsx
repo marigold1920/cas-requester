@@ -4,18 +4,20 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
+import { selectStatusCode } from "../../redux/message/message.selectors";
 import { updateUser } from "../../redux/user/user.actions";
+import { message } from "../../utils/message.data";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
 import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
+import MessageModal from "../../components/message-modal.component";
 
 import styles from "./personal-info.styles";
 
-const PersonalInfoScreen = ({ navigation, currentUser, token, updateUser }) => {
-    const [modalVisible, setModalVisible] = useState(false);
+const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, updateUser }) => {
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
     const [displayName, setDisplayName] = useState(currentUser.displayName);
     const [phone, setPhone] = useState(currentUser.phone);
@@ -27,25 +29,13 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, updateUser }) => {
             type: "image/png"
         };
         updateUser(currentUser.userId, token, { displayName, phone, image });
-        setModalVisible(true);
     };
 
     return (
         <BackgroundImage>
-            <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
-                <View style={styles.modal__content}>
-                    <Text style={styles.status}>Lưu thông tin thành công</Text>
-                    <Text
-                        onPress={() => {
-                            setModalVisible(false);
-                            navigation.navigate("Home");
-                        }}
-                        style={styles.action}
-                    >
-                        Đóng
-                    </Text>
-                </View>
-            </View>
+            {statusCode && (
+                <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
+            )}
             <View>
                 <HeaderTileWithBackBtn
                     textContent="Thông tin cá nhân"
@@ -96,7 +86,8 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, updateUser }) => {
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
-    token: selectToken
+    token: selectToken,
+    statusCode: selectStatusCode
 });
 
 const mapDispatchToProps = dispatch => ({

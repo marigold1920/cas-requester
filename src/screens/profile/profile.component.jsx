@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import { selectCurrentUser, selectProfile, selectToken } from "../../redux/user/user.selectors";
+import { selectStatusCode } from "../../redux/message/message.selectors";
 import { updateProfile } from "../../redux/user/user.actions";
+import { message } from "../../utils/message.data";
 
 import AvatarNameCol from "../../components/avatar-name-column.component";
 import BackgroundImage from "../../components/background-screen.component";
@@ -13,55 +15,65 @@ import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import CustomInputLabel from "../../components/custom-input-label.component";
+import MessageModal from "../../components/message-modal.component";
 
 import styles from "./profile.styles";
+import { updateStatusCode } from "../../redux/message/message.action";
 
 const ProfileScreen = ({
     navigation,
     currentUser: { userId, displayName, imageUrl },
     profile,
     token,
-    updateProfile
+    statusCode,
+    updateProfile,
+    updateStatusCode
 }) => {
-    const [modalVisible, setModalVisible] = useState(false);
     const [morbidity, setMorbidity] = useState((profile && profile.morbidity) || "");
     const [gender, setGender] = useState((profile && profile.gender) || "Nam");
-    const [age, setAge] = useState((profile && profile.age) || "0");
+    const [age, setAge] = useState((profile && profile.age) || 0);
     const [bloodPressure, setBloodPressure] = useState((profile && profile.bloodPressure) || "");
     const [medicalHistories, setMedicalHistories] = useState(
-        (profile && profile.medicalHistories && profile.medicalHistories.split(", ")) || []
+        (profile && profile.medicalHistories) || ""
     );
     const [allergy, setAllergy] = useState((profile && profile.allergy) || "");
     const [others, setOthers] = useState((profile && profile.others) || "");
+    const [validation, setValidation] = useState({
+        age: null,
+        morbidity: null
+    });
 
     const handleUpdate = () => {
-        updateProfile(userId, token, {
-            gender,
-            age,
-            bloodPressure,
-            morbidity,
-            medicalHistories: medicalHistories.join(", "),
-            allergy,
-            others
-        });
-        setModalVisible(true);
+        if (validation.age || validation.morbidity) {
+            return;
+        }
+
+        if (age && morbidity) {
+            updateProfile(userId, token, {
+                gender,
+                age,
+                bloodPressure,
+                morbidity,
+                medicalHistories,
+                allergy,
+                others
+            });
+        } else {
+            updateStatusCode(406);
+        }
+    };
+
+    const checkAge = () => {
+        if (age < 1 || age > 150) {
+            setValidation({ ...validation, age: "Tuổi nằm trong khoảng từ 1-150" });
+        }
     };
 
     return (
         <BackgroundImage>
-            <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
-                <View style={styles.modal__content}>
-                    <Text style={styles.status}>Cập nhật thông tin thành công</Text>
-                    <Text
-                        onPress={() => {
-                            setModalVisible(false);
-                        }}
-                        style={styles.action}
-                    >
-                        Đóng
-                    </Text>
-                </View>
-            </View>
+            {statusCode && (
+                <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
+            )}
             <HeaderTileWithBackBtn
                 textContent="Hồ sơ sức khỏe"
                 onPress={() => navigation.goBack()}
@@ -70,7 +82,7 @@ const ProfileScreen = ({
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.profile}>
                     <View style={styles.group}>
-                        <Text style={styles.label}>Giới tính</Text>
+                        <Text style={styles.label}>Giới tính *</Text>
                     </View>
                     <DropDownPicker
                         containerStyle={{ width: "90%", marginVertical: 5 }}
@@ -83,6 +95,7 @@ const ProfileScreen = ({
                         defaultValue={gender}
                         onChangeItem={item => setGender(item.value)}
                     />
+                    {validation.age && <Text style={styles.warning}>{validation.age}</Text>}
                     <CustomInputLabel
                         label="Tuổi"
                         placeholder="64"
@@ -90,6 +103,8 @@ const ProfileScreen = ({
                         onChangeText={value => setAge(value)}
                         keyboardType="numeric"
                         isRequire
+                        onBlur={checkAge}
+                        onFocus={() => setValidation({ ...validation, age: null })}
                     />
                     <CustomInputLabel
                         label="Huyết áp"
@@ -105,38 +120,12 @@ const ProfileScreen = ({
                         multiline={true}
                         numberOfLines={4}
                     />
-                    <View style={styles.group}>
-                        <Text style={styles.label}>Tiền sử bệnh</Text>
-                    </View>
-                    <DropDownPicker
-                        placeholder="Bệnh đã từng mắc"
+                    <CustomInputLabel
+                        label="Tiền sử bệnh"
                         defaultValue={medicalHistories}
-                        containerStyle={{ width: "90%", marginVertical: 5 }}
-                        labelStyle={{ fontFamily: "Texgyreadventor-regular", color: "#787881" }}
-                        itemStyle={{ marginVertical: 2 }}
-                        searchable={true}
-                        searchablePlaceholder={"Tìm kiếm"}
-                        searchableStyle={{
-                            fontFamily: "Texgyreadventor-regular",
-                            color: "#787881"
-                        }}
-                        multiple={true}
-                        items={[
-                            { label: "Bệnh gan mãn tĩnh", value: "Bệnh gan mãn tĩnh" },
-                            { label: "Bệnh máu mãn tính", value: "Bệnh máu mãn tính" },
-                            { label: "Bệnh phổi mãn tính", value: "Bệnh phổi mãn tính" },
-                            { label: "Bệnh thận mãn tĩnh", value: "Bệnh thận mãn tĩnh" },
-                            { label: "Bệnh tim mạch", value: "Bệnh tim mạch" },
-                            { label: "Huyết áp cao", value: "Huyết áp cao" },
-                            { label: "Suy giảm miễn dịch", value: "Suy giảm miễn dịch" },
-                            {
-                                label: "Người nhận ghép tạng , Thủy xương",
-                                value: "Người nhận ghép tạng , Thủy xương"
-                            },
-                            { label: "Tiểu đường", value: "Tiểu đường" },
-                            { label: "Ung thư", value: "Ung thư" }
-                        ]}
-                        onChangeItem={item => setMedicalHistories(item)}
+                        onChangeText={value => setMedicalHistories(value)}
+                        multiline={true}
+                        numberOfLines={4}
                     />
                     <CustomInputLabel
                         defaultValue={allergy}
@@ -168,12 +157,14 @@ const ProfileScreen = ({
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     profile: selectProfile,
-    token: selectToken
+    token: selectToken,
+    statusCode: selectStatusCode
 });
 
 const mapDispatchToProps = dispatch => ({
     updateProfile: (userId, token, healthInformation) =>
-        dispatch(updateProfile(userId, token, healthInformation))
+        dispatch(updateProfile(userId, token, healthInformation)),
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
