@@ -103,7 +103,7 @@ const Map = ({ source, isSearching, children, destination, requestId, isControl,
                         <Marker
                             coordinate={isControl ? driver : destination.coordinates}
                             pinColor="red"
-                            image={isControl ? "https://i.ibb.co/Qf8Xb5g/ambulance.png" : ""}
+                            image={isControl ? "https://i.ibb.co/6rTx3D4/ambulance.png" : ""}
                         />
                         <Marker
                             coordinate={
