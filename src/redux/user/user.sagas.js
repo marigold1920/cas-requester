@@ -33,7 +33,7 @@ function* updateProfileStart({ payload: { userId, token, healthInformation } }) 
         yield put(updateStatusCode(203));
     } catch (error) {
         yield put(updateProfileFail(error));
-        yield put(updateStatusCode(403));
+        yield put(updateStatusCode(error.message.includes("401") ? 700 : 403));
     }
 }
 

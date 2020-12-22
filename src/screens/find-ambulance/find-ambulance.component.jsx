@@ -107,6 +107,7 @@ const FindAmbulanceScreen = ({
                             handleViewRequest={handleViewRequest}
                             navigation={navigation}
                             setConfirm={setConfirm}
+                            handleCancelRequest={handleCancelRequest}
                         />
                     ) : (
                         <FindAmbulanceTab

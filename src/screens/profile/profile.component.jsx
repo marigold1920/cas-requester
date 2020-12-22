@@ -18,6 +18,7 @@ import CustomInputLabel from "../../components/custom-input-label.component";
 import MessageModal from "../../components/message-modal.component";
 
 import styles from "./profile.styles";
+import { updateStatusCode } from "../../redux/message/message.action";
 
 const ProfileScreen = ({
     navigation,
@@ -25,28 +26,47 @@ const ProfileScreen = ({
     profile,
     token,
     statusCode,
-    updateProfile
+    updateProfile,
+    updateStatusCode
 }) => {
     const [morbidity, setMorbidity] = useState((profile && profile.morbidity) || "");
     const [gender, setGender] = useState((profile && profile.gender) || "Nam");
-    const [age, setAge] = useState((profile && profile.age) || "0");
+    const [age, setAge] = useState((profile && profile.age) || 0);
     const [bloodPressure, setBloodPressure] = useState((profile && profile.bloodPressure) || "");
     const [medicalHistories, setMedicalHistories] = useState(
-        (profile && profile.medicalHistories && profile.medicalHistories.split(", ")) || []
+        (profile && profile.medicalHistories) || ""
     );
     const [allergy, setAllergy] = useState((profile && profile.allergy) || "");
     const [others, setOthers] = useState((profile && profile.others) || "");
+    const [validation, setValidation] = useState({
+        age: null,
+        morbidity: null
+    });
 
     const handleUpdate = () => {
-        updateProfile(userId, token, {
-            gender,
-            age,
-            bloodPressure,
-            morbidity,
-            medicalHistories: medicalHistories.join(", "),
-            allergy,
-            others
-        });
+        if (validation.age || validation.morbidity) {
+            return;
+        }
+
+        if (age && morbidity) {
+            updateProfile(userId, token, {
+                gender,
+                age,
+                bloodPressure,
+                morbidity,
+                medicalHistories,
+                allergy,
+                others
+            });
+        } else {
+            updateStatusCode(406);
+        }
+    };
+
+    const checkAge = () => {
+        if (age < 1 || age > 150) {
+            setValidation({ ...validation, age: "Tuổi nằm trong khoảng từ 1-150" });
+        }
     };
 
     return (
@@ -75,6 +95,7 @@ const ProfileScreen = ({
                         defaultValue={gender}
                         onChangeItem={item => setGender(item.value)}
                     />
+                    {validation.age && <Text style={styles.warning}>{validation.age}</Text>}
                     <CustomInputLabel
                         label="Tuổi"
                         placeholder="64"
@@ -82,6 +103,8 @@ const ProfileScreen = ({
                         onChangeText={value => setAge(value)}
                         keyboardType="numeric"
                         isRequire
+                        onBlur={checkAge}
+                        onFocus={() => setValidation({ ...validation, age: null })}
                     />
                     <CustomInputLabel
                         label="Huyết áp"
@@ -99,7 +122,7 @@ const ProfileScreen = ({
                     />
                     <CustomInputLabel
                         label="Tiền sử bệnh"
-                        defaultValue={morbidity}
+                        defaultValue={medicalHistories}
                         onChangeText={value => setMedicalHistories(value)}
                         multiline={true}
                         numberOfLines={4}
@@ -140,7 +163,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     updateProfile: (userId, token, healthInformation) =>
-        dispatch(updateProfile(userId, token, healthInformation))
+        dispatch(updateProfile(userId, token, healthInformation)),
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

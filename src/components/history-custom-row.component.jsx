@@ -34,12 +34,11 @@ const CustomRowHistory = ({
                 </View>
             </View>
             <View style={styles.container_detail_feedback}>
-                <View style={{ flex: 1 }}></View>
                 <View
                     style={{
-                        flex: 2,
+                        flex: 1,
                         flexDirection: "row",
-                        justifyContent: "space-between"
+                        justifyContent: "flex-end"
                     }}
                 >
                     <ButtonText
@@ -48,12 +47,6 @@ const CustomRowHistory = ({
                         styleText={styles.detail_feedback_text}
                         onPress={() => navigation.navigate("RequestDetails", { requestId })}
                     />
-                    {/* <ButtonText
-                        textContent="Đánh giá"
-                        styleButton={styles.detail_feedback_button}
-                        styleText={styles.detail_feedback_text}
-                        onPress={() => navigation.navigate("Feedback")}
-                    /> */}
                 </View>
             </View>
         </View>

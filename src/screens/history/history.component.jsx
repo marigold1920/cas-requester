@@ -13,7 +13,7 @@ import CustomRowHistory from "../../components/history-custom-row.component";
 
 import styles from "./history.styles";
 
-const HistoryScreen = ({ navigation, currentUser, token }) => {
+const HistoryScreen = ({ navigation, currentUser, token, statusCode, updateStatusCode }) => {
     const [histories, setHistories] = useState([]);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const HistoryScreen = ({ navigation, currentUser, token }) => {
                         textContent="Tìm xe"
                         styleButton={styles.button}
                         styleText={styles.button_text}
-                        onPress={() => navigation.navigate("FindCar")}
+                        onPress={() => navigation.navigate("FindAmbulance")}
                     />
                 </View>
             </BackgroundImage>

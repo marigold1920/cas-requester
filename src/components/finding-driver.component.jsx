@@ -28,7 +28,8 @@ const FindingDriver = ({
     pickUp,
     syncPoolData,
     findNearestDrivers,
-    setConfirm
+    setConfirm,
+    handleCancelRequest
 }) => {
     const [timer, setTimer] = useState(requestTimeout * 60 - 1);
     const [minutes, setMinutes] = useState(requestTimeout - 1);
@@ -67,7 +68,6 @@ const FindingDriver = ({
         if (request && request.status === "accepted") {
             syncPoolData(request.poolId);
             navigation.navigate("RequestInfo");
-            setIsLoading(false);
         }
     }, [request]);
 

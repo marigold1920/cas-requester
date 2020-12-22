@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     button: {
-        paddingVertical: 5,
+        paddingVertical: 3,
         backgroundColor: "#FFAB2E",
         elevation: 20
     },

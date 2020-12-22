@@ -14,5 +14,7 @@ export const message = {
     402: "Cập nhật thông tin cá nhân không thành công!",
     403: "Cập nhật hồ sơ sức khỏe không thành công!",
     404: "Hệ thống ghi nhận địa chỉ để tạo yêu cầu không hợp lệ, vui lòng kiểm tra lại!",
-    405: "Đây có thể là do lỗi kỹ thuật mà chúng tôi đang khắc phục. Hãy thử thực hiện lại chức năng này!"
+    405: "Đây có thể là do lỗi kỹ thuật mà chúng tôi đang khắc phục. Hãy thử thực hiện lại chức năng này!",
+    406: "Vui lòng cung cấp các thông tin có dấu (*) để hoàn thiện hồ sơ!",
+    700: "Phiên làm việc hết hạn, vui lòng đăng xuất để kiểm tra hoạt động!"
 };

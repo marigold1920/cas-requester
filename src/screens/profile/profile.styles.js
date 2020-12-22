@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
         width: deviceRevolution.width * 0.95
     },
     button: {
-        elevation: 20,
         paddingVertical: 5,
         paddingHorizontal: 15,
-        opacity: 0.65
+        backgroundColor: "#FFAB2E",
+        elevation: 20
     },
     button_text: {
-        color: "#26324A",
+        color: "#fff",
         paddingVertical: 2
     },
     group: {
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#fff",
         bottom: 10
+    },
+    warning: {
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 12,
+        width: "90%",
+        color: "#ff0000"
     }
 });
 
