@@ -28,7 +28,8 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
             name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
             type: "image/png"
         };
-        updateUser(currentUser.userId, token, { displayName, phone, image });
+        console.log(linkImage);
+        updateUser(currentUser.id, token, { displayName, phone, image });
     };
 
     return (
@@ -39,7 +40,7 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
             <View>
                 <HeaderTileWithBackBtn
                     textContent="Thông tin cá nhân"
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={() => navigation.replace("Home")}
                 />
             </View>
             <View style={styles.container_info}>
@@ -49,7 +50,7 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
                     textContent={currentUser.displayName}
                 />
                 <Text style={styles.joining_day_title}>Ngày tham gia</Text>
-                <Text style={styles.joining_day}>15/09/2020</Text>
+                <Text style={styles.joining_day}>{currentUser.dateCreated}</Text>
             </View>
             <KeyboardAvoiding style={styles.container}>
                 <View style={styles.container_text_input}>

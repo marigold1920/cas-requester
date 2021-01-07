@@ -17,7 +17,7 @@ const HistoryScreen = ({ navigation, currentUser, token, statusCode, updateStatu
     const [histories, setHistories] = useState([]);
 
     useEffect(() => {
-        fetchHistories(token, currentUser.userId).then(res => setHistories(res.data));
+        fetchHistories(token, currentUser.id).then(res => setHistories(res.data));
     }, [token]);
 
     return (
@@ -25,7 +25,7 @@ const HistoryScreen = ({ navigation, currentUser, token, statusCode, updateStatu
             <BackgroundImage>
                 <HeaderTileWithBackBtn
                     textContent="Lịch sử"
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={() => navigation.replace("Home")}
                 />
                 <CustomListview itemList={histories} />
                 <View style={styles.container_button}>

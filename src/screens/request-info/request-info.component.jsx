@@ -14,7 +14,6 @@ import {
 import { selectToken } from "../../redux/user/user.selectors";
 import { clearRequest, fetchRequest, cancelRequest } from "../../redux/request/request.actions";
 import { cancelRequestFirestore, firestore } from "../../firebase/firebase.utils";
-import { clearDrivers } from "../../redux/geofirestore/geofirestore.actions";
 import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
@@ -36,8 +35,7 @@ const RequestInfoScreen = ({
     destination,
     requestId,
     clearRequest,
-    cancelRequest,
-    clearDrivers
+    cancelRequest
 }) => {
     const [isCancelled, setIsCancelled] = useState(false);
     const [confirm, setConfirm] = useState(false);
@@ -65,7 +63,6 @@ const RequestInfoScreen = ({
     };
 
     const handleCancelRequest = () => {
-        clearDrivers();
         cancelRequestFirestore(requestId);
         cancelRequest(token, requestId);
         navigation.navigate("FindAmbulance");
@@ -89,17 +86,17 @@ const RequestInfoScreen = ({
                         <View style={styles.driver__info}>
                             <Image
                                 style={styles.driver__image}
-                                source={{ uri: currentRequest.imageUrl }}
+                                source={{ uri: currentRequest.driver.imageUrl }}
                             />
                             <View style={styles.group}>
-                                <Text style={styles.name}>{currentRequest.driverName}</Text>
-                                <Rating level={currentRequest.ratingLevel} size={10} />
+                                <Text style={styles.name}>{currentRequest.driver.driverName}</Text>
+                                <Rating level={currentRequest.driver.ratingLevel} size={10} />
                                 <Text style={styles.license__plate}>
-                                    {currentRequest.licensePlate}
+                                    {currentRequest.ambulance.licensePlate}
                                 </Text>
                                 <View style={styles.contact}>
                                     <Text style={styles.driver__phone}>
-                                        {currentRequest.phone || "Đang cập nhật"}
+                                        {currentRequest.driver.phone || "Đang cập nhật"}
                                     </Text>
                                 </View>
                             </View>
@@ -130,7 +127,7 @@ const RequestInfoScreen = ({
                                 <Text
                                     onPress={() =>
                                         Linking.openURL(
-                                            `tel: ${currentRequest.phone || "0931738872"}`
+                                            `tel: ${currentRequest.driver.phone || "0931738872"}`
                                         )
                                     }
                                     style={styles.action}
@@ -157,8 +154,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId)),
     clearRequest: () => dispatch(clearRequest()),
-    cancelRequest: (token, requestId) => dispatch(cancelRequest(token, requestId)),
-    clearDrivers: () => dispatch(clearDrivers())
+    cancelRequest: (token, requestId) => dispatch(cancelRequest(token, requestId))
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(RequestInfoScreen));

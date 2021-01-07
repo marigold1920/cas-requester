@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export const api = axios.create({
-    // baseURL: "http://192.168.1.170:5000/api"
+    baseURL: "http://192.168.1.170:3000/api"
     // baseURL: "https://cas-capstone.herokuapp.com/api"
     // baseURL: "http://caselastic-env.eba-iukmv232.ap-southeast-1.elasticbeanstalk.com/api"
-    baseURL: "http://caselastic-env-1.eba-rh86ed2y.ap-southeast-1.elasticbeanstalk.com/api"
+    // baseURL: "http://13.250.14.195:3000/api"
 });
 
 export const login = (username, password) => {
@@ -23,7 +23,7 @@ export const updateProfile = (userId, token, healthInformation) => {
 };
 
 export const updateUser = (userId, token, user) => {
-    return api.put(`/storage/update-profile-image/${userId}`, user, {
+    return api.put(`/users/${userId}/profile`, user, {
         headers: {
             Authorization: token
         }

@@ -5,29 +5,17 @@ import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 import { syncPoolData } from "../redux/request/request.actions";
-import { findNearestDrivers } from "../redux/geofirestore/geofirestore.actions";
-import {
-    selectDrivers,
-    selectPreList,
-    selectPreRadius,
-    selectPreSize
-} from "../redux/geofirestore/geofirestore.selectors";
-import { selectConfig, selectPickUp, selectRequestId } from "../redux/request/request.selectors";
+import { selectConfig, selectRequestId } from "../redux/request/request.selectors";
 
-import { fillRequest, firestore } from "../firebase/firebase.utils";
+import { firestore } from "../firebase/firebase.utils";
 
 const FindingDriver = ({
     navigation,
     setIsLoading,
     drivers,
     requestId,
-    config: { requestTimeout, confirmationTimeout, numOfDrivers, extraRadius },
-    preSize,
-    preRadius,
-    preList,
-    pickUp,
+    config: { requestTimeout },
     syncPoolData,
-    findNearestDrivers,
     setConfirm,
     handleCancelRequest
 }) => {
@@ -44,9 +32,6 @@ const FindingDriver = ({
         }
 
         const interval = setTimeout(() => {
-            if (!((requestTimeout * 60 - timer) % (confirmationTimeout * 60))) {
-                handleRefindDrivers();
-            }
             setMinutes(Math.floor(timer / 60));
             setSeconds(Math.floor(timer % 60));
             setTimer(timer - 1);
@@ -56,9 +41,6 @@ const FindingDriver = ({
     });
 
     useEffect(() => {
-        if (requestId && drivers.length > 0) {
-            fillRequest(drivers, preList, (request && request.blacklist) || [], requestId);
-        }
         if (!requestId) {
             setIsLoading(false);
         }
@@ -67,22 +49,9 @@ const FindingDriver = ({
     useEffect(() => {
         if (request && request.status === "accepted") {
             syncPoolData(request.poolId);
-            navigation.navigate("RequestInfo");
+            navigation.replace("RequestInfo");
         }
     }, [request]);
-
-    const handleRefindDrivers = () => {
-        const { blacklist } = request;
-        fillRequest(drivers, [], [], 0);
-        let boundary = preSize + numOfDrivers + ((blacklist && blacklist.length) || 0);
-        findNearestDrivers(
-            pickUp.coordinates.latitude,
-            pickUp.coordinates.longitude,
-            preRadius,
-            boundary,
-            extraRadius
-        );
-    };
 
     return (
         <View style={styles.loading}>
@@ -99,19 +68,12 @@ const FindingDriver = ({
 };
 
 const mapStateToProps = createStructuredSelector({
-    drivers: selectDrivers,
     requestId: selectRequestId,
-    config: selectConfig,
-    preSize: selectPreSize,
-    preRadius: selectPreRadius,
-    pickUp: selectPickUp,
-    preList: selectPreList
+    config: selectConfig
 });
 
 const mapDispatchToProps = dispatch => ({
-    syncPoolData: poolId => dispatch(syncPoolData(poolId)),
-    findNearestDrivers: (latitude, longitude, radius, numOfDrivers, extraRadius) =>
-        dispatch(findNearestDrivers(latitude, longitude, radius, numOfDrivers, extraRadius))
+    syncPoolData: poolId => dispatch(syncPoolData(poolId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindingDriver);

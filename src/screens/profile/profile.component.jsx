@@ -22,7 +22,7 @@ import { updateStatusCode } from "../../redux/message/message.action";
 
 const ProfileScreen = ({
     navigation,
-    currentUser: { userId, displayName, imageUrl },
+    currentUser: { id, displayName, imageUrl },
     profile,
     token,
     statusCode,
@@ -49,7 +49,7 @@ const ProfileScreen = ({
         }
 
         if (age && morbidity) {
-            updateProfile(userId, token, {
+            updateProfile(id, token, {
                 gender,
                 age,
                 bloodPressure,
@@ -76,7 +76,7 @@ const ProfileScreen = ({
             )}
             <HeaderTileWithBackBtn
                 textContent="Hồ sơ sức khỏe"
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.replace("Home")}
             />
             <AvatarNameCol linkImage={imageUrl} textContent={displayName} />
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>

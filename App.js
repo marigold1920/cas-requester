@@ -37,7 +37,7 @@ const MainNavigator = createStackNavigator(
         ResetPass: ResetPassScreen
     },
     {
-        initialRouteName: "Login", //change this att to change initial screen
+        initialRouteName: "Login",
         defaultNavigationOptions: {
             headerShown: false
         }

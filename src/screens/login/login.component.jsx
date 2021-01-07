@@ -20,7 +20,7 @@ import styles from "./login.styles";
 
 const LoginScreen = ({ navigation, currentUser, statusCode, signIn }) => {
     const [username, setUsername] = useState("0988635032");
-    const [password, setPassword] = useState("123");
+    const [password, setPassword] = useState("123456");
 
     useEffect(() => {
         currentUser && navigation.navigate("Home");

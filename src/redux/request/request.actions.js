@@ -1,9 +1,10 @@
 import RequestActionTypes from "./request.types";
 
-export const saveRequest = (token, request, pickUp, destination) => ({
+export const saveRequest = (token, userId, request, pickUp, destination) => ({
     type: RequestActionTypes.SAVE_REQUEST_START,
     payload: {
         token,
+        userId,
         request,
         pickUp,
         destination

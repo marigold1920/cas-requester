@@ -7,8 +7,8 @@ import { createStructuredSelector } from "reselect";
 
 import { findNearestDrivers } from "../redux/geofirestore/geofirestore.actions";
 import { saveRequest, setRequestType } from "../redux/request/request.actions";
-import { selectProfile, selectToken, selectUsername } from "../redux/user/user.selectors";
-import { selectConfig, selectIsOthers, selectRequestId } from "../redux/request/request.selectors";
+import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
+import { selectIsOthers, selectRequestId } from "../redux/request/request.selectors";
 import { updateStatusCode } from "../redux/message/message.action";
 import { createRequest } from "../firebase/firebase.utils";
 
@@ -24,13 +24,11 @@ const FindAmbulanceTab = ({
     pickUp,
     destination,
     token,
-    username,
+    userId,
     profile,
     requestId,
     saveRequest,
-    findNearestDrivers,
     updateStatusCode,
-    config,
     isOthers,
     setType
 }) => {
@@ -58,17 +56,10 @@ const FindAmbulanceTab = ({
             updateStatusCode(404);
             return;
         }
-        findNearestDrivers(
-            pickUp.coordinates.latitude,
-            pickUp.coordinates.longitude,
-            config.radius,
-            config.numOfDrivers,
-            config.extraRadius
-        );
         saveRequest(
             token,
+            userId,
             {
-                username,
                 pickUp: {
                     name: pickUp.name,
                     address: pickUp.address
@@ -84,7 +75,10 @@ const FindAmbulanceTab = ({
                 isEmergency: requestType === "emergency",
                 isOthers,
                 healthInformation:
-                    !isOthers && requestType === "emergency" ? parseProfileToString() : null
+                    !isOthers && requestType === "emergency" ? parseProfileToString() : null,
+                region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1),
+                latitude: pickUp.coordinates.latitude,
+                longitude: pickUp.coordinates.longitude
             },
             pickUp,
             destination
@@ -211,9 +205,8 @@ const FindAmbulanceTab = ({
 
 const mapStateToProps = createStructuredSelector({
     token: selectToken,
-    username: selectUsername,
+    userId: selectUserId,
     profile: selectProfile,
-    config: selectConfig,
     requestId: selectRequestId,
     isOthers: selectIsOthers
 });
@@ -221,8 +214,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     findNearestDrivers: (latitude, longitude, radius, numOfDrivers, extraRadius) =>
         dispatch(findNearestDrivers(latitude, longitude, radius, numOfDrivers, extraRadius)),
-    saveRequest: (token, request, pickUp, destination) =>
-        dispatch(saveRequest(token, request, pickUp, destination)),
+    saveRequest: (token, userId, request, pickUp, destination) =>
+        dispatch(saveRequest(token, userId, request, pickUp, destination)),
     updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode)),
     setType: isOthers => dispatch(setRequestType(isOthers))
 });
@@ -257,14 +250,15 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     action: {
-        backgroundColor: "#FF8A00",
-        color: "#fff",
+        width: "85%",
+        backgroundColor: "#f3f3f4",
+        color: "#0d0c22",
         fontSize: 16,
         paddingVertical: 8,
-        paddingHorizontal: 30,
         marginVertical: 10,
         borderRadius: 25,
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        textAlign: "center"
     },
     note: {
         paddingLeft: 20

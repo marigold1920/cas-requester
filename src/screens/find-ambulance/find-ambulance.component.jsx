@@ -79,7 +79,7 @@ const FindAmbulanceScreen = ({
             )}
             <HeaderTileWithBackBtn
                 textContent="Tìm xe"
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.replace("Home")}
             />
             <View style={styles.content}>
                 <View

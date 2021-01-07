@@ -18,9 +18,9 @@ import { fetchConfig } from "../../apis/core.api";
 import { clearDrivers } from "../geofirestore/geofirestore.actions";
 import { updateStatusCode } from "../message/message.action";
 
-function* saveRequestStart({ payload: { token, request, pickUp, destination } }) {
+function* saveRequestStart({ payload: { token, userId, request, pickUp, destination } }) {
     try {
-        const response = yield call(saveRequest, token, request);
+        const response = yield call(saveRequest, token, userId, request);
 
         yield put(
             saveRequestSuccess({

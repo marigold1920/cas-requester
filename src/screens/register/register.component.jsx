@@ -43,7 +43,7 @@ const RegisterScreen = ({ navigation }) => {
         invalidName: null
     });
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         const {
             invalidPhone,
             invalidPassword,
@@ -51,7 +51,7 @@ const RegisterScreen = ({ navigation }) => {
             invalidName,
             phoneExisted
         } = validation;
-        if (!(username || password || confirmPassword || name)) {
+        if (!(username && password && confirmPassword && name)) {
             return;
         }
         if (
@@ -63,14 +63,17 @@ const RegisterScreen = ({ navigation }) => {
         ) {
             return;
         }
-        try {
-            const phoneProvider = new firebase.auth.PhoneAuthProvider();
-            phoneProvider
-                .verifyPhoneNumber(`+84${username.slice(1)}`, recaptchaVerifier.current)
-                .then(setVerificationId);
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     const phoneProvider = new firebase.auth.PhoneAuthProvider();
+        //     phoneProvider
+        //         .verifyPhoneNumber(`+84${username.slice(1)}`, recaptchaVerifier.current)
+        //         .then(setVerificationId);
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        await registerAccount({ username, password, displayName: name, phone: username }).then(
+            response => response.data && navigation.navigate("Login")
+        );
     };
 
     const confirmCode = async () => {

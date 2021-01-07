@@ -4,7 +4,8 @@ import { RNS3 } from "react-native-aws3";
 import aws from "../config/awskey";
 
 const api = axios.create({
-    baseURL: "http://caselastic-env-1.eba-rh86ed2y.ap-southeast-1.elasticbeanstalk.com/api"
+    baseURL: "http://192.168.1.170:3000/api"
+    // baseURL: "http://caselastic-env-1.eba-rh86ed2y.ap-southeast-1.elasticbeanstalk.com/api"
 });
 
 export const uploadImageToS3 = file => {
@@ -20,7 +21,7 @@ export const uploadImageToS3 = file => {
 };
 
 export const fetchHistories = (token, userId) => {
-    return api.get(`/requests/history/${userId}?pageIndex=0`, {
+    return api.get(`/requests/history/${userId}?pageIndex=1`, {
         headers: {
             Authorization: token
         }
@@ -36,7 +37,7 @@ export const fetchRequestDetails = (token, requestId) => {
 };
 
 export const checkExistedPhoneNumber = phone => {
-    return api.get(`/users/exist?username=${phone}`);
+    return api.get(`/users/check_exist?username=${phone}`);
 };
 
 export const checkIsRegister = phone => {

@@ -20,7 +20,9 @@ const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
                 onPress={(data, details) => {
                     setValue({
                         name: data.structured_formatting.main_text,
-                        address: data.structured_formatting.secondary_text,
+                        address: data.structured_formatting.secondary_text
+                            .replace(", Việt Nam", "")
+                            .replace("Thành phố", ""),
                         coordinates: {
                             latitude: details.geometry.location.lat || null,
                             longitude: details.geometry.location.lng || null

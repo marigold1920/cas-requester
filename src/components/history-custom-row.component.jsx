@@ -6,7 +6,7 @@ import LabelIcon from "./label-icon.component";
 import ButtonText from "./button-text.component";
 
 const CustomRowHistory = ({
-    item: { requestId, destinationName, address, userImage, status, dateCreated, timeCreated },
+    item: { requestId, destinationName, address, userImage, status, dateCreated },
     navigation
 }) => {
     return (
@@ -24,11 +24,6 @@ const CustomRowHistory = ({
                             iconSrc={require("../../assets/icons/date-icon.png")}
                             title={dateCreated}
                             titleStyle={styles.date}
-                        />
-                        <LabelIcon
-                            iconSrc={require("../../assets/icons/time-icon.png")}
-                            title={timeCreated}
-                            titleStyle={styles.time}
                         />
                     </View>
                 </View>
