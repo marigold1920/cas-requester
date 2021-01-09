@@ -7,13 +7,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
     <View style={styles.main__container}>
         <View style={styles.wrraper}>
-            <Icon
-                onPress={onBackward}
-                style={styles.wrapper__icon}
-                size={20}
-                color="#666"
-                name="keyboard-backspace"
-            />
+            <Icon onPress={onBackward} style={styles.wrapper__icon} size={20} color="#666" name="keyboard-backspace" />
             <GooglePlacesAutocomplete
                 styles={placeStyles}
                 placeholder="Tìm kiếm địa điểm?"
@@ -25,20 +19,21 @@ const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
                             .replace("Thành phố", ""),
                         coordinates: {
                             latitude: details.geometry.location.lat || null,
-                            longitude: details.geometry.location.lng || null
-                        }
+                            longitude: details.geometry.location.lng || null,
+                        },
                     });
                 }}
                 autoFillOnNotFound={true}
-                onFail={error => console.log(error)}
+                onFail={(error) => console.log(error)}
                 query={{
                     key: "AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8",
-                    language: "vi"
+                    language: "vi",
+                    component: "country:vn",
                 }}
                 textInputProps={{
                     autoCapitalize: "none",
                     autoCorrect: false,
-                    onBlur: () => setPlaceType(null)
+                    onBlur: () => setPlaceType(null),
                 }}
                 fetchDetails
                 enablePoweredByContainer={false}
@@ -53,19 +48,19 @@ const styles = StyleSheet.create({
     main__container: {
         width: "90%",
         position: "absolute",
-        top: 10
+        top: 10,
     },
     wrraper: {
         position: "relative",
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
     },
     wrapper__icon: {
         position: "absolute",
         zIndex: 1,
-        marginLeft: 10
-    }
+        marginLeft: 10,
+    },
 });
 
 const placeStyles = StyleSheet.create({
@@ -75,17 +70,17 @@ const placeStyles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 5
+        borderRadius: 5,
     },
     textInputContainer: {
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
     },
     textInput: {
         fontSize: 14,
         color: "#444",
         fontFamily: "Texgyreadventor-regular",
         paddingLeft: 40,
-        paddingVertical: 5
+        paddingVertical: 5,
     },
     listView: {
         borderWidth: 0.5,
@@ -93,13 +88,13 @@ const placeStyles = StyleSheet.create({
         backgroundColor: "#fff",
         paddingHorizontal: 20,
         color: "#000",
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
     },
     row: {
-        color: "#000"
+        color: "#000",
     },
     description: {
         color: "#000",
-        fontFamily: "Texgyreadventor-regular"
-    }
+        fontFamily: "Texgyreadventor-regular",
+    },
 });
