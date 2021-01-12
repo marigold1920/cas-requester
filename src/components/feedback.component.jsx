@@ -1,21 +1,23 @@
 import React from "react";
 import { StyleSheet, View, TextInput } from "react-native";
+import { Rating } from "react-native-ratings";
 
 import rem from "./constant.unit";
-import Rating from "./rating.component";
 
-const Feedback = ({ level, action, ...otherProps }) => (
-    <View style={styles.container_feedback_content}>
-        <Rating size={18} level={level} setLevel={action} />
-        <TextInput
-            style={styles.textArea}
-            placeholderTextColor="grey"
-            numberOfLines={5}
-            multiline={true}
-            {...otherProps}
-        />
-    </View>
-);
+const Feedback = ({ action, ...otherProps }) => {
+    return (
+        <View style={styles.container_feedback_content}>
+            <Rating type="heart" imageSize={20} onFinishRating={rating => action(rating)} />
+            <TextInput
+                style={styles.textArea}
+                placeholderTextColor="grey"
+                numberOfLines={5}
+                multiline={true}
+                {...otherProps}
+            />
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container_feedback_content: {

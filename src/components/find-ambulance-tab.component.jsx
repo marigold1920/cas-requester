@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { withNavigation } from "react-navigation";
-import DropDownPicker from "react-native-dropdown-picker";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import { findNearestDrivers } from "../redux/geofirestore/geofirestore.actions";
-import { saveRequest } from "../redux/request/request.actions";
-import { selectProfile, selectToken, selectUsername } from "../redux/user/user.selectors";
+import { saveRequest, setRequestType } from "../redux/request/request.actions";
+import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
+import { selectIsOthers, selectRequestId } from "../redux/request/request.selectors";
+import { updateStatusCode } from "../redux/message/message.action";
+import { createRequest } from "../firebase/firebase.utils";
 
 import BookingHeaderItem from "./booking-header-item.component";
 import FormInput from "./form-input.component";
@@ -22,24 +24,42 @@ const FindAmbulanceTab = ({
     pickUp,
     destination,
     token,
-    username,
+    userId,
     profile,
+    requestId,
     saveRequest,
-    findNearestDrivers
+    updateStatusCode,
+    isOthers,
+    setType
 }) => {
-    const [isOthers, setIsOthers] = useState(false);
     const [patientName, setPatientName] = useState(null);
     const [patientPhone, setPatientPhone] = useState(null);
     const [morbidityNote, setMorbidityNote] = useState(null);
     const [requestType, setRequestType] = useState("emergency");
     const [morbidity, setMorbidity] = useState(null);
 
+    useEffect(() => {
+        if (requestId) {
+            createRequest(
+                requestId,
+                pickUp.coordinates.latitude,
+                pickUp.coordinates.longitude,
+                destination.coordinates.latitude,
+                destination.coordinates.longitude
+            );
+            setIsLoading(true);
+        }
+    }, [requestId]);
+
     const handleAction = async () => {
-        findNearestDrivers(pickUp.coordinates.latitude, pickUp.coordinates.longitude);
+        if (!(pickUp && destination)) {
+            updateStatusCode(404);
+            return;
+        }
         saveRequest(
             token,
+            userId,
             {
-                username,
                 pickUp: {
                     name: pickUp.name,
                     address: pickUp.address
@@ -54,12 +74,15 @@ const FindAmbulanceTab = ({
                 morbidityNote,
                 isEmergency: requestType === "emergency",
                 isOthers,
-                healthInformation: !isOthers ? parseProfileToString() : null
+                healthInformation:
+                    !isOthers && requestType === "emergency" ? parseProfileToString() : null,
+                region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1),
+                latitude: pickUp.coordinates.latitude,
+                longitude: pickUp.coordinates.longitude
             },
             pickUp,
             destination
         );
-        setIsLoading(true);
     };
 
     const parseProfileToString = () => {
@@ -76,25 +99,6 @@ const FindAmbulanceTab = ({
 
         return result;
     };
-
-    const statusItems = [
-        {
-            value: "Tai nạn giao thông",
-            label: "Tai nạn giao thông"
-        },
-        {
-            value: "Tai nạn lao động",
-            label: "Tai nạn lao động"
-        },
-        {
-            value: "Tình trạng nguy kịch",
-            label: "Tình trạng nguy kịch"
-        },
-        {
-            value: "Đi sanh",
-            label: "Đi sanh"
-        }
-    ];
 
     const options = [
         {
@@ -113,12 +117,12 @@ const FindAmbulanceTab = ({
         <View style={styles.booking}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
-                    onPress={() => setIsOthers(false)}
+                    onPress={() => setType(false)}
                     isActive={isOthers ? false : true}
                     content="Tìm xe cho bạn"
                 />
                 <BookingHeaderItem
-                    onPress={() => setIsOthers(true)}
+                    onPress={() => setType(true)}
                     isActive={isOthers}
                     content="Tìm xe cho người khác"
                 />
@@ -138,29 +142,27 @@ const FindAmbulanceTab = ({
                     </RadioButton.Group>
                 </View>
                 <FormInput
+                    onFocus={() => setPlaceType("destination")}
+                    placeholder="Điểm cần đến"
+                    defaultValue={destination && destination.name}
+                    icon="https://i.ibb.co/gWdQ69d/radar.png"
+                />
+                <FormInput
                     onFocus={() => setPlaceType("pickUp")}
                     placeholder="Điểm đón"
                     defaultValue={pickUp && pickUp.name}
                     icon="https://i.ibb.co/D8HPk12/placeholder.png"
                 />
                 {requestType === "emergency" && (
-                    <DropDownPicker
+                    <FormInput
+                        onChangeText={value => setMorbidity(value)}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
                         placeholder="Tình trạng cấp cứu"
-                        placeholderStyle={{ color: "#999", fontSize: 14 }}
-                        containerStyle={{ height: 45 }}
-                        style={styles.dropdown__style}
-                        labelStyle={styles.dropdown__lable__style}
-                        items={statusItems}
                         defaultValue={morbidity}
-                        onChangeItem={item => setMorbidity(item.value)}
+                        icon="https://i.ibb.co/C74rF5B/first-aid-kit.png"
                     />
                 )}
-                <FormInput
-                    onFocus={() => setPlaceType("destination")}
-                    placeholder="Điểm cần đến"
-                    defaultValue={destination && destination.name}
-                    icon="https://i.ibb.co/gWdQ69d/radar.png"
-                />
                 {isOthers && (
                     <>
                         <FormInput
@@ -203,15 +205,19 @@ const FindAmbulanceTab = ({
 
 const mapStateToProps = createStructuredSelector({
     token: selectToken,
-    username: selectUsername,
-    profile: selectProfile
+    userId: selectUserId,
+    profile: selectProfile,
+    requestId: selectRequestId,
+    isOthers: selectIsOthers
 });
 
 const mapDispatchToProps = dispatch => ({
-    findNearestDrivers: (latitude, longitude) =>
-        dispatch(findNearestDrivers({ latitude, longitude })),
-    saveRequest: (token, request, pickUp, destination) =>
-        dispatch(saveRequest(token, request, pickUp, destination))
+    findNearestDrivers: (latitude, longitude, radius, numOfDrivers, extraRadius) =>
+        dispatch(findNearestDrivers(latitude, longitude, radius, numOfDrivers, extraRadius)),
+    saveRequest: (token, userId, request, pickUp, destination) =>
+        dispatch(saveRequest(token, userId, request, pickUp, destination)),
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode)),
+    setType: isOthers => dispatch(setRequestType(isOthers))
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(FindAmbulanceTab));
@@ -235,8 +241,7 @@ const styles = StyleSheet.create({
     places: {
         width: "90%",
         display: "flex",
-        flexDirection: "column",
-        zIndex: 5
+        flexDirection: "column"
     },
     requestType: {
         width: "80%",
@@ -245,27 +250,18 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     action: {
-        backgroundColor: "#FF8A00",
-        color: "#fff",
+        width: "85%",
+        backgroundColor: "#f3f3f4",
+        color: "#0d0c22",
         fontSize: 16,
         paddingVertical: 8,
-        paddingHorizontal: 30,
         marginVertical: 10,
         borderRadius: 25,
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        textAlign: "center"
     },
     note: {
-        width: "100%",
-        borderWidth: 0.1,
-        borderColor: "#444444",
-        borderRadius: 5,
-        paddingVertical: 5,
-        paddingHorizontal: 20,
-        marginTop: 5,
-        fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
-        backgroundColor: "#fff",
-        zIndex: -1
+        paddingLeft: 20
     },
     dropdown__style: {
         backgroundColor: "#fff",

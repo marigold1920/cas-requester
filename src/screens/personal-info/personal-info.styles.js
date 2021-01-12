@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#000",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
         zIndex: -1,
         opacity: 0
     },
@@ -89,10 +89,11 @@ const styles = StyleSheet.create({
     },
     //css button save:
     button_size: {
+        width: deviceRevolution.width * 0.5,
         marginVertical: 20,
         backgroundColor: "#FFF",
         paddingVertical: 5,
-        elevation: 30
+        elevation: 2
     },
     button_text: {
         color: "#26324A",

@@ -24,7 +24,10 @@ const RequestDetails = ({ navigation, token }) => {
 
     return (
         <BackgroundImage>
-            <HeaderTileWithBackBtn textContent="Chi tiết" onPress={() => navigation.goBack()} />
+            <HeaderTileWithBackBtn
+                textContent="Chi tiết"
+                onPress={() => navigation.replace("History")}
+            />
             <View style={styles.container}>
                 {request && (
                     <>

@@ -1,17 +1,20 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
+import { deviceRevolution } from "./constant.unit";
 
-const DriverInfo = ({ request: { driver, licensePlate, status } }) => (
+const mapStatus = {
+    SUCCESS: "Thành công",
+    FAIL: "Không thành công",
+    CANCELED: "Bị hủy bỏ"
+};
+
+const DriverInfo = ({ request: { driver, ambulance, request_status } }) => (
     <View style={styles.driverInfo}>
-        <Image
-            style={styles.background}
-            source={require("../../assets/images/request-details-bg.png")}
-        />
         {driver ? (
             <View style={styles.content}>
                 <Image style={styles.image} source={{ uri: driver.imageUrl }} />
                 <Text style={styles.name}>{driver.displayName}</Text>
-                <Text style={styles.licensePlate}>{licensePlate}</Text>
+                <Text style={styles.licensePlate}>{ambulance.licensePlate}</Text>
                 <Text style={styles.phone}>{driver.phone}</Text>
             </View>
         ) : (
@@ -23,7 +26,7 @@ const DriverInfo = ({ request: { driver, licensePlate, status } }) => (
                 <Text style={styles.noDataMessage}>Không có dữ liệu của tài xế</Text>
             </View>
         )}
-        <Text style={styles.status}>{status}</Text>
+        <Text style={styles.status}>{mapStatus[request_status]}</Text>
     </View>
 );
 
@@ -37,24 +40,24 @@ const styles = StyleSheet.create({
         position: "relative"
     },
     content: {
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
+        width: deviceRevolution.width,
+        height: "auto",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
+        borderBottomLeftRadius: 45,
+        borderBottomRightRadius: 45
     },
     background: {
         borderBottomLeftRadius: 50,
         borderBottomRightRadius: 50
     },
     image: {
-        width: 90,
-        height: 90,
+        width: 100,
+        height: 100,
         borderRadius: 45,
-        marginTop: 50
+        marginTop: 20
     },
     noData: {
         width: 100,
@@ -79,7 +82,8 @@ const styles = StyleSheet.create({
     phone: {
         fontSize: 16,
         color: "#494958",
-        fontFamily: "Texgyreadventor-bold"
+        fontFamily: "Texgyreadventor-bold",
+        marginBottom: 30
     },
     status: {
         position: "absolute",

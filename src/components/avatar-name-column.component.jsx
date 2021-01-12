@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Text, View, Image, StyleSheet, Platform, TouchableHighlight } from "react-native";
+import { Text, View, Image, StyleSheet, Platform } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 import rem from "./constant.unit";
 
 const AvatarNameCol = ({
@@ -37,9 +39,9 @@ const AvatarNameCol = ({
 
     return (
         <View style={[styles.container, contStyle]}>
-            <TouchableHighlight onPress={pickImage}>
+            <TouchableOpacity onPress={pickImage}>
                 <Image style={[styles.image, imgStyle]} source={{ uri: linkImage }} />
-            </TouchableHighlight>
+            </TouchableOpacity>
             <Text style={[styles.text, textStyle]}>{textContent}</Text>
         </View>
     );
@@ -56,8 +58,7 @@ const styles = StyleSheet.create({
         width: 11 * rem,
         height: 11 * rem,
         borderRadius: 100,
-        marginBottom: 10,
-        backgroundColor: "#000"
+        marginBottom: 10
     },
     text: {
         fontFamily: "Texgyreadventor-bold",

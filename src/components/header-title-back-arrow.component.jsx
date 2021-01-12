@@ -1,18 +1,12 @@
 import React from "react";
-
 import { Text, View, StyleSheet } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const HeaderTileWithBackBtn = ({ textContent, onPress, style }) => {
     return (
         <View style={[styles.container, style]}>
             <View style={styles.container_back_button}>
-                <MaterialCommunityIcons
-                    name="chevron-left"
-                    size={28}
-                    color="#494958"
-                    onPress={onPress}
-                />
+                <Icon onPress={onPress} size={20} color="#666" name="keyboard-backspace" />
             </View>
             <View style={styles.container_header_title}>
                 <Text style={styles.text_content}>{textContent}</Text>
@@ -26,13 +20,14 @@ const styles = StyleSheet.create({
     //css for parents:
     container: {
         flexDirection: "row",
-        marginTop: 20,
+        marginTop: 15,
         justifyContent: "center",
         paddingLeft: 10
     },
     container_back_button: {
+        flex: 1,
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center"
     },
     container_header_title: {
@@ -47,7 +42,7 @@ const styles = StyleSheet.create({
         height: 21
     },
     text_content: {
-        fontSize: 18,
+        fontSize: 15,
         fontFamily: "Texgyreadventor-bold",
         color: "#494958",
         textAlign: "center"

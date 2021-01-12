@@ -12,8 +12,9 @@ import {
     selectRequestId
 } from "../../redux/request/request.selectors";
 import { selectToken } from "../../redux/user/user.selectors";
-import { clearRequest, fetchRequest } from "../../redux/request/request.actions";
-import { firestore } from "../../firebase/firebase.utils";
+import { clearRequest, fetchRequest, cancelRequest } from "../../redux/request/request.actions";
+import { cancelRequestFirestore, firestore } from "../../firebase/firebase.utils";
+import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
@@ -21,6 +22,7 @@ import Rating from "../../components/rating.component";
 import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
 import CancelRequestModal from "../../components/cancel-request-modal.component";
+import ConfirmModal from "../../components/confirm-modal.component";
 
 import styles from "./request-info.styles";
 
@@ -32,9 +34,11 @@ const RequestInfoScreen = ({
     source,
     destination,
     requestId,
-    clearRequest
+    clearRequest,
+    cancelRequest
 }) => {
     const [isCancelled, setIsCancelled] = useState(false);
+    const [confirm, setConfirm] = useState(false);
     const requestDocumentRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestDocumentRef);
 
@@ -58,8 +62,21 @@ const RequestInfoScreen = ({
         navigation.navigate("FindAmbulance");
     };
 
+    const handleCancelRequest = () => {
+        cancelRequestFirestore(requestId);
+        cancelRequest(token, requestId);
+        navigation.navigate("FindAmbulance");
+    };
+
     return (
         <BackgroundImage>
+            {confirm && (
+                <ConfirmModal
+                    message={message.cancelRequest}
+                    onConfirm={handleCancelRequest}
+                    onClose={() => setConfirm(false)}
+                />
+            )}
             <CancelRequestModal action={handleConfirmCancelledRequest} visible={isCancelled} />
             <View style={styles.container}>
                 <HeaderTileWithBackBtn textContent="Thông tin tài xế" />
@@ -69,47 +86,56 @@ const RequestInfoScreen = ({
                         <View style={styles.driver__info}>
                             <Image
                                 style={styles.driver__image}
-                                source={{ uri: currentRequest.imageUrl }}
+                                source={{ uri: currentRequest.driver.imageUrl }}
                             />
                             <View style={styles.group}>
-                                <Text style={styles.name}>{currentRequest.driverName}</Text>
-                                <Rating level={currentRequest.ratingLevel} size={10} />
+                                <Text style={styles.name}>{currentRequest.driver.driverName}</Text>
+                                <Rating level={currentRequest.driver.ratingLevel} size={10} />
                                 <Text style={styles.license__plate}>
-                                    {currentRequest.licensePlate}
+                                    {currentRequest.ambulance.licensePlate}
                                 </Text>
                                 <View style={styles.contact}>
                                     <Text style={styles.driver__phone}>
-                                        {currentRequest.phone || "Đang cập nhật"}
+                                        {currentRequest.driver.phone || "Đang cập nhật"}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                         <View style={styles.location}>
-                            <Location
-                                name={currentRequest.pickUp.name}
-                                value={currentRequest.pickUp.address}
-                                icon="https://i.ibb.co/D8HPk12/placeholder.png"
-                            />
-                            <Location
-                                name={currentRequest.destination.name}
-                                value={currentRequest.destination.address}
-                                icon="https://i.ibb.co/gWdQ69d/radar.png"
-                            />
+                            {request && request.status === "picked" ? (
+                                <Location
+                                    name={currentRequest.destination.name}
+                                    value={currentRequest.destination.address}
+                                    icon="https://i.ibb.co/gWdQ69d/radar.png"
+                                />
+                            ) : (
+                                <Location
+                                    name={currentRequest.pickUp.name}
+                                    value={currentRequest.pickUp.address}
+                                    icon="https://i.ibb.co/D8HPk12/placeholder.png"
+                                />
+                            )}
                         </View>
-                        <View style={styles.group__action}>
-                            <Text
-                                onPress={handleConfirmCancelledRequest}
-                                style={[styles.action, styles.cancel]}
-                            >
-                                Hủy yêu cầu
-                            </Text>
-                            <Text
-                                onPress={() => Linking.openURL("tel: 0931738872")}
-                                style={styles.action}
-                            >
-                                Liên hệ tài xế
-                            </Text>
-                        </View>
+                        {!(request && request.status === "picked") && (
+                            <View style={styles.group__action}>
+                                <Text
+                                    onPress={() => setConfirm(true)}
+                                    style={[styles.action, styles.cancel]}
+                                >
+                                    Hủy yêu cầu
+                                </Text>
+                                <Text
+                                    onPress={() =>
+                                        Linking.openURL(
+                                            `tel: ${currentRequest.driver.phone || "0931738872"}`
+                                        )
+                                    }
+                                    style={styles.action}
+                                >
+                                    Liên hệ tài xế
+                                </Text>
+                            </View>
+                        )}
                     </View>
                 )}
             </View>
@@ -127,7 +153,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     fetchRequest: (token, requestId) => dispatch(fetchRequest(token, requestId)),
-    clearRequest: () => dispatch(clearRequest())
+    clearRequest: () => dispatch(clearRequest()),
+    cancelRequest: (token, requestId) => dispatch(cancelRequest(token, requestId))
 });
 
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(RequestInfoScreen));

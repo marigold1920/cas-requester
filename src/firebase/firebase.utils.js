@@ -1,8 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import * as geofirestore from "geofirestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyA1akYjqm5cVgCJvcgAFVguS0sw70hv4ds",
     authDomain: "charitym-ambulance.firebaseapp.com",
     databaseURL: "https://charitym-ambulance.firebaseio.com",
@@ -15,34 +14,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const firestore = firebase.firestore();
-
-const GeoFirestore = geofirestore.initializeApp(firestore);
-const geocollection = GeoFirestore.collection("drivers");
-
-export const findNearest = async (latitude, longitude) => {
-    const query = geocollection
-        .near({
-            center: new firebase.firestore.GeoPoint(latitude, longitude),
-            radius: 200
-        })
-        .limit(5);
-
-    return query;
-};
-
-export const fillRequest = async (drivers, requestId) => {
-    const batch = firestore.batch();
-    const collectionDriverRef = firestore.collection("confirmations");
-
-    drivers.forEach(driver => {
-        const documentRef = collectionDriverRef.doc(driver);
-        batch.update(documentRef, {
-            requestId: requestId
-        });
-    });
-
-    await batch.commit();
-};
 
 export const createRequest = async (
     requestId,
@@ -57,7 +28,8 @@ export const createRequest = async (
         sourceLatitude,
         sourceLongitude,
         destinationLatitude,
-        destinationLongitude
+        destinationLongitude,
+        blacklist: []
     });
 };
 
@@ -67,6 +39,12 @@ export const cancelRequestFirestore = async requestId => {
     await requestRef.update({
         status: "cancelled"
     });
+};
+
+export const syncLocationToRequest = async (requestId, sourceLatitude, sourceLongitude) => {
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
+
+    await requestRef.set({ sourceLatitude, sourceLongitude }, { merge: true });
 };
 
 export default firebase;

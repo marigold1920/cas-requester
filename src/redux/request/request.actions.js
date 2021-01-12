@@ -1,9 +1,10 @@
 import RequestActionTypes from "./request.types";
 
-export const saveRequest = (token, request, pickUp, destination) => ({
+export const saveRequest = (token, userId, request, pickUp, destination) => ({
     type: RequestActionTypes.SAVE_REQUEST_START,
     payload: {
         token,
+        userId,
         request,
         pickUp,
         destination
@@ -70,4 +71,28 @@ export const cancelRequestSuccess = () => ({
 export const cancelRequestFail = error => ({
     type: RequestActionTypes.CANCEL_REQUEST_FAIL,
     payload: error
+});
+
+export const fetchConfig = token => ({
+    type: RequestActionTypes.FETCH_CONFIG_START,
+    payload: token
+});
+
+export const fetchConfigSuccess = config => ({
+    type: RequestActionTypes.FETCH_CONFIG_SUCCESS,
+    payload: config
+});
+
+export const fetchConfigFail = error => ({
+    type: RequestActionTypes.FETCH_CONFIG_FAIL,
+    payload: error
+});
+
+export const cleanUp = () => ({
+    type: RequestActionTypes.CLEAN_UP
+});
+
+export const setRequestType = isOthers => ({
+    type: RequestActionTypes.SET_REQUEST_TYPE,
+    payload: isOthers
 });
