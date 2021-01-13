@@ -34,7 +34,7 @@ const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
                 query={{
                     key: "AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8",
                     language: "vi",
-                    components: "country:vn"
+                    component: "country:vn"
                 }}
                 textInputProps={{
                     autoCapitalize: "none",
