@@ -1,10 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://192.168.1.170:3000/api"
-    // baseURL: "https://cas-capstone.herokuapp.com/api"
-    // baseURL: "http://caselastic-env.eba-iukmv232.ap-southeast-1.elasticbeanstalk.com/api"
-    // baseURL: "http://13.250.14.195:3000/api"
+    baseURL: "http://192.168.1.28:3000/api"
+    // baseURL: "https://cas-server-nodejs.herokuapp.com/api"
 });
 
 export const login = (username, password) => {

@@ -33,7 +33,8 @@ const GooglePlaceSearch = ({ setValue, setPlaceType, onBackward }) => (
                 onFail={error => console.log(error)}
                 query={{
                     key: "AIzaSyA3wjgHRZGPb4I96XDM-Eev7f1QQM_Mpp8",
-                    language: "vi"
+                    language: "vi",
+                    components: "country:vn"
                 }}
                 textInputProps={{
                     autoCapitalize: "none",

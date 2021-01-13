@@ -11,9 +11,6 @@ const FormInput = ({ icon, style, ...otherProps }) => (
 export default FormInput;
 
 const styles = StyleSheet.create({
-    item: {
-        overflow: "hidden"
-    },
     icon: {
         position: "absolute",
         top: "35%",
