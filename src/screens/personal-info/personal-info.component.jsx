@@ -34,19 +34,14 @@ const firebaseConfig = {
 const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, updateUser }) => {
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
     const [displayName, setDisplayName] = useState(currentUser.displayName);
-    // const [phone, setPhone] = useState(currentUser.phone);
-    const [phone, setPhone] = useState("");
+    const [phone, setPhone] = useState(currentUser.phone);
+    // const [phone, setPhone] = useState("");
     const recaptchaVerifier = useRef(null);
     const [verificationId, setVerificationId] = useState(null);
     const [otp, setOtp] = useState(null);
     const [invalidOTP, setInvalidOTP] = useState(null);
 
     const handlerUploadImage = () => {
-        // const image = {
-        //     uri: linkImage,
-        //     name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
-        //     type: "image/png",
-        // };
         // console.log(linkImage);
         // updateUser(currentUser.id, token, { displayName, phone, image });
 
@@ -60,10 +55,15 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
 
     const confirmCode = async () => {
         try {
+            const image = {
+                uri: linkImage,
+                name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
+                type: "image/png",
+            };
             const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
             await firebase.auth().signInWithCredential(credential);
-            navigation.navigate("Home");
-            // updateUser(currentUser.id, token, { displayName, phone, image });
+            // navigation.navigate("Home");
+            updateUser(currentUser.id, token, { displayName, phone, image });
         } catch (error) {
             setInvalidOTP("Mã OTP không hợp lệ");
         }
