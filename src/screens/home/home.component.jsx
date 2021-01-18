@@ -31,15 +31,11 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                         buttonStyle={styles.headerButton_noBorder}
                         styleImg={styles.headerProfile}
                         imgSrc={{
-                            uri: currentUser
-                                ? currentUser.imageUrl
-                                : "https://i.ibb.co/G3KybLH/loading.png"
+                            uri: currentUser ? currentUser.imageUrl : "https://i.ibb.co/G3KybLH/loading.png",
                         }}
                         onPress={() => navigation.navigate("PersonalInfo")}
                     />
-                    <Text style={styles.headerText}>
-                        {currentUser ? currentUser.displayName : ""}
-                    </Text>
+                    <Text style={styles.headerText}>{currentUser ? currentUser.displayName : ""}</Text>
                     <ButtonWithImage
                         buttonStyle={styles.headerButton}
                         styleImg={styles.headerImg}
@@ -61,7 +57,7 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
                         <ButtonImgBgr
                             styleImg={styles.menu_Img}
                             imgSrc={require("../../../assets/icons/disease-profile.png")}
-                            title="Hồ sơ sức khỏe"
+                            title="Thông tin sức khỏe"
                             content="Cập nhật thông tin về tình trạng sức khỏe của bạn"
                             titleStyle={styles.menu_title}
                             contentStyle={styles.menu_content}
@@ -95,11 +91,11 @@ const HomeScreen = ({ navigation, currentUser, logout }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser
+    currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
