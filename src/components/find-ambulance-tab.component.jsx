@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, KeyboardAvoidingView } from "react-native";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { RadioButton } from "react-native-paper";
-import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { saveRequest, setRequestType } from "../redux/request/request.actions";
+import { saveRequest } from "../redux/request/request.actions";
 import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
-import { selectIsOthers, selectRequestId } from "../redux/request/request.selectors";
 import { updateStatusCode } from "../redux/message/message.action";
-import { createRequest } from "../firebase/firebase.utils";
 
 import BookingHeaderItem from "./booking-header-item.component";
 import FormInput from "./form-input.component";
 import CustomOption from "./option.component";
-import KeyboardAvoiding from "./keyboard-avoiding.component";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const FindAmbulanceTab = ({
-    setIsLoading,
     setPlaceType,
     setIsFocus,
     pickUp,
@@ -26,61 +21,39 @@ const FindAmbulanceTab = ({
     token,
     userId,
     profile,
-    requestId,
     saveRequest,
     updateStatusCode,
-    isOthers,
-    setType
+    setLoading,
+    isFocus
 }) => {
     const [patientName, setPatientName] = useState(null);
     const [patientPhone, setPatientPhone] = useState(null);
     const [morbidityNote, setMorbidityNote] = useState(null);
     const [requestType, setRequestType] = useState("emergency");
     const [morbidity, setMorbidity] = useState(null);
-
-    console.log(userId);
-
-    useEffect(() => {
-        if (requestId) {
-            createRequest(
-                requestId,
-                pickUp.coordinates.latitude,
-                pickUp.coordinates.longitude,
-                destination.coordinates.latitude,
-                destination.coordinates.longitude
-            );
-            setIsLoading(true);
-        }
-    }, [requestId]);
+    const [isOther, setIsOther] = useState(false);
 
     const handleAction = async () => {
         if (!(pickUp && destination)) {
             updateStatusCode(404);
             return;
         }
+        setLoading(true);
         saveRequest(
             token,
             userId,
             {
-                pickUp: {
-                    name: pickUp.name,
-                    address: pickUp.address
-                },
-                destination: {
-                    name: destination.name,
-                    address: destination.address
-                },
+                pickUp,
+                destination,
                 patientName,
                 patientPhone,
                 morbidity,
                 morbidityNote,
                 isEmergency: requestType === "emergency",
-                isOthers,
+                isOther,
                 healthInformation:
-                    !isOthers && requestType === "emergency" ? parseProfileToString() : null,
-                region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1),
-                latitude: pickUp.coordinates.latitude,
-                longitude: pickUp.coordinates.longitude
+                    !isOther && requestType === "emergency" ? parseProfileToString() : null,
+                region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1)
             },
             pickUp,
             destination
@@ -94,7 +67,7 @@ const FindAmbulanceTab = ({
         result += profile.gender && `Giới tính: ${profile.gender}`;
         result += profile.age && `, tuổi: ${profile.age}`;
         result += profile.bloodPressure && `, huyết áp: ${profile.bloodPressure}.`;
-        result += profile.morbidity && ` Tình trạng hiện nay: ${profile.bloodPressure}`;
+        result += profile.morbidity && ` Tình trạng hiện nay: ${profile.morbidity}`;
         result += profile.medicalHistories && `, Tiền sử bệnh: ${profile.medicalHistories}.`;
         result += profile.allergy && ` Dị ứng: ${profile.allergy}.`;
         result += profile.others && ` ${profile.others}`;
@@ -106,7 +79,7 @@ const FindAmbulanceTab = ({
         {
             itemId: 1,
             value: "emergency",
-            label: "Cấp cứu"
+            label: "Đến bệnh viện"
         },
         {
             itemId: 2,
@@ -116,20 +89,20 @@ const FindAmbulanceTab = ({
     ];
 
     return (
-        <View style={styles.booking}>
+        <View style={[styles.booking, isFocus ? { top: 5 } : { bottom: 55 }]}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
-                    onPress={() => setType(false)}
-                    isActive={isOthers ? false : true}
+                    onPress={() => setIsOther(false)}
+                    isActive={isOther ? false : true}
                     content="Tìm xe cho bạn"
                 />
                 <BookingHeaderItem
-                    onPress={() => setType(true)}
-                    isActive={isOthers}
+                    onPress={() => setIsOther(true)}
+                    isActive={isOther}
                     content="Tìm xe cho người khác"
                 />
             </View>
-            <KeyboardAvoiding style={styles.places}>
+            <KeyboardAvoidingView style={styles.places}>
                 <View style={styles.requestType}>
                     <RadioButton.Group
                         value={requestType}
@@ -143,61 +116,64 @@ const FindAmbulanceTab = ({
                         ))}
                     </RadioButton.Group>
                 </View>
-                <FormInput
-                    onFocus={() => setPlaceType("destination")}
-                    placeholder="Điểm cần đến"
-                    defaultValue={destination && destination.name}
-                    icon="https://i.ibb.co/gWdQ69d/radar.png"
-                />
-                <FormInput
-                    onFocus={() => setPlaceType("pickUp")}
-                    placeholder="Điểm đón"
-                    defaultValue={pickUp && pickUp.name}
-                    icon="https://i.ibb.co/D8HPk12/placeholder.png"
-                />
-                {requestType === "emergency" && (
+                <ScrollView showsVerticalScrollIndicator={false} style={{ height: "65%" }}>
                     <FormInput
-                        onChangeText={value => setMorbidity(value)}
-                        onFocus={() => setIsFocus(true)}
-                        onBlur={() => setIsFocus(false)}
-                        placeholder="Tình trạng cấp cứu"
-                        defaultValue={morbidity}
-                        icon="https://i.ibb.co/C74rF5B/first-aid-kit.png"
+                        onFocus={() => setPlaceType("destination")}
+                        placeholder="Điểm cần đến"
+                        defaultValue={destination && destination.name}
+                        icon="https://i.ibb.co/gWdQ69d/radar.png"
                     />
-                )}
-                {isOthers && (
-                    <>
+                    <FormInput
+                        onFocus={() => setPlaceType("pickUp")}
+                        placeholder="Điểm đón"
+                        defaultValue={pickUp && pickUp.name}
+                        icon="https://i.ibb.co/D8HPk12/placeholder.png"
+                    />
+                    {requestType === "emergency" && (
                         <FormInput
-                            placeholder="Tên"
-                            defaultValue={patientName}
-                            onChangeText={value => setPatientName(value)}
+                            onChangeText={value => setMorbidity(value)}
                             onFocus={() => setIsFocus(true)}
                             onBlur={() => setIsFocus(false)}
-                            icon="https://i.ibb.co/9cR5tcy/name.png"
+                            placeholder="Tình trạng cấp cứu"
+                            defaultValue={morbidity}
+                            icon="https://i.ibb.co/C74rF5B/first-aid-kit.png"
                         />
-                        <FormInput
-                            placeholder="Số điện thoại"
-                            defaultValue={patientPhone}
-                            onChangeText={value => setPatientPhone(value)}
-                            onFocus={() => setIsFocus(true)}
-                            onBlur={() => {
-                                setIsFocus(false);
-                            }}
-                            keyboardType="numeric"
-                            icon="https://i.ibb.co/cctFq5g/phone-call.png"
-                        />
-                    </>
-                )}
-                <FormInput
-                    style={styles.note}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    placeholder="Ghi chú"
-                    numberOfLines={2}
-                    defaultValue={morbidityNote}
-                    onChangeText={value => setMorbidityNote(value)}
-                />
-            </KeyboardAvoiding>
+                    )}
+                    {isOther && (
+                        <>
+                            <FormInput
+                                placeholder="Tên"
+                                defaultValue={patientName}
+                                onChangeText={value => setPatientName(value)}
+                                onFocus={() => setIsFocus(true)}
+                                onBlur={() => setIsFocus(false)}
+                                icon="https://i.ibb.co/9cR5tcy/name.png"
+                            />
+                            <FormInput
+                                placeholder="Số điện thoại"
+                                defaultValue={patientPhone}
+                                onChangeText={value => setPatientPhone(value)}
+                                onFocus={() => setIsFocus(true)}
+                                onBlur={() => {
+                                    setIsFocus(false);
+                                }}
+                                keyboardType="numeric"
+                                icon="https://i.ibb.co/cctFq5g/phone-call.png"
+                            />
+                        </>
+                    )}
+                    <FormInput
+                        style={styles.note}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        placeholder="Ghi chú"
+                        numberOfLines={2}
+                        defaultValue={morbidityNote}
+                        onChangeText={value => setMorbidityNote(value)}
+                        multiline={true}
+                    />
+                </ScrollView>
+            </KeyboardAvoidingView>
             <TouchableOpacity onPress={handleAction}>
                 <Text style={styles.action}>Tìm xe</Text>
             </TouchableOpacity>
@@ -208,36 +184,38 @@ const FindAmbulanceTab = ({
 const mapStateToProps = createStructuredSelector({
     token: selectToken,
     userId: selectUserId,
-    profile: selectProfile,
-    requestId: selectRequestId,
-    isOthers: selectIsOthers
+    profile: selectProfile
 });
 
 const mapDispatchToProps = dispatch => ({
     saveRequest: (token, userId, request, pickUp, destination) =>
         dispatch(saveRequest(token, userId, request, pickUp, destination)),
-    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode)),
-    setType: isOthers => dispatch(setRequestType(isOthers))
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
 });
 
-export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(FindAmbulanceTab));
+export default connect(mapStateToProps, mapDispatchToProps)(FindAmbulanceTab);
 
 const styles = StyleSheet.create({
     booking: {
+        position: "absolute",
         width: "100%",
-        position: "relative",
-        height: "auto",
-        display: "flex",
+        maxHeight: 285,
+        zIndex: 1,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 10
+        paddingBottom: 10,
+        paddingTop: 15,
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25
     },
     booking__header: {
         width: "85%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        marginTop: 10
     },
     places: {
         width: "85%",
@@ -251,11 +229,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     action: {
-        backgroundColor: "#f3f3f4",
+        backgroundColor: "#f7f7f7",
         color: "#444",
         fontSize: 14,
         paddingVertical: 8,
-        paddingHorizontal: "35%",
+        paddingHorizontal: "37%",
         marginVertical: 10,
         borderRadius: 25,
         fontFamily: "Texgyreadventor-bold",

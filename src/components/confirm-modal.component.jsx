@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         width: "90%",
         height: "auto",
         backgroundColor: "#fff",
-        borderRadius: 5
+        borderRadius: 10
     },
     message: {
         fontFamily: "Texgyreadventor-regular",

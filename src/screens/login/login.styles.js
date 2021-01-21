@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     block_button: {
+        width: "80%",
         flexDirection: "column",
         alignItems: "center"
     }

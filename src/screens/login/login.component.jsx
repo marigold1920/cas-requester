@@ -4,7 +4,6 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 
 import { signIn } from "../../redux/user/user.actions";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { message } from "../../utils/message.data";
 import { selectStatusCode } from "../../redux/message/message.selectors";
 
@@ -15,19 +14,22 @@ import LogoName from "../../components/logo-name.component";
 import BackgroundLogin from "../../components/background-screen-login.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import MessageModal from "../../components/message-modal.component";
+import Spinner from "../../components/spinner.component";
 
 import styles from "./login.styles";
 
-const LoginScreen = ({ navigation, currentUser, statusCode, signIn }) => {
+const LoginScreen = ({ navigation, statusCode, signIn }) => {
     const [username, setUsername] = useState("0988635032");
     const [password, setPassword] = useState("123456");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        currentUser && navigation.navigate("Home");
-    }, [currentUser]);
+        statusCode && setLoading(false);
+    }, [statusCode]);
 
     return (
         <BackgroundLogin>
+            {loading && <Spinner />}
             {statusCode && <MessageModal message={message[401]} />}
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.block_logo_name}>
@@ -49,9 +51,12 @@ const LoginScreen = ({ navigation, currentUser, statusCode, signIn }) => {
                         secureTextEntry={true}
                     />
                     <ButtonText
-                        styleButton={{ paddingVertical: 5 }}
+                        styleButton={{ paddingVertical: 3, width: "100%" }}
                         textContent="ĐĂNG NHẬP"
-                        onPress={() => signIn({ username, password })}
+                        onPress={() => {
+                            signIn({ username, password });
+                            setLoading(true);
+                        }}
                     />
                     <TextLinking
                         contentText="Chưa có tài khoản?"
@@ -69,7 +74,6 @@ const LoginScreen = ({ navigation, currentUser, statusCode, signIn }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
     statusCode: selectStatusCode
 });
 

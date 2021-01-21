@@ -1,7 +1,7 @@
 import UserActionTypes from "./user.tyles";
 
 const INITIAL_STATE = {
-    currentUser: { displayName: "Victor", userName: "0988635032", id: 1 },
+    currentUser: null,
     healthInformation: null,
     error: null
 };

@@ -33,13 +33,11 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId, cleanUp
         });
         setModalVisible(true);
         cleanUp();
-        clearDrivers();
     };
 
     const handleExit = () => {
-        clearDrivers();
         cleanUp();
-        navigation.navigate("Home");
+        navigation.replace("Home");
     };
 
     return (
@@ -49,7 +47,7 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId, cleanUp
                     <View style={styles.modal__content}>
                         <Text style={styles.status}>Góp ý thành công</Text>
                         <Text style={styles.message}>Cảm ơn bạn đã góp ý về dịch vụ!</Text>
-                        <Text onPress={() => navigation.navigate("Home")} style={styles.action}>
+                        <Text onPress={() => navigation.replace("Home")} style={styles.action}>
                             Đóng
                         </Text>
                     </View>

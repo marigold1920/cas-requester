@@ -1,15 +1,10 @@
 import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 
-const Spinner = ({ message }) => (
-    <View style={styles.spinner}>
-        <View style={styles.spinnerOverplay}>
+const Spinner = ({ style }) => (
+    <View style={[styles.spinner, style]}>
+        <View style={styles.overplay}>
             <Image style={styles.image} source={require("../../assets/icons/loading.gif")} />
-            {/* <Image
-                style={styles.imageInner}
-                source={require("../../assets/icons/loading-inner.gif")}
-            /> */}
-            <Text style={styles.message}>{message}</Text>
         </View>
     </View>
 );
@@ -18,31 +13,23 @@ export default Spinner;
 
 const styles = StyleSheet.create({
     spinner: {
-        height: "auto",
-        zIndex: 20,
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: 15
-    },
-    spinnerOverplay: {
-        display: "flex",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 20
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
+        zIndex: 10
     },
-    message: {
-        marginTop: 130,
-        fontFamily: "Texgyreadventor-regular",
-        color: "#444"
+    overplay: {
+        width: "90%",
+        height: "auto",
+        alignItems: "center",
+        paddingVertical: 10,
+        borderRadius: 10
     },
     image: {
-        position: "absolute",
-        width: 110,
-        height: 110
-    },
-    imageInner: {
-        position: "absolute",
-        width: 80,
-        height: 80
+        width: 150,
+        height: 150
     }
 });

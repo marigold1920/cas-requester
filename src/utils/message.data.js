@@ -11,6 +11,7 @@ export const message = {
     202: "Cập nhật thông tin cá nhân thành công!",
     203: "Cập nhật hồ sơ sức khỏe thành công!",
     204: "Hủy yêu cầu thành công. Bạn có thể xem lại trong phần Lịch sử!",
+    205: "Tạo yêu cầu thành công",
     402: "Cập nhật thông tin cá nhân không thành công!",
     403: "Cập nhật hồ sơ sức khỏe không thành công!",
     404: "Hệ thống ghi nhận địa chỉ để tạo yêu cầu không hợp lệ, vui lòng kiểm tra lại!",

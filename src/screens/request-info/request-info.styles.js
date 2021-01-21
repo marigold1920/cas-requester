@@ -1,22 +1,18 @@
 import { StyleSheet } from "react-native";
-import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     //css for parents container:
     container: {
-        flex: 1,
-        flexDirection: "column",
-        position: "relative"
-    },
-    map: {
-        height: deviceRevolution.height * 0.45,
-        marginTop: 10
+        width: "100%"
     },
     request__info: {
+        width: "100%",
+        position: "absolute",
+        bottom: 5,
+        backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        marginTop: 10
+        alignItems: "center"
     },
     driver__info: {
         display: "flex",

@@ -1,19 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import * as Location from "expo-location";
 
 import { firestore } from "../firebase/firebase.utils";
-import { selectRequestId, selectPoolId, selectIsOthers } from "../redux/request/request.selectors";
-import { configureTask } from "../utils/background-task.services";
+import { selectRequestId, selectPoolId } from "../redux/request/request.selectors";
 
 import MapDirection from "./map-direction.component";
 import { deviceRevolution } from "./constant.unit";
 
-const Map = ({ source, isSearching, children, destination, requestId, isControl, poolId }) => {
+const Map = ({
+    source,
+    isSearching,
+    children,
+    destination,
+    requestId,
+    isControl,
+    poolId,
+    driverImage
+}) => {
     const mapRef = useRef(null);
     const [region, setRegion] = useState({
         latitude: 10.16494,
@@ -25,10 +32,6 @@ const Map = ({ source, isSearching, children, destination, requestId, isControl,
     const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [driverPosition] = useDocumentData(driverPositionRef);
     const [request] = useDocumentData(requestRef);
-    const [ownPosition, setOwnPosition] = useState({
-        latitude: 10.16494,
-        longitude: 106.61501
-    });
     const [driver, setDriver] = useState({
         latitude: 10.16494,
         longitude: 106.61501
@@ -42,10 +45,6 @@ const Map = ({ source, isSearching, children, destination, requestId, isControl,
 
     const onRegionChange = region => {
         setRegion(region);
-    };
-
-    const handleLocationChange = coordinate => {
-        setOwnPosition(coordinate);
     };
 
     return (
@@ -62,7 +61,8 @@ const Map = ({ source, isSearching, children, destination, requestId, isControl,
                     isControl
                         ? region
                         : {
-                              ...source.coordinates,
+                              latitude: source.latitude,
+                              longitude: source.longitude,
                               latitudeDelta: 0.0343,
                               longitudeDelta: 0.0134
                           }
@@ -73,45 +73,54 @@ const Map = ({ source, isSearching, children, destination, requestId, isControl,
                 loadingEnabled
                 followsUserLocation={true}
                 style={styles.map__view}
-                onUserLocationChange={coordinate =>
-                    handleLocationChange({
-                        latitude: coordinate.nativeEvent.coordinate.latitude,
-                        longitude: coordinate.nativeEvent.coordinate.longitude
-                    })
-                }
             >
                 {destination && (
                     <>
                         <MapDirection
-                            origin={
-                                request && request.status === "picked"
-                                    ? destination.coordinates
-                                    : source.coordinates
-                            }
-                            destination={isControl ? driver : destination.coordinates}
+                            origin={request && request.status === "picked" ? destination : source}
+                            destination={isControl ? driver : destination}
                             onReady={results =>
                                 mapRef.current.fitToCoordinates(results.coordinates, {
                                     edgePadding: {
-                                        top: 20,
-                                        bottom: 20,
+                                        top: 35,
+                                        bottom: 50,
                                         left: 50,
                                         right: 50
                                     }
                                 })
                             }
                         />
-                        <Marker
-                            coordinate={isControl ? driver : destination.coordinates}
-                            pinColor="red"
-                            image={isControl ? "https://i.ibb.co/6rTx3D4/ambulance.png" : ""}
-                        />
+                        {!isControl ? (
+                            <Marker
+                                coordinate={isControl ? driver : destination}
+                                pinColor="red"
+                                image={require("../../assets/icons/end.png")}
+                            />
+                        ) : (
+                            <Marker coordinate={driver}>
+                                <View style={styles.customMarker}>
+                                    {/* <Image
+                                            style={styles.driverImage}
+                                            source={{ uri: driverImage }}
+                                        /> */}
+                                    <Image
+                                        style={{
+                                            position: "absolute",
+                                            zIndex: -1,
+                                            width: 30,
+                                            height: 37
+                                        }}
+                                        source={require("../../assets/icons/end.png")}
+                                    />
+                                </View>
+                            </Marker>
+                        )}
                         <Marker
                             coordinate={
-                                request && request.status === "picked"
-                                    ? destination.coordinates
-                                    : source.coordinates
+                                request && request.status === "picked" ? destination : source
                             }
                             pinColor="red"
+                            image={require("../../assets/icons/start.png")}
                         />
                     </>
                 )}
@@ -130,7 +139,6 @@ export default connect(mapStateToProps)(Map);
 
 const styles = StyleSheet.create({
     container_mapview: {
-        marginTop: 10,
         alignItems: "center"
     },
     map__view: {
@@ -138,8 +146,15 @@ const styles = StyleSheet.create({
         height: "100%"
     },
     driverImage: {
-        width: 25,
-        height: 25,
-        borderRadius: 15
+        width: 22,
+        height: 22,
+        borderRadius: 11,
+        marginBottom: 10
+    },
+    customMarker: {
+        width: 69,
+        height: 75,
+        alignItems: "center",
+        justifyContent: "flex-end"
     }
 });

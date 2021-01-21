@@ -1,50 +1,11 @@
 import React from "react";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
 import { Provider } from "react-redux";
 
 import store from "./src/redux/store";
 
-import HomeScreen from "./src/screens/home/home.component";
-import ProfileScreen from "./src/screens/profile/profile.component";
-import LoginScreen from "./src/screens/login/login.component";
-import RegisterScreen from "./src/screens/register/register.component";
-import HistoryScreen from "./src/screens/history/history.component";
-import FindAmbulanceScreen from "./src/screens/find-ambulance/find-ambulance.component";
-import RequestInfoScreen from "./src/screens/request-info/request-info.component";
-import RequestDetails from "./src/screens/request-details/request-details.conponent";
-import FeedbackScreen from "./src/screens/feedback/feedback.component";
-import PersonalInfoScreen from "./src/screens/personal-info/personal-info.component";
-import OtpScreen from "./src/screens/otp/otp.component";
-
-import ResetPassScreen from "./src/screens/reset-password/reset-password.component";
-
-const MainNavigator = createStackNavigator(
-    {
-        Home: HomeScreen,
-        Profile: ProfileScreen,
-        Login: LoginScreen,
-        Register: RegisterScreen,
-        History: HistoryScreen,
-        FindAmbulance: FindAmbulanceScreen,
-        RequestInfo: RequestInfoScreen,
-        RequestDetails: RequestDetails,
-        Feedback: FeedbackScreen,
-        PersonalInfo: PersonalInfoScreen,
-        Otp: OtpScreen,
-        ResetPass: ResetPassScreen
-    },
-    {
-        initialRouteName: "Login",
-        defaultNavigationOptions: {
-            headerShown: false
-        }
-    }
-);
-
-const AppContainer = createAppContainer(MainNavigator);
+import Navigation from "./src/screens/navigations/navigation.component";
 
 export default class App extends React.Component {
     state = {
@@ -68,7 +29,7 @@ export default class App extends React.Component {
         // from the custom App we return the component we assigned to AppContainer.
         return (
             <Provider store={store}>
-                <AppContainer />
+                <Navigation />
             </Provider>
         );
     }
