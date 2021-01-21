@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { View, TextInput, Text } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, TextInput, Text, TouchableOpacity } from "react-native";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import * as firebase from "firebase";
 
 import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
 import { selectStatusCode } from "../../redux/message/message.selectors";
@@ -14,34 +17,77 @@ import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import MessageModal from "../../components/message-modal.component";
+import CustomModal from "../../components/custom-modal.componet";
 
 import styles from "./personal-info.styles";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA1akYjqm5cVgCJvcgAFVguS0sw70hv4ds",
+    authDomain: "charitym-ambulance.firebaseapp.com",
+    databaseURL: "https://charitym-ambulance.firebaseio.com",
+    projectId: "charitym-ambulance",
+    storageBucket: "charitym-ambulance.appspot.com",
+    messagingSenderId: "801731513492",
+    appId: "1:801731513492:web:30978d836981cb9b6d3881",
+};
 
 const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, updateUser }) => {
     const [linkImage, setLinkImage] = useState(currentUser.imageUrl);
     const [displayName, setDisplayName] = useState(currentUser.displayName);
     const [phone, setPhone] = useState(currentUser.phone);
+    // const [phone, setPhone] = useState("");
+    const recaptchaVerifier = useRef(null);
+    const [verificationId, setVerificationId] = useState(null);
+    const [otp, setOtp] = useState(null);
+    const [invalidOTP, setInvalidOTP] = useState(null);
 
     const handlerUploadImage = () => {
-        const image = {
-            uri: linkImage,
-            name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
-            type: "image/png"
-        };
-        console.log(linkImage);
-        updateUser(currentUser.id, token, { displayName, phone, image });
+        // console.log(linkImage);
+        // updateUser(currentUser.id, token, { displayName, phone, image });
+
+        try {
+            const phoneProvider = new firebase.auth.PhoneAuthProvider();
+            phoneProvider.verifyPhoneNumber(`+84${phone.slice(1)}`, recaptchaVerifier.current).then(setVerificationId);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const confirmCode = async () => {
+        try {
+            const image = {
+                uri: linkImage,
+                name: linkImage.substring(linkImage.lastIndexOf("/") + 1),
+                type: "image/png",
+            };
+            const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
+            await firebase.auth().signInWithCredential(credential);
+            // navigation.navigate("Home");
+            updateUser(currentUser.id, token, { displayName, phone, image });
+        } catch (error) {
+            setInvalidOTP("Mã OTP không hợp lệ");
+        }
     };
 
     return (
         <BackgroundImage>
-            {statusCode && (
-                <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
-            )}
+            {statusCode && <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />}
+            <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig} />
+            <CustomModal title="Xác thực OTP" visible={!!verificationId}>
+                <Text style={styles.title}>Mã OTP *</Text>
+                {invalidOTP && <Text style={styles.invalid}>{invalidOTP}</Text>}
+                <TextInput style={styles.otp} onChangeText={(value) => setOtp(value)} />
+                <View style={styles.groupAction}>
+                    <TouchableOpacity onPress={() => setVerificationId(null)}>
+                        <Text style={styles.button_otp}>Hủy</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={confirmCode}>
+                        <Text style={styles.button_otp}>Xác nhận</Text>
+                    </TouchableOpacity>
+                </View>
+            </CustomModal>
             <View>
-                <HeaderTileWithBackBtn
-                    textContent="Thông tin cá nhân"
-                    onPress={() => navigation.replace("Home")}
-                />
+                <HeaderTileWithBackBtn textContent="Thông tin cá nhân" onPress={() => navigation.replace("Home")} />
             </View>
             <View style={styles.container_info}>
                 <AvatarNameCol
@@ -58,7 +104,7 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
                     <TextInput
                         style={styles.text_input}
                         defaultValue={displayName}
-                        onChangeText={value => setDisplayName(value)}
+                        onChangeText={(value) => setDisplayName(value)}
                     />
                 </View>
                 <View style={styles.container_text_input}>
@@ -66,7 +112,8 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
                     <TextInput
                         style={styles.text_input}
                         defaultValue={phone}
-                        onChangeText={value => setPhone(value)}
+                        onChangeText={(value) => setPhone(value)}
+                        keyboardType="numeric"
                     />
                 </View>
             </KeyboardAvoiding>
@@ -88,11 +135,11 @@ const PersonalInfoScreen = ({ navigation, currentUser, token, statusCode, update
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     token: selectToken,
-    statusCode: selectStatusCode
+    statusCode: selectStatusCode,
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateUser: (userId, token, user) => dispatch(updateUser(userId, token, user))
+const mapDispatchToProps = (dispatch) => ({
+    updateUser: (userId, token, user) => dispatch(updateUser(userId, token, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalInfoScreen);

@@ -14,13 +14,12 @@ const FindingDriver = ({
     setIsLoading,
     drivers,
     requestId,
-    config: { requestTimeout },
     syncPoolData,
     setConfirm,
     handleCancelRequest
 }) => {
-    const [timer, setTimer] = useState(requestTimeout * 60 - 1);
-    const [minutes, setMinutes] = useState(requestTimeout - 1);
+    const [timer, setTimer] = useState(15 * 60);
+    const [minutes, setMinutes] = useState(14);
     const [seconds, setSeconds] = useState(59);
     const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestRef);

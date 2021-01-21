@@ -5,7 +5,6 @@ import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { findNearestDrivers } from "../redux/geofirestore/geofirestore.actions";
 import { saveRequest, setRequestType } from "../redux/request/request.actions";
 import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
 import { selectIsOthers, selectRequestId } from "../redux/request/request.selectors";
@@ -16,6 +15,7 @@ import BookingHeaderItem from "./booking-header-item.component";
 import FormInput from "./form-input.component";
 import CustomOption from "./option.component";
 import KeyboardAvoiding from "./keyboard-avoiding.component";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const FindAmbulanceTab = ({
     setIsLoading,
@@ -37,6 +37,8 @@ const FindAmbulanceTab = ({
     const [morbidityNote, setMorbidityNote] = useState(null);
     const [requestType, setRequestType] = useState("emergency");
     const [morbidity, setMorbidity] = useState(null);
+
+    console.log(userId);
 
     useEffect(() => {
         if (requestId) {
@@ -196,9 +198,9 @@ const FindAmbulanceTab = ({
                     onChangeText={value => setMorbidityNote(value)}
                 />
             </KeyboardAvoiding>
-            <Text onPress={handleAction} style={styles.action}>
-                Tìm xe
-            </Text>
+            <TouchableOpacity onPress={handleAction}>
+                <Text style={styles.action}>Tìm xe</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -212,8 +214,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    findNearestDrivers: (latitude, longitude, radius, numOfDrivers, extraRadius) =>
-        dispatch(findNearestDrivers(latitude, longitude, radius, numOfDrivers, extraRadius)),
     saveRequest: (token, userId, request, pickUp, destination) =>
         dispatch(saveRequest(token, userId, request, pickUp, destination)),
     updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode)),
@@ -224,6 +224,7 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(FindA
 
 const styles = StyleSheet.create({
     booking: {
+        width: "100%",
         position: "relative",
         height: "auto",
         display: "flex",
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     places: {
-        width: "90%",
+        width: "85%",
         display: "flex",
         flexDirection: "column"
     },
@@ -250,14 +251,14 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     action: {
-        width: "85%",
         backgroundColor: "#f3f3f4",
-        color: "#0d0c22",
-        fontSize: 16,
+        color: "#444",
+        fontSize: 14,
         paddingVertical: 8,
+        paddingHorizontal: "35%",
         marginVertical: 10,
         borderRadius: 25,
-        fontFamily: "Texgyreadventor-regular",
+        fontFamily: "Texgyreadventor-bold",
         textAlign: "center"
     },
     note: {
