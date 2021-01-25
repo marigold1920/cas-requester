@@ -3,19 +3,13 @@ import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: "#fff"
     },
     content: {
         width: deviceRevolution.width,
-        height: deviceRevolution.height,
-        flexDirection: "column"
-    },
-    order__container: {
-        width: deviceRevolution.width,
         height: deviceRevolution.height * 0.95,
-        display: "flex",
-        flexDirection: "column",
-        position: "relative"
+        paddingBottom: 310
     },
     reverse__order: {
         flexDirection: "column-reverse"

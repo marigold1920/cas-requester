@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     optionValue: {
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
+        fontSize: 13,
         color: "#444"
     }
 });

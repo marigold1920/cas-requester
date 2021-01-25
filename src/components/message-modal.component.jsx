@@ -1,35 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
 import { clearStatusCode } from "../redux/message/message.action";
 
-const MessageModal = ({ message, clearStatusCode, isMessage }) => (
-    <View style={styles.container}>
-        <View style={styles.content}>
-            <View style={styles.error}>
-                <Image
-                    style={[styles.image, isMessage ? { width: 50, height: 50 } : null]}
-                    source={{
-                        uri: isMessage
-                            ? "https://i.ibb.co/RPz5nPW/checked.png"
-                            : "https://i.ibb.co/bgs5cKK/wrench.png"
-                    }}
-                />
-                <Text style={styles.errorMessage}>
-                    {isMessage ? "Thành công!" : "Đã xảy ra lỗi!"}
-                </Text>
-            </View>
-            <Text style={styles.message}>{message}</Text>
-            <View style={styles.action}>
-                <TouchableOpacity onPress={clearStatusCode}>
-                    <Text style={styles.button}>Xác nhận</Text>
-                </TouchableOpacity>
+const MessageModal = ({ message, clearStatusCode, isMessage }) => {
+    useEffect(() => {
+        setTimeout(() => {
+            clearStatusCode();
+        }, 2000);
+    }, [message]);
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.content}>
+                <View style={styles.error}>
+                    <Image
+                        style={[styles.image, isMessage ? { width: 50, height: 50 } : null]}
+                        source={{
+                            uri: isMessage
+                                ? "https://i.ibb.co/RPz5nPW/checked.png"
+                                : "https://i.ibb.co/bgs5cKK/wrench.png"
+                        }}
+                    />
+                    <Text style={styles.errorMessage}>
+                        {isMessage ? "Thành công!" : "Đã xảy ra lỗi!"}
+                    </Text>
+                </View>
+                <Text style={styles.message}>{message}</Text>
             </View>
         </View>
-    </View>
-);
+    );
+};
 
 const mapDispatchToProps = dispatch => ({
     clearStatusCode: () => dispatch(clearStatusCode())

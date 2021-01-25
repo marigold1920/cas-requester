@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://192.168.1.28:3000/api/requester/requests"
+    baseURL: "http://192.168.1.170:3000/api/requester/requests"
     // baseURL: "https://cas-server-nodejs.herokuapp.com/api/requester/requests"
 });
 

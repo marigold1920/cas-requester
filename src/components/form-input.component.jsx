@@ -11,9 +11,11 @@ const FormInput = ({ icon, style, ...otherProps }) => (
 export default FormInput;
 
 const styles = StyleSheet.create({
+    item: {
+        justifyContent: "center"
+    },
     icon: {
         position: "absolute",
-        top: "35%",
         left: 10,
         width: 18,
         height: 18,
@@ -21,15 +23,15 @@ const styles = StyleSheet.create({
     },
     text: {
         width: "100%",
-        borderWidth: 0.5,
+        borderWidth: 0.65,
         borderColor: "#0c0d22",
         borderRadius: 3,
-        paddingVertical: 6,
+        paddingVertical: 3,
         paddingHorizontal: 10,
         paddingLeft: 35,
         marginVertical: 3,
         fontFamily: "Texgyreadventor-regular",
-        fontSize: 14,
+        fontSize: 13,
         color: "#0c0d22",
         backgroundColor: "rgba(255, 255, 255, 0.85)"
     }

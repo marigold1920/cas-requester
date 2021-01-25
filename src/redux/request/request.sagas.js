@@ -28,6 +28,7 @@ function* saveRequestStart({ payload: { token, userId, request, pickUp, destinat
                 destination
             })
         );
+        yield put(updateStatusCode(205));
     } catch (error) {
         yield put(saveRequestFail(error));
         yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));

@@ -1,56 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { View, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import { fetchHistories } from "../../apis/core.api";
 import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
 
-import BackgroundImage from "../../components/background-screen.component";
-import ButtonText from "../../components/button-text.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
-import CustomRowHistory from "../../components/history-custom-row.component";
+import HistoryComponent from "../../components/history-custom-row.component";
+import Spinner from "../../components/spinner.component";
 
 import styles from "./history.styles";
 
-const HistoryScreen = ({ navigation, currentUser, token, statusCode, updateStatusCode }) => {
-    const [histories, setHistories] = useState([]);
+const HistoryScreen = ({ currentUser, token }) => {
+    const [history, setHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchHistories(token, currentUser.id).then(res => setHistories(res.data));
-    }, [token]);
+        fetchHistories(token, currentUser.id).then(response =>
+            setTimeout(() => {
+                setHistory(response.data);
+                setLoading(false);
+            }, 500)
+        );
+    }, []);
 
     return (
         <View style={styles.container}>
-            <BackgroundImage>
-                <HeaderTileWithBackBtn
-                    textContent="Lịch sử"
-                    onPress={() => navigation.replace("Home")}
-                />
-                <CustomListview itemList={histories} />
-                <View style={styles.container_button}>
-                    <ButtonText
-                        textContent="Tìm xe"
-                        styleButton={styles.button}
-                        styleText={styles.button_text}
-                        onPress={() => navigation.navigate("FindAmbulance")}
-                    />
-                </View>
-            </BackgroundImage>
+            {loading && <Spinner />}
+            <HeaderTileWithBackBtn textContent="Lịch sử" />
+            <ScrollView
+                style={{ width: "90%" }}
+                showsVerticalScrollIndicator={false}
+                directionalLockEnabled={true}
+            >
+                {history.length
+                    ? history.map(({ id, ...otherProps }) => (
+                          <HistoryComponent key={id} {...otherProps} />
+                      ))
+                    : null}
+            </ScrollView>
         </View>
     );
 };
-
-const CustomListview = ({ itemList }) => (
-    <View style={styles.customlist}>
-        <FlatList
-            showsVerticalScrollIndicator={false}
-            data={itemList}
-            keyExtractor={item => item.requestId}
-            renderItem={({ item }) => <CustomRowHistory key={item.requestId} item={item} />}
-        />
-    </View>
-);
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,

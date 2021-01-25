@@ -19,7 +19,6 @@ import { message } from "../../utils/message.data";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
 import Rating from "../../components/rating.component";
-import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
 import CancelRequestModal from "../../components/cancel-request-modal.component";
 import ConfirmModal from "../../components/confirm-modal.component";
@@ -69,7 +68,9 @@ const RequestInfoScreen = ({
     };
 
     return (
-        <BackgroundImage>
+        <View
+            style={{ width: "100%", height: "100%", position: "relative", backgroundColor: "#fff" }}
+        >
             {confirm && (
                 <ConfirmModal
                     message={message.cancelRequest}
@@ -81,7 +82,7 @@ const RequestInfoScreen = ({
             <View style={styles.container}>
                 <HeaderTileWithBackBtn textContent="Thông tin tài xế" />
                 <Map source={source} destination={destination} isControl={true} />
-                {currentRequest && currentRequest.pickUp && (
+                {currentRequest.pickUp && (
                     <View style={styles.request__info}>
                         <View style={styles.driver__info}>
                             <Image
@@ -139,7 +140,7 @@ const RequestInfoScreen = ({
                     </View>
                 )}
             </View>
-        </BackgroundImage>
+        </View>
     );
 };
 

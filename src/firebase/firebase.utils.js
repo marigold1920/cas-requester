@@ -15,36 +15,4 @@ firebase.initializeApp(firebaseConfig);
 
 export const firestore = firebase.firestore();
 
-export const createRequest = async (
-    requestId,
-    sourceLatitude,
-    sourceLongitude,
-    destinationLatitude,
-    destinationLongitude
-) => {
-    const requestRef = firestore.collection("requests").doc(`${requestId}`);
-
-    await requestRef.set({
-        sourceLatitude,
-        sourceLongitude,
-        destinationLatitude,
-        destinationLongitude,
-        blacklist: []
-    });
-};
-
-export const cancelRequestFirestore = async requestId => {
-    const requestRef = firestore.collection("requests").doc(`${requestId}`);
-
-    await requestRef.update({
-        status: "cancelled"
-    });
-};
-
-export const syncLocationToRequest = async (requestId, sourceLatitude, sourceLongitude) => {
-    const requestRef = firestore.collection("requests").doc(`${requestId}`);
-
-    await requestRef.set({ sourceLatitude, sourceLongitude }, { merge: true });
-};
-
 export default firebase;

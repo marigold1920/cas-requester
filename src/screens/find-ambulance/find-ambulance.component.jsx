@@ -4,7 +4,6 @@ import Geocoder from "react-native-geocoding";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { cancelRequestFirestore } from "../../firebase/firebase.utils";
 import { cancelRequest } from "../../redux/request/request.actions";
 import { selectRequestId } from "../../redux/request/request.selectors";
 import { selectStatusCode } from "../../redux/message/message.selectors";
@@ -14,12 +13,12 @@ import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import FindAmbulanceTab from "../../components/find-ambulance-tab.component";
-import BackgroundImage from "../../components/background-screen.component";
 import Map from "../../components/map.component";
 import FindingDriver from "../../components/finding-driver.component";
 import GooglePlaceSearch from "../../components/google-place-search.component";
 import ConfirmModal from "../../components/confirm-modal.component";
 import MessageModal from "../../components/message-modal.component";
+import Spinner from "../../components/spinner.component";
 
 import styles from "./find-ambulance.styles";
 
@@ -34,7 +33,8 @@ const FindAmbulanceScreen = ({
     cancelRequest
 }) => {
     const [isFocus, setIsFocus] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [finding, setFinding] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
 
     const [pickUp, setPickUp] = useState(null);
@@ -42,31 +42,42 @@ const FindAmbulanceScreen = ({
     const [placeType, setPlaceType] = useState(null);
 
     useEffect(() => {
+        getCurrentLocation();
+        fetchConfig(token);
+    }, []);
+
+    useEffect(() => {
+        if (requestId && !finding) {
+            setTimeout(() => {
+                setFinding(true);
+            }, 3000);
+            setLoading(false);
+        }
+    }, [requestId]);
+
+    const getCurrentLocation = () => {
         navigator.geolocation.getCurrentPosition(async position => {
             let { latitude, longitude } = position.coords;
             Geocoder.from(latitude, longitude).then(json =>
                 setPickUp({
                     name: json.results[0].address_components[0].long_name,
                     address: json.results[0].formatted_address,
-                    coordinates: { latitude, longitude }
+                    latitude,
+                    longitude
                 })
             );
         });
-        fetchConfig(token);
-    }, []);
-
-    const handleViewRequest = () => {
-        navigation.navigate("RequestInfo");
     };
 
     const handleCancelRequest = () => {
-        cancelRequestFirestore(requestId);
-        cancelRequest(token, requestId);
         setConfirm(false);
+        cancelRequest(token, requestId);
+        setFinding(false);
     };
 
     return (
-        <BackgroundImage>
+        <View style={styles.container}>
+            {loading && <Spinner />}
             {statusCode && (
                 <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
             )}
@@ -81,46 +92,39 @@ const FindAmbulanceScreen = ({
                 textContent="Tìm xe"
                 onPress={() => navigation.replace("Home")}
             />
-            <View style={styles.content}>
-                <View
-                    style={[
-                        styles.order__container,
-                        isFocus && { flexDirection: "column-reverse" }
-                    ]}
-                >
-                    {pickUp && (
-                        <Map source={pickUp} destination={destination} isSearching={placeType}>
-                            {placeType && (
-                                <GooglePlaceSearch
-                                    onBackward={() => setPlaceType(null)}
-                                    setValue={placeType === "pickUp" ? setPickUp : setDestination}
-                                    setPlaceType={setPlaceType}
-                                />
-                            )}
-                        </Map>
-                    )}
-                    {isLoading ? (
-                        <FindingDriver
-                            pickUp={pickUp}
-                            destination={destination}
-                            setIsLoading={setIsLoading}
-                            handleViewRequest={handleViewRequest}
-                            navigation={navigation}
-                            setConfirm={setConfirm}
-                            handleCancelRequest={handleCancelRequest}
-                        />
-                    ) : (
-                        <FindAmbulanceTab
-                            setIsLoading={setIsLoading}
-                            setIsFocus={setIsFocus}
-                            pickUp={pickUp}
-                            destination={destination}
-                            setPlaceType={setPlaceType}
-                        />
-                    )}
-                </View>
+            <View style={[styles.content, finding && { paddingBottom: "30%" }]}>
+                {pickUp && (
+                    <Map source={pickUp} destination={destination} isSearching={placeType}>
+                        {placeType && (
+                            <GooglePlaceSearch
+                                setCurrent={getCurrentLocation}
+                                onBackward={() => setPlaceType(null)}
+                                setValue={placeType === "pickUp" ? setPickUp : setDestination}
+                                setPlaceType={setPlaceType}
+                                currentType={placeType}
+                            />
+                        )}
+                    </Map>
+                )}
+                {finding ? (
+                    <FindingDriver
+                        pickUp={pickUp}
+                        destination={destination}
+                        navigation={navigation}
+                        setConfirm={setConfirm}
+                    />
+                ) : (
+                    <FindAmbulanceTab
+                        setLoading={setLoading}
+                        setIsFocus={setIsFocus}
+                        isFocus={isFocus}
+                        pickUp={pickUp}
+                        destination={destination}
+                        setPlaceType={setPlaceType}
+                    />
+                )}
             </View>
-        </BackgroundImage>
+        </View>
     );
 };
 
