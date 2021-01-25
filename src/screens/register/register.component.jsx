@@ -23,7 +23,7 @@ const firebaseConfig = {
     projectId: "charitym-ambulance",
     storageBucket: "charitym-ambulance.appspot.com",
     messagingSenderId: "801731513492",
-    appId: "1:801731513492:web:30978d836981cb9b6d3881"
+    appId: "1:801731513492:web:30978d836981cb9b6d3881",
 };
 
 const RegisterScreen = ({ navigation }) => {
@@ -40,48 +40,36 @@ const RegisterScreen = ({ navigation }) => {
         invalidPassword: null,
         invalidConfirmPassword: null,
         phoneExisted: null,
-        invalidName: null
+        invalidName: null,
     });
 
     const handleRegister = async () => {
-        const {
-            invalidPhone,
-            invalidPassword,
-            invalidConfirmPassword,
-            invalidName,
-            phoneExisted
-        } = validation;
+        const { invalidPhone, invalidPassword, invalidConfirmPassword, invalidName, phoneExisted } = validation;
         if (!(username && password && confirmPassword && name)) {
             return;
         }
-        if (
-            invalidPhone ||
-            invalidPassword ||
-            invalidConfirmPassword ||
-            invalidName ||
-            phoneExisted
-        ) {
+        if (invalidPhone || invalidPassword || invalidConfirmPassword || invalidName || phoneExisted) {
             return;
         }
-        // try {
-        //     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-        //     phoneProvider
-        //         .verifyPhoneNumber(`+84${username.slice(1)}`, recaptchaVerifier.current)
-        //         .then(setVerificationId);
-        // } catch (error) {
-        //     console.log(error);
-        // }
-        await registerAccount({ username, password, displayName: name, phone: username }).then(
-            response => response.data && navigation.navigate("Login")
-        );
+        try {
+            const phoneProvider = new firebase.auth.PhoneAuthProvider();
+            phoneProvider
+                .verifyPhoneNumber(`+84${username.slice(1)}`, recaptchaVerifier.current)
+                .then(setVerificationId);
+        } catch (error) {
+            console.log(error);
+        }
+        // await registerAccount({ username, password, displayName: name, phone: username }).then(
+        //     response => response.data && navigation.navigate("Login")
+        // );
     };
 
     const confirmCode = async () => {
         try {
             const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
             await firebase.auth().signInWithCredential(credential);
-            await registerAccount({ username, password, name }).then(
-                response => response.data && navigation.navigate("Login")
+            await registerAccount({ username, password, displayName: name, phone: username }).then(
+                (response) => response.data && navigation.navigate("Login")
             );
         } catch (error) {
             setInvalidOTP("Mã OTP không hợp lệ");
@@ -92,9 +80,7 @@ const RegisterScreen = ({ navigation }) => {
         const valid = username.match(/^[0][0-9]{9}$/);
         if (valid) {
             await checkExistedPhoneNumber(username).then(
-                response =>
-                    response.data &&
-                    setValidation({ ...validation, phoneExisted: message["phoneExisted"] })
+                (response) => response.data && setValidation({ ...validation, phoneExisted: message["phoneExisted"] })
             );
         } else {
             setValidation({ ...validation, invalidPhone: message["invalidPhone"] });
@@ -111,7 +97,7 @@ const RegisterScreen = ({ navigation }) => {
         valid &&
             setValidation({
                 ...validation,
-                invalidConfirmPassword: message["invalidConfirmPassword"]
+                invalidConfirmPassword: message["invalidConfirmPassword"],
             });
     };
 
@@ -122,14 +108,11 @@ const RegisterScreen = ({ navigation }) => {
 
     return (
         <BackgroundLogin>
-            <FirebaseRecaptchaVerifierModal
-                ref={recaptchaVerifier}
-                firebaseConfig={firebaseConfig}
-            />
+            <FirebaseRecaptchaVerifierModal ref={recaptchaVerifier} firebaseConfig={firebaseConfig} />
             <CustomModal title="Xác thực OTP" visible={!!verificationId}>
                 <Text style={styles.title}>Mã OTP *</Text>
                 {invalidOTP && <Text style={styles.invalid}>{invalidOTP}</Text>}
-                <TextInput style={styles.otp} onChangeText={value => setOtp(value)} />
+                <TextInput style={styles.otp} onChangeText={(value) => setOtp(value)} />
                 <View style={styles.groupAction}>
                     <TouchableOpacity onPress={() => setVerificationId(null)}>
                         <Text style={styles.action}>Hủy</Text>
@@ -144,17 +127,11 @@ const RegisterScreen = ({ navigation }) => {
                     <LogoName />
                 </View>
                 <View style={styles.block_button}>
-                    {validation["invalidPhone"] && (
-                        <Text style={styles.warning}>{validation["invalidPhone"]}</Text>
-                    )}
-                    {validation["phoneExisted"] && (
-                        <Text style={styles.warning}>{validation["phoneExisted"]}</Text>
-                    )}
+                    {validation["invalidPhone"] && <Text style={styles.warning}>{validation["invalidPhone"]}</Text>}
+                    {validation["phoneExisted"] && <Text style={styles.warning}>{validation["phoneExisted"]}</Text>}
                     <TextInputIcon
-                        onChangeText={value => setUsername(value)}
-                        onTouchStart={() =>
-                            setValidation({ ...validation, invalidPhone: null, phoneExisted: null })
-                        }
+                        onChangeText={(value) => setUsername(value)}
+                        onTouchStart={() => setValidation({ ...validation, invalidPhone: null, phoneExisted: null })}
                         name="username"
                         imgSrc={require("../../../assets/icons/phone.png")}
                         placeholder="Số điện thoại"
@@ -166,12 +143,12 @@ const RegisterScreen = ({ navigation }) => {
                         <Text style={styles.warning}>{validation["invalidPassword"]}</Text>
                     )}
                     <TextInputIcon
-                        onChangeText={value => setPassword(value)}
+                        onChangeText={(value) => setPassword(value)}
                         onTouchStart={() =>
                             setValidation({
                                 ...validation,
                                 invalidPassword: null,
-                                invalidConfirmPassword: null
+                                invalidConfirmPassword: null,
                             })
                         }
                         name="password"
@@ -185,10 +162,8 @@ const RegisterScreen = ({ navigation }) => {
                         <Text style={styles.warning}>{validation["invalidConfirmPassword"]}</Text>
                     )}
                     <TextInputIcon
-                        onChangeText={value => setConfirmPassword(value)}
-                        onTouchStart={() =>
-                            setValidation({ ...validation, invalidConfirmPassword: null })
-                        }
+                        onChangeText={(value) => setConfirmPassword(value)}
+                        onTouchStart={() => setValidation({ ...validation, invalidConfirmPassword: null })}
                         name="confirmPassword"
                         imgSrc={require("../../../assets/icons/key.png")}
                         placeholder="Xác nhận mật khẩu"
@@ -196,11 +171,9 @@ const RegisterScreen = ({ navigation }) => {
                         defaultValue={confirmPassword}
                         onBlur={checkConfirmPassword}
                     />
-                    {validation["invalidName"] && (
-                        <Text style={styles.warning}>{validation["invalidName"]}</Text>
-                    )}
+                    {validation["invalidName"] && <Text style={styles.warning}>{validation["invalidName"]}</Text>}
                     <TextInputIcon
-                        onChangeText={value => setName(value)}
+                        onChangeText={(value) => setName(value)}
                         onTouchStart={() => setValidation({ ...validation, invalidName: null })}
                         name="name"
                         imgSrc={require("../../../assets/icons/user.png")}
