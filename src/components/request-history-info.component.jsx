@@ -18,44 +18,22 @@ const RequestHistoryInfo = ({
         morbidity,
         isEmergency,
         morbidityNote,
-        note
-    }
+        note,
+    },
 }) => (
     <View style={styles.details}>
         <ScrollView showsVerticalScrollIndicator={false}>
-            {pickUp && (
-                <Place
-                    placeName="Điểm đón"
-                    place={pickUp}
-                    icon="https://i.ibb.co/D8HPk12/placeholder.png"
-                />
-            )}
+            {pickUp && <Place placeName="Điểm đón" place={pickUp} icon="https://i.ibb.co/D8HPk12/placeholder.png" />}
             {destination && (
-                <Place
-                    placeName="Điểm đến"
-                    place={destination}
-                    icon="https://i.ibb.co/gWdQ69d/radar.png"
-                />
+                <Place placeName="Điểm đến" place={destination} icon="https://i.ibb.co/gWdQ69d/radar.png" />
             )}
             {(ratingDriver || ratingService) && (
                 <>
-                    <FeedbackShow
-                        title="Đánh giá tài xế"
-                        content={feedbackDriver}
-                        level={ratingDriver}
-                        size={12}
-                    />
-                    <FeedbackShow
-                        title="Đánh giá dịch vụ"
-                        content={feedbackService}
-                        level={ratingService}
-                        size={12}
-                    />
+                    <FeedbackShow title="Đánh giá tài xế" content={feedbackDriver} level={ratingDriver} size={12} />
+                    <FeedbackShow title="Đánh giá dịch vụ" content={feedbackService} level={ratingService} size={12} />
                 </>
             )}
-            {isEmergency && morbidity && (
-                <FeedbackShow title="Tình trạng bệnh" content={mobidity} />
-            )}
+            {isEmergency && morbidity && <FeedbackShow title="Tình trạng bệnh" content={mobidity} />}
             {(patientName || patientPhone) && (
                 <FeedbackShow
                     title="Tên người bệnh"
@@ -64,9 +42,7 @@ const RequestHistoryInfo = ({
                     content={patientName}
                 />
             )}
-            {healthInformation && (
-                <FeedbackShow title="Hồ sơ sức khỏe" content={healthInformation} />
-            )}
+            {healthInformation && <FeedbackShow title="Thông tin sức khỏe" content={healthInformation} />}
             {morbidityNote && <FeedbackShow title="Ghi chú người gửi" content={morbidityNote} />}
             {note && <FeedbackShow title="Ghi chú" content={note} />}
         </ScrollView>
@@ -81,6 +57,6 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         marginTop: 30,
-        paddingHorizontal: 20
-    }
+        paddingHorizontal: 20,
+    },
 });

@@ -27,20 +27,18 @@ const ProfileScreen = ({
     token,
     statusCode,
     updateProfile,
-    updateStatusCode
+    updateStatusCode,
 }) => {
     const [morbidity, setMorbidity] = useState((profile && profile.morbidity) || "");
     const [gender, setGender] = useState((profile && profile.gender) || "Nam");
     const [age, setAge] = useState((profile && profile.age) || 0);
     const [bloodPressure, setBloodPressure] = useState((profile && profile.bloodPressure) || "");
-    const [medicalHistories, setMedicalHistories] = useState(
-        (profile && profile.medicalHistories) || ""
-    );
+    const [medicalHistories, setMedicalHistories] = useState((profile && profile.medicalHistories) || "");
     const [allergy, setAllergy] = useState((profile && profile.allergy) || "");
     const [others, setOthers] = useState((profile && profile.others) || "");
     const [validation, setValidation] = useState({
         age: null,
-        morbidity: null
+        morbidity: null,
     });
 
     const handleUpdate = () => {
@@ -56,7 +54,7 @@ const ProfileScreen = ({
                 morbidity,
                 medicalHistories,
                 allergy,
-                others
+                others,
             });
         } else {
             updateStatusCode(406);
@@ -71,13 +69,8 @@ const ProfileScreen = ({
 
     return (
         <BackgroundImage>
-            {statusCode && (
-                <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
-            )}
-            <HeaderTileWithBackBtn
-                textContent="Hồ sơ sức khỏe"
-                onPress={() => navigation.replace("Home")}
-            />
+            {statusCode && <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />}
+            <HeaderTileWithBackBtn textContent="Thông tin sức khỏe" onPress={() => navigation.replace("Home")} />
             <AvatarNameCol linkImage={imageUrl} textContent={displayName} />
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.profile}>
@@ -90,17 +83,17 @@ const ProfileScreen = ({
                         items={[
                             { label: "Nam", value: "Nam" },
                             { label: "Nữ", value: "Nữ" },
-                            { label: "Khác", value: "Khác" }
+                            { label: "Khác", value: "Khác" },
                         ]}
                         defaultValue={gender}
-                        onChangeItem={item => setGender(item.value)}
+                        onChangeItem={(item) => setGender(item.value)}
                     />
                     {validation.age && <Text style={styles.warning}>{validation.age}</Text>}
                     <CustomInputLabel
                         label="Tuổi"
                         placeholder="64"
                         defaultValue={age}
-                        onChangeText={value => setAge(value)}
+                        onChangeText={(value) => setAge(value)}
                         keyboardType="numeric"
                         isRequire
                         onBlur={checkAge}
@@ -109,13 +102,13 @@ const ProfileScreen = ({
                     <CustomInputLabel
                         label="Huyết áp"
                         defaultValue={bloodPressure}
-                        onChangeText={value => setBloodPressure(value)}
+                        onChangeText={(value) => setBloodPressure(value)}
                         placeholder="135/80"
                     />
                     <CustomInputLabel
                         label="Tình trạng hiện nay"
                         defaultValue={morbidity}
-                        onChangeText={value => setMorbidity(value)}
+                        onChangeText={(value) => setMorbidity(value)}
                         isRequire
                         multiline={true}
                         numberOfLines={4}
@@ -123,13 +116,13 @@ const ProfileScreen = ({
                     <CustomInputLabel
                         label="Tiền sử bệnh"
                         defaultValue={medicalHistories}
-                        onChangeText={value => setMedicalHistories(value)}
+                        onChangeText={(value) => setMedicalHistories(value)}
                         multiline={true}
                         numberOfLines={4}
                     />
                     <CustomInputLabel
                         defaultValue={allergy}
-                        onChangeText={value => setAllergy(value)}
+                        onChangeText={(value) => setAllergy(value)}
                         label="Dược tính gây mẫn cảm, dị ứng"
                         placeholder="carbamazepine, phenobarbital và phenytoin"
                         multiline={true}
@@ -137,7 +130,7 @@ const ProfileScreen = ({
                     />
                     <CustomInputLabel
                         defaultValue={others}
-                        onChangeText={value => setOthers(value)}
+                        onChangeText={(value) => setOthers(value)}
                         label="Vấn đề khác"
                         multiline={true}
                         numberOfLines={4}
@@ -158,13 +151,12 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     profile: selectProfile,
     token: selectToken,
-    statusCode: selectStatusCode
+    statusCode: selectStatusCode,
 });
 
-const mapDispatchToProps = dispatch => ({
-    updateProfile: (userId, token, healthInformation) =>
-        dispatch(updateProfile(userId, token, healthInformation)),
-    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
+const mapDispatchToProps = (dispatch) => ({
+    updateProfile: (userId, token, healthInformation) => dispatch(updateProfile(userId, token, healthInformation)),
+    updateStatusCode: (statusCode) => dispatch(updateStatusCode(statusCode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
