@@ -4,6 +4,7 @@ import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { RadioButton } from "react-native-paper";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { saveRequest, fetchConfig } from "../redux/request/request.actions";
 import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
@@ -31,6 +32,7 @@ const FindAmbulanceTab = ({
     const [patientPhone, setPatientPhone] = useState(null);
     const [morbidityNote, setMorbidityNote] = useState(null);
     const [requestType, setRequestType] = useState("emergency");
+    const [sendProfile, setSendProfile] = useState(false);
     const [morbidity, setMorbidity] = useState(null);
     const [isOther, setIsOther] = useState(false);
 
@@ -56,7 +58,9 @@ const FindAmbulanceTab = ({
                     isEmergency: requestType === "emergency",
                     isOther,
                     healthInformation:
-                        !isOther && requestType === "emergency" ? parseProfileToString() : null,
+                        !isOther && sendProfile && requestType === "emergency"
+                            ? parseProfileToString()
+                            : null,
                     region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1).trim(),
                     createdDate: current.toISOString(),
                     createdTime: current.toLocaleTimeString("vi-VN")
@@ -123,7 +127,39 @@ const FindAmbulanceTab = ({
                         ))}
                     </RadioButton.Group>
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false} style={{ height: "60%" }}>
+                {!isOther && (
+                    <TouchableOpacity
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            paddingLeft: 8,
+                            marginBottom: 5
+                        }}
+                        onPress={() => setSendProfile(!sendProfile)}
+                    >
+                        <Icon
+                            size={22}
+                            color={sendProfile ? "#00c206" : "#777"}
+                            name={
+                                sendProfile
+                                    ? "checkbox-marked-circle-outline"
+                                    : "checkbox-blank-circle-outline"
+                            }
+                        />
+                        <Text
+                            style={[
+                                styles.sendProfile,
+                                { color: sendProfile ? "#00c206" : "#777" }
+                            ]}
+                        >
+                            Gửi kèm thông tin sức khỏe
+                        </Text>
+                    </TouchableOpacity>
+                )}
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={{ height: isOther ? "65%" : "55%" }}
+                >
                     <FormInput
                         onFocus={() => setPlaceType("destination")}
                         placeholder="Điểm cần đến"
@@ -260,5 +296,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: "Texgyreadventor-regular",
         color: "#444"
+    },
+    sendProfile: {
+        fontFamily: "Texgyreadventor-regular",
+        fontSize: 13,
+        marginLeft: 5
     }
 });
