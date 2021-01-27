@@ -37,7 +37,10 @@ const FindAmbulanceScreen = ({
     const [loading, setLoading] = useState(false);
     const [confirm, setConfirm] = useState(false);
 
-    const [pickUp, setPickUp] = useState(null);
+    const [pickUp, setPickUp] = useState({
+        latitude: 10.512362,
+        longitude: 106.236236
+    });
     const [destination, setDestination] = useState(null);
     const [placeType, setPlaceType] = useState(null);
 
@@ -50,7 +53,7 @@ const FindAmbulanceScreen = ({
         if (requestId && !finding) {
             setTimeout(() => {
                 setFinding(true);
-            }, 3000);
+            }, 2500);
             setLoading(false);
         }
     }, [requestId]);
@@ -61,7 +64,9 @@ const FindAmbulanceScreen = ({
             Geocoder.from(latitude, longitude).then(json =>
                 setPickUp({
                     name: json.results[0].address_components[0].long_name,
-                    address: json.results[0].formatted_address,
+                    address: json.results[0].formatted_address
+                        .replace(", Việt Nam", "")
+                        .replace("Thành phố", ""),
                     latitude,
                     longitude
                 })
@@ -112,6 +117,9 @@ const FindAmbulanceScreen = ({
                         destination={destination}
                         navigation={navigation}
                         setConfirm={setConfirm}
+                        handleCancelRequest={handleCancelRequest}
+                        setFinding={setFinding}
+                        setLoading={setLoading}
                     />
                 ) : (
                     <FindAmbulanceTab

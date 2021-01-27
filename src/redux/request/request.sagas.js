@@ -10,10 +10,18 @@ import {
     fetchConfigSuccess,
     fetchRequestFail,
     fetchRequestSuccess,
+    rejectedRequestFail,
+    rejectedRequestSuccess,
     saveRequestFail,
     saveRequestSuccess
 } from "./request.actions";
-import { cancelRequest, feedbackRequest, fetchRequest, saveRequest } from "../../apis/request.apis";
+import {
+    cancelRequest,
+    feedbackRequest,
+    fetchRequest,
+    saveRequest,
+    rejectedRequest
+} from "../../apis/request.apis";
 import { fetchConfig } from "../../apis/core.api";
 import { updateStatusCode } from "../message/message.action";
 
@@ -51,6 +59,7 @@ function* feedbackRequestStart({ payload: { token, requestId, feedback } }) {
         yield put(feedbackRequestSuccess());
     } catch (error) {
         yield put(feedbackRequestFail(error));
+        yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));
     }
 }
 
@@ -61,7 +70,18 @@ function* cancelRequestStart({ payload: { token, requestId } }) {
         yield put(updateStatusCode(204));
     } catch (error) {
         yield put(cancelRequestFail(error));
-        yield put(updateStatusCode(405));
+        yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));
+    }
+}
+
+function* rejectedRequestStart({ payload: { token, requestId } }) {
+    try {
+        yield call(rejectedRequest, token, requestId);
+        yield put(rejectedRequestSuccess());
+        yield put(updateStatusCode(206));
+    } catch (error) {
+        yield put(rejectedRequestFail(error));
+        yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));
     }
 }
 
@@ -72,6 +92,7 @@ function* fetchConfigStart({ payload: token }) {
         yield put(fetchConfigSuccess(response.data));
     } catch (error) {
         yield put(fetchConfigFail(error));
+        yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));
     }
 }
 
@@ -91,6 +112,10 @@ export function* onCancelRequest() {
     yield takeLatest(RequestActionTypes.CANCEL_REQUEST_START, cancelRequestStart);
 }
 
+export function* onRejectedRequest() {
+    yield takeLatest(RequestActionTypes.REJECTED_REQUEST_START, rejectedRequestStart);
+}
+
 export function* onFetchConfig() {
     yield takeLatest(RequestActionTypes.FETCH_CONFIG_START, fetchConfigStart);
 }
@@ -101,6 +126,7 @@ export default function* requestSagas() {
         call(onFetchRequest),
         call(onFeedbackRequest),
         call(onCancelRequest),
-        call(onFetchConfig)
+        call(onFetchConfig),
+        call(onRejectedRequest)
     ]);
 }

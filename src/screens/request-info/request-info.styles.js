@@ -1,18 +1,23 @@
 import { StyleSheet } from "react-native";
+import { deviceRevolution } from "../../components/constant.unit";
 
 const styles = StyleSheet.create({
     //css for parents container:
     container: {
-        width: "100%"
+        flex: 1,
+        flexDirection: "column",
+        position: "relative"
+    },
+    map: {
+        height: deviceRevolution.height * 0.45,
+        marginTop: 10
     },
     request__info: {
-        width: "100%",
-        position: "absolute",
-        bottom: 5,
-        backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "#fff",
+        paddingTop: 10
     },
     driver__info: {
         display: "flex",
@@ -76,17 +81,14 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     action: {
-        fontFamily: "Texgyreadventor-regular",
-        fontSize: 16,
-        color: "#fff",
-        backgroundColor: "#0CBA70",
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 12,
+        color: "#555",
+        backgroundColor: "#f3f3f4",
         borderRadius: 25,
-        paddingVertical: 8,
-        paddingHorizontal: 15,
+        paddingVertical: 10,
+        paddingHorizontal: 35,
         borderColor: "transparent"
-    },
-    cancel: {
-        backgroundColor: "#f30000"
     }
 });
 

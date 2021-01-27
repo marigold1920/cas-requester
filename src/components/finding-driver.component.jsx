@@ -7,13 +7,14 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
-import { syncPoolData } from "../redux/request/request.actions";
+import { syncPoolData, rejectedRequest } from "../redux/request/request.actions";
 import {
     selectConfig,
     selectRequestId,
     selectPickUp,
     selectDestination
 } from "../redux/request/request.selectors";
+import { selectToken } from "../redux/user/user.selectors";
 
 import { firestore } from "../firebase/firebase.utils";
 
@@ -23,8 +24,12 @@ const FindingDriver = ({
     config,
     pickUp,
     destination,
+    token,
     syncPoolData,
-    setConfirm
+    setConfirm,
+    rejectedRequest,
+    setFinding,
+    setLoading
 }) => {
     const requestRef = firestore.collection("requests").doc(`${requestId}`);
     const [request] = useDocumentData(requestRef);
@@ -45,33 +50,38 @@ const FindingDriver = ({
 
     return (
         <View style={styles.loading}>
-            <View style={styles.locationOverview}>
-                <View style={styles.iconContainer}>
-                    <Icon size={18} color="#09acfe" name="chevron-circle-up" />
-                    <Icon size={12} color="#555" name="ellipsis-v" />
-                    <Text style={styles.requestDistanceValue}>
-                        {(
-                            getDistance(
-                                { latitude: pickUp.latitude, longitude: pickUp.longitude },
-                                { latitude: destination.latitude, longitude: destination.longitude }
-                            ) / 1000
-                        ).toFixed(1)}
-                        km
-                    </Text>
-                    <Icon size={12} color="#555" name="ellipsis-v" />
-                    <Icon size={18} color="#f9650c" name="chevron-circle-down" />
-                </View>
-                <View>
-                    <View style={[styles.location, { marginBottom: 10 }]}>
-                        <Text style={styles.name}>{pickUp.name}</Text>
-                        <Text style={styles.address}>{pickUp.address}</Text>
+            {pickUp && (
+                <View style={styles.locationOverview}>
+                    <View style={styles.iconContainer}>
+                        <Icon size={18} color="#09acfe" name="chevron-circle-up" />
+                        <Icon size={12} color="#555" name="ellipsis-v" />
+                        <Text style={styles.requestDistanceValue}>
+                            {(
+                                getDistance(
+                                    { latitude: pickUp.latitude, longitude: pickUp.longitude },
+                                    {
+                                        latitude: destination.latitude,
+                                        longitude: destination.longitude
+                                    }
+                                ) / 1000
+                            ).toFixed(1)}
+                            km
+                        </Text>
+                        <Icon size={12} color="#555" name="ellipsis-v" />
+                        <Icon size={18} color="#f9650c" name="chevron-circle-down" />
                     </View>
-                    <View style={styles.location}>
-                        <Text style={styles.name}>{destination.name}</Text>
-                        <Text style={styles.address}>{destination.address}, Viet Nam</Text>
+                    <View>
+                        <View style={[styles.location, { marginBottom: 10 }]}>
+                            <Text style={styles.name}>{pickUp.name}</Text>
+                            <Text style={styles.address}>{pickUp.address}</Text>
+                        </View>
+                        <View style={styles.location}>
+                            <Text style={styles.name}>{destination.name}</Text>
+                            <Text style={styles.address}>{destination.address}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
+            )}
             <View style={styles.loadingInner}>
                 <TouchableOpacity style={styles.actionContainer} onPress={() => setConfirm(true)}>
                     <Text style={styles.action}>Hủy yêu cầu</Text>
@@ -79,8 +89,16 @@ const FindingDriver = ({
                         isPlaying
                         duration={config.requestTimeout * 60}
                         initialRemainingTime={config.requestTimeout * 60 - 2}
+                        onComplete={() => {
+                            setFinding(false);
+                            setLoading(true);
+                            rejectedRequest(token, requestId);
+                            setTimeout(() => {
+                                setLoading(false);
+                            }, 750);
+                        }}
                         strokeWidth={0}
-                        size={40}
+                        size={45}
                         colors="#09acfe"
                     >
                         {({ remainingTime }) => (
@@ -99,11 +117,13 @@ const mapStateToProps = createStructuredSelector({
     requestId: selectRequestId,
     config: selectConfig,
     pickUp: selectPickUp,
-    destination: selectDestination
+    destination: selectDestination,
+    token: selectToken
 });
 
 const mapDispatchToProps = dispatch => ({
-    syncPoolData: poolId => dispatch(syncPoolData(poolId))
+    syncPoolData: poolId => dispatch(syncPoolData(poolId)),
+    rejectedRequest: (token, requestId) => dispatch(rejectedRequest(token, requestId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindingDriver);
@@ -112,7 +132,7 @@ const styles = StyleSheet.create({
     loading: {
         position: "absolute",
         width: "100%",
-        bottom: 45,
+        bottom: 50,
         height: "auto",
         display: "flex",
         flexDirection: "column",

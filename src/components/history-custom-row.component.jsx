@@ -26,7 +26,10 @@ const HistoryComponent = ({
     morbidity,
     morbidityNote,
     feedbackDriver,
-    ratingDriver
+    ratingDriver,
+    ratingService,
+    feedbackService,
+    reason
 }) => {
     const viewStateIcon = {
         false: require("../../assets/icons/details.png"),
@@ -46,7 +49,7 @@ const HistoryComponent = ({
                 <View style={[styles.overviewItem, { flexBasis: "25%", marginRight: 30 }]}>
                     <Text style={styles.title}>Điểm đón:</Text>
                     <Text style={[styles.title, { fontSize: 9 }]}>
-                        {pickUp.date ? `${pickUp.time} ${pickUp.date}` : "Đang cập nhật..."}
+                        {pickUp.date ? `${pickUp.time} ${pickUp.date}` : "......"}
                     </Text>
                     <View style={styles.requestType}>
                         <Icon size={14} color="#333" name="taxi" />
@@ -63,9 +66,7 @@ const HistoryComponent = ({
                 <View style={[styles.overviewItem, { flexBasis: "40%" }]}>
                     <Text style={styles.title}>Điểm đến:</Text>
                     <Text style={[styles.title, { fontSize: 9 }]}>
-                        {destination.date
-                            ? `${destination.time} ${destination.date}`
-                            : "Đang cập nhật..."}
+                        {destination.date ? `${destination.time} ${destination.date}` : "......"}
                     </Text>
                     <View style={styles.requestType}>
                         <Icon size={14} color="#333" name="street-view" />
@@ -79,7 +80,7 @@ const HistoryComponent = ({
                         </Text>
                     </View>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginLeft: 5 }}>
                     <Text style={styles.title}>Lộ trình:</Text>
                     <View style={styles.distance}>
                         <Text style={styles.distanceValue}>
@@ -145,12 +146,22 @@ const HistoryComponent = ({
                     </View>
                     {morbidity && <HistoryItem label="Tình trạng" content={morbidity} />}
                     {morbidityNote && <HistoryItem label="Ghi chú" content={morbidityNote} />}
+                    {reason && <HistoryItem label="Yêu cầu không hoàn thành do" content={reason} />}
                     {(ratingDriver || feedbackDriver) && (
                         <>
-                            <Text style={styles.infoTitle}>Đánh giá</Text>
+                            <Text style={styles.infoTitle}>Đánh giá tài xế</Text>
                             <Rating level={ratingDriver} size={8} />
                             <RequestInfoItem
-                                content={feedbackDriver || "Không có đánh giá về bạn"}
+                                content={feedbackDriver || "Không có đánh giá về tài xế"}
+                            />
+                        </>
+                    )}
+                    {(ratingService || feedbackService) && (
+                        <>
+                            <Text style={styles.infoTitle}>Đánh giá dịch vụ</Text>
+                            <Rating level={ratingDriver} size={8} />
+                            <RequestInfoItem
+                                content={feedbackService || "Không có đánh giá về dịch vụ"}
                             />
                         </>
                     )}

@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
         width: deviceRevolution.width * 0.95
     },
     button: {
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        backgroundColor: "#FFAB2E",
-        elevation: 20
+        backgroundColor: "#f5f5f5"
     },
     button_text: {
-        color: "#fff",
-        paddingVertical: 2
+        color: "#222",
+        paddingVertical: 2,
+        paddingHorizontal: 45,
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-bold"
     },
     group: {
         width: "90%"

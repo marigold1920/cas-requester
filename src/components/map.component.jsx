@@ -99,10 +99,12 @@ const Map = ({
                         ) : (
                             <Marker coordinate={driver}>
                                 <View style={styles.customMarker}>
-                                    {/* <Image
+                                    {driverImage ? (
+                                        <Image
                                             style={styles.driverImage}
                                             source={{ uri: driverImage }}
-                                        /> */}
+                                        />
+                                    ) : null}
                                     <Image
                                         style={{
                                             position: "absolute",

@@ -5,7 +5,7 @@ import { RadioButton } from "react-native-paper";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { saveRequest } from "../redux/request/request.actions";
+import { saveRequest, fetchConfig } from "../redux/request/request.actions";
 import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
 import { updateStatusCode } from "../redux/message/message.action";
 
@@ -24,6 +24,7 @@ const FindAmbulanceTab = ({
     saveRequest,
     updateStatusCode,
     setLoading,
+    fetchConfig,
     isFocus
 }) => {
     const [patientName, setPatientName] = useState(null);
@@ -38,26 +39,32 @@ const FindAmbulanceTab = ({
             updateStatusCode(404);
             return;
         }
-        setLoading(true);
-        saveRequest(
-            token,
-            userId,
-            {
+        fetchConfig(token);
+        setTimeout(() => {
+            const current = new Date();
+            setLoading(true);
+            saveRequest(
+                token,
+                userId,
+                {
+                    pickUp,
+                    destination,
+                    patientName,
+                    patientPhone,
+                    morbidity,
+                    morbidityNote,
+                    isEmergency: requestType === "emergency",
+                    isOther,
+                    healthInformation:
+                        !isOther && requestType === "emergency" ? parseProfileToString() : null,
+                    region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1).trim(),
+                    createdDate: current.toISOString(),
+                    createdTime: current.toLocaleTimeString("vi-VN")
+                },
                 pickUp,
-                destination,
-                patientName,
-                patientPhone,
-                morbidity,
-                morbidityNote,
-                isEmergency: requestType === "emergency",
-                isOther,
-                healthInformation:
-                    !isOther && requestType === "emergency" ? parseProfileToString() : null,
-                region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1)
-            },
-            pickUp,
-            destination
-        );
+                destination
+            );
+        }, 1000);
     };
 
     const parseProfileToString = () => {
@@ -89,7 +96,7 @@ const FindAmbulanceTab = ({
     ];
 
     return (
-        <View style={[styles.booking, isFocus ? { top: 5 } : { bottom: 55 }]}>
+        <View style={[styles.booking, isFocus ? { top: 5 } : { bottom: 65 }]}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
                     onPress={() => setIsOther(false)}
@@ -190,7 +197,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     saveRequest: (token, userId, request, pickUp, destination) =>
         dispatch(saveRequest(token, userId, request, pickUp, destination)),
-    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode)),
+    fetchConfig: token => dispatch(fetchConfig(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FindAmbulanceTab);
@@ -199,13 +207,12 @@ const styles = StyleSheet.create({
     booking: {
         position: "absolute",
         width: "100%",
-        maxHeight: 285,
+        height: "auto",
         zIndex: 1,
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        paddingBottom: 10,
-        paddingTop: 15,
+        paddingTop: 10,
         backgroundColor: "#fff",
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25
@@ -215,7 +222,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 10
+        paddingTop: 5
     },
     places: {
         width: "85%",
@@ -232,12 +239,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#f7f7f7",
         color: "#444",
         fontSize: 14,
-        paddingVertical: 8,
+        paddingVertical: 10,
         paddingHorizontal: "37%",
-        marginVertical: 10,
         borderRadius: 25,
         fontFamily: "Texgyreadventor-bold",
-        textAlign: "center"
+        textAlign: "center",
+        marginTop: 5,
+        marginBottom: 10
     },
     note: {
         paddingLeft: 20

@@ -8,7 +8,6 @@ import { selectToken } from "../../redux/user/user.selectors";
 import { selectRequestId } from "../../redux/request/request.selectors";
 
 import ButtonText from "../../components/button-text.component";
-import BackgroundImage from "../../components/background-screen.component";
 import Feedback from "../../components/feedback.component";
 import KeyboardAvoiding from "../../components/keyboard-avoiding.component";
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
@@ -41,7 +40,7 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId, cleanUp
     };
 
     return (
-        <BackgroundImage>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={[styles.modal, modalVisible ? { opacity: 0.85, zIndex: 10 } : null]}>
                     <View style={styles.modal__content}>
@@ -96,7 +95,7 @@ const FeedbackScreen = ({ navigation, feedbackRequest, token, requestId, cleanUp
                     </View>
                 </View>
             </KeyboardAvoiding>
-        </BackgroundImage>
+        </View>
     );
 };
 

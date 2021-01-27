@@ -86,7 +86,6 @@ export default Tabs;
 
 const styles = StyleSheet.create({
     navigator: {
-        position: "relative",
         borderTopWidth: 0.25,
         backgroundColor: "white",
         elevation: 0,

@@ -22,6 +22,7 @@ import Rating from "../../components/rating.component";
 import Map from "../../components/map.component";
 import CancelRequestModal from "../../components/cancel-request-modal.component";
 import ConfirmModal from "../../components/confirm-modal.component";
+import BackgroundImage from "../../components/background-screen.component";
 
 import styles from "./request-info.styles";
 
@@ -58,22 +59,20 @@ const RequestInfoScreen = ({
     const handleConfirmCancelledRequest = () => {
         setIsCancelled(false);
         clearRequest();
-        navigation.navigate("FindAmbulance");
+        navigation.replace("Home");
     };
 
     const handleCancelRequest = () => {
         cancelRequestFirestore(requestId);
         cancelRequest(token, requestId);
-        navigation.navigate("FindAmbulance");
+        navigation.replace("Home");
     };
 
     return (
-        <View
-            style={{ width: "100%", height: "100%", position: "relative", backgroundColor: "#fff" }}
-        >
+        <BackgroundImage>
             {confirm && (
                 <ConfirmModal
-                    message={message.cancelRequest}
+                    message={message[100]}
                     onConfirm={handleCancelRequest}
                     onClose={() => setConfirm(false)}
                 />
@@ -81,8 +80,17 @@ const RequestInfoScreen = ({
             <CancelRequestModal action={handleConfirmCancelledRequest} visible={isCancelled} />
             <View style={styles.container}>
                 <HeaderTileWithBackBtn textContent="Thông tin tài xế" />
-                <Map source={source} destination={destination} isControl={true} />
-                {currentRequest.pickUp && (
+                <Map
+                    source={source}
+                    destination={destination}
+                    isControl={true}
+                    driverImage={
+                        currentRequest && currentRequest.driver
+                            ? currentRequest.driver.imageUrl
+                            : ""
+                    }
+                />
+                {currentRequest && currentRequest.pickUp && (
                     <View style={styles.request__info}>
                         <View style={styles.driver__info}>
                             <Image
@@ -119,10 +127,7 @@ const RequestInfoScreen = ({
                         </View>
                         {!(request && request.status === "picked") && (
                             <View style={styles.group__action}>
-                                <Text
-                                    onPress={() => setConfirm(true)}
-                                    style={[styles.action, styles.cancel]}
-                                >
+                                <Text onPress={() => setConfirm(true)} style={styles.action}>
                                     Hủy yêu cầu
                                 </Text>
                                 <Text
@@ -131,7 +136,7 @@ const RequestInfoScreen = ({
                                             `tel: ${currentRequest.driver.phone || "0931738872"}`
                                         )
                                     }
-                                    style={styles.action}
+                                    style={[styles.action, { marginLeft: 10, color: "#0132f5" }]}
                                 >
                                     Liên hệ tài xế
                                 </Text>
@@ -140,7 +145,7 @@ const RequestInfoScreen = ({
                     </View>
                 )}
             </View>
-        </View>
+        </BackgroundImage>
     );
 };
 
