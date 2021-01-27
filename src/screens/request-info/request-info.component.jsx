@@ -12,8 +12,8 @@ import {
     selectPickUp,
     selectRequestId
 } from "../../redux/request/request.selectors";
-import { selectToken } from "../../redux/user/user.selectors";
 import { clearRequest, fetchRequest, cancelRequest } from "../../redux/request/request.actions";
+import { selectToken } from "../../redux/user/user.selectors";
 import { cancelRequestFirestore, firestore } from "../../firebase/firebase.utils";
 import { message } from "../../utils/message.data";
 
@@ -64,6 +64,7 @@ const RequestInfoScreen = ({
 
     const handleCancelRequest = () => {
         cancelRequestFirestore(requestId);
+        clearRequest();
         cancelRequest(token, requestId);
         navigation.replace("Home");
     };

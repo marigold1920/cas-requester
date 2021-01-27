@@ -36,6 +36,7 @@ const FindingDriver = ({
 
     useEffect(() => {
         if (request && request.status === "accepted") {
+            setFinding(false);
             syncPoolData(request.poolId);
             navigation.replace("Request");
         }
