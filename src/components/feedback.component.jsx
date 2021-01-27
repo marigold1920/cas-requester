@@ -11,6 +11,8 @@ const Feedback = ({ action, ...otherProps }) => {
                 type="heart"
                 imageSize={20}
                 fractions={1}
+                startingValue={5}
+                minValue={1}
                 onFinishRating={rating => action(rating)}
             />
             <TextInput

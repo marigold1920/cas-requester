@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     driver__image: {
-        width: 100,
-        height: 100,
+        width: 85,
+        height: 85,
         borderRadius: 50
     },
     group: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         flexWrap: "nowrap",
         justifyContent: "space-between",
         alignItems: "center",
-        marginVertical: 10
+        marginBottom: 10
     },
     action: {
         fontFamily: "Texgyreadventor-bold",

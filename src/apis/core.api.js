@@ -20,8 +20,8 @@ export const uploadImageToS3 = file => {
     return RNS3.put(file, config);
 };
 
-export const fetchHistories = (token, userId) => {
-    return api.get(`/requester/${userId}/requests/history?pageIndex=1`, {
+export const fetchHistories = (token, userId, pageIndex) => {
+    return api.get(`/requester/${userId}/requests/history?pageIndex=${pageIndex}`, {
         headers: {
             Authorization: token
         }

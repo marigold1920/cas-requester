@@ -4,6 +4,7 @@ import { withNavigation } from "react-navigation";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { Rating } from "react-native-ratings";
 
 import {
     selectCurrentRequest,
@@ -18,7 +19,6 @@ import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import Location from "../../components/location.component";
-import Rating from "../../components/rating.component";
 import Map from "../../components/map.component";
 import CancelRequestModal from "../../components/cancel-request-modal.component";
 import ConfirmModal from "../../components/confirm-modal.component";
@@ -99,7 +99,13 @@ const RequestInfoScreen = ({
                             />
                             <View style={styles.group}>
                                 <Text style={styles.name}>{currentRequest.driver.driverName}</Text>
-                                <Rating level={currentRequest.driver.ratingLevel} size={10} />
+                                <Rating
+                                    ratingCount={5}
+                                    startingValue={currentRequest.driver.ratingLevel}
+                                    readonly
+                                    imageSize={12}
+                                    type="heart"
+                                />
                                 <Text style={styles.license__plate}>
                                     {currentRequest.ambulance.licensePlate}
                                 </Text>
@@ -116,12 +122,14 @@ const RequestInfoScreen = ({
                                     name={currentRequest.destination.name}
                                     value={currentRequest.destination.address}
                                     icon="https://i.ibb.co/gWdQ69d/radar.png"
+                                    title="Điểm đến"
                                 />
                             ) : (
                                 <Location
                                     name={currentRequest.pickUp.name}
                                     value={currentRequest.pickUp.address}
                                     icon="https://i.ibb.co/D8HPk12/placeholder.png"
+                                    title="Điểm đón"
                                 />
                             )}
                         </View>

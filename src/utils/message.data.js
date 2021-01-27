@@ -14,6 +14,7 @@ export const message = {
     204: "Hủy yêu cầu thành công. Bạn có thể xem lại trong phần Lịch sử!",
     205: "Tạo yêu cầu thành công",
     206: "Yêu cầu bị hủy do hệ thống không tìm được tài xế thích hợp!",
+    207: "Đánh giá thành công. Cảm ơn bạn đã phản hồi về yêu cầu!",
     402: "Cập nhật thông tin cá nhân không thành công!",
     403: "Cập nhật hồ sơ sức khỏe không thành công!",
     404: "Hệ thống ghi nhận địa chỉ để tạo yêu cầu không hợp lệ, vui lòng kiểm tra lại!",

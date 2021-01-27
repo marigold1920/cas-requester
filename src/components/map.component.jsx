@@ -82,8 +82,8 @@ const Map = ({
                             onReady={results =>
                                 mapRef.current.fitToCoordinates(results.coordinates, {
                                     edgePadding: {
-                                        top: 35,
-                                        bottom: 50,
+                                        top: 50,
+                                        bottom: 85,
                                         left: 50,
                                         right: 50
                                     }

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import getDistance from "geolib/es/getDistance";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { Rating } from "react-native-ratings";
 
 import RequestInfoItem from "./request-info-item.component";
-import Rating from "./rating.component";
 
 const HistoryItem = ({ label, content }) => (
     <>
@@ -29,7 +29,11 @@ const HistoryComponent = ({
     ratingDriver,
     ratingService,
     feedbackService,
-    reason
+    reason,
+    createdDate,
+    createdTime,
+    navigation,
+    requestId
 }) => {
     const viewStateIcon = {
         false: require("../../assets/icons/details.png"),
@@ -42,9 +46,29 @@ const HistoryComponent = ({
         PROCESSING: { title: "Đang xử lí", color: "#6ad4d2" }
     };
     const [viewState, setViewState] = useState(false);
+    const [isFeedback, setIsFeedback] = useState(false);
+
+    useEffect(() => {
+        const current = new Date().toISOString();
+        const start = `${createdDate}T${createdTime}Z`;
+        const diff =
+            (25200 - (new Date(start).getTime() - new Date(current).getTime()) / 1000) / 3600;
+
+        setIsFeedback(request_status === "SUCCESS" && !ratingDriver && Math.floor(diff) < 24);
+    }, []);
 
     return (
         <View style={styles.container}>
+            {isFeedback && (
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={styles.feedbackWarning}>Yêu cầu chưa được phản hồi!</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Feedback", { requestId })}
+                    >
+                        <Text style={styles.feedbackAction}>Đánh giá ngay</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             <View style={styles.overview}>
                 <View style={[styles.overviewItem, { flexBasis: "25%", marginRight: 30 }]}>
                     <Text style={styles.title}>Điểm đón:</Text>
@@ -148,22 +172,34 @@ const HistoryComponent = ({
                     {morbidityNote && <HistoryItem label="Ghi chú" content={morbidityNote} />}
                     {reason && <HistoryItem label="Yêu cầu không hoàn thành do" content={reason} />}
                     {(ratingDriver || feedbackDriver) && (
-                        <>
+                        <View style={{ alignItems: "flex-start" }}>
                             <Text style={styles.infoTitle}>Đánh giá tài xế</Text>
-                            <Rating level={ratingDriver} size={8} />
+                            <Rating
+                                type="heart"
+                                imageSize={12}
+                                fractions={1}
+                                readonly
+                                startingValue={ratingDriver}
+                            />
                             <RequestInfoItem
                                 content={feedbackDriver || "Không có đánh giá về tài xế"}
                             />
-                        </>
+                        </View>
                     )}
                     {(ratingService || feedbackService) && (
-                        <>
+                        <View style={{ alignItems: "flex-start" }}>
                             <Text style={styles.infoTitle}>Đánh giá dịch vụ</Text>
-                            <Rating level={ratingDriver} size={8} />
+                            <Rating
+                                type="heart"
+                                imageSize={12}
+                                fractions={1}
+                                readonly
+                                startingValue={ratingService}
+                            />
                             <RequestInfoItem
                                 content={feedbackService || "Không có đánh giá về dịch vụ"}
                             />
-                        </>
+                        </View>
                     )}
                 </>
             )}
@@ -270,5 +306,16 @@ const styles = StyleSheet.create({
     more: {
         width: 55,
         height: 9
+    },
+    feedbackWarning: {
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 10,
+        color: "#6c7fa6"
+    },
+    feedbackAction: {
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 12,
+        marginLeft: 10,
+        color: "#0132f5"
     }
 });

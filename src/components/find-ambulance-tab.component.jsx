@@ -123,7 +123,7 @@ const FindAmbulanceTab = ({
                         ))}
                     </RadioButton.Group>
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false} style={{ height: "65%" }}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ height: "60%" }}>
                     <FormInput
                         onFocus={() => setPlaceType("destination")}
                         placeholder="Điểm cần đến"

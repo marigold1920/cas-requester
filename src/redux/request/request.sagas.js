@@ -57,6 +57,7 @@ function* feedbackRequestStart({ payload: { token, requestId, feedback } }) {
     try {
         yield call(feedbackRequest, token, requestId, feedback);
         yield put(feedbackRequestSuccess());
+        yield put(updateStatusCode(207));
     } catch (error) {
         yield put(feedbackRequestFail(error));
         yield put(updateStatusCode(error.message.includes("401") ? 700 : 405));
