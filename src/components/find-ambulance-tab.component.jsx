@@ -100,7 +100,7 @@ const FindAmbulanceTab = ({
     ];
 
     return (
-        <View style={[styles.booking, isFocus ? { top: 5 } : { bottom: 65 }]}>
+        <View style={[styles.booking, isFocus ? { top: 5 } : { bottom: 20 }]}>
             <View style={styles.booking__header}>
                 <BookingHeaderItem
                     onPress={() => setIsOther(false)}
@@ -280,8 +280,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         fontFamily: "Texgyreadventor-bold",
         textAlign: "center",
-        marginTop: 5,
-        marginBottom: 10
+        marginTop: 5
     },
     note: {
         paddingLeft: 20

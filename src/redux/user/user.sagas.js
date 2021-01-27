@@ -39,9 +39,14 @@ function* updateProfileStart({ payload: { userId, token, healthInformation } }) 
 
 function* updateUserStart({ payload: { userId, token, user } }) {
     try {
-        const _response = yield call(uploadImageToS3, user.image);
-        yield console.log(_response.body.postResponse.location);
-        const _user = yield { ...user, imageUrl: _response.body.postResponse.location };
+        let _user = null;
+
+        if (user.image.uri) {
+            const _response = yield call(uploadImageToS3, user.image);
+            _user = { ...user, imageUrl: _response.body.postResponse.location };
+        } else {
+            _user = user;
+        }
         const response = yield call(updateUser, userId, token, _user);
 
         yield put(updateUserSuccess(response.data));
