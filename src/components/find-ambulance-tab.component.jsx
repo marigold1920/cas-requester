@@ -7,6 +7,7 @@ import { createStructuredSelector } from "reselect";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { saveRequest, fetchConfig } from "../redux/request/request.actions";
+import { selectRequestId } from "../redux/request/request.selectors";
 import { selectProfile, selectToken, selectUserId } from "../redux/user/user.selectors";
 import { updateStatusCode } from "../redux/message/message.action";
 
@@ -26,7 +27,8 @@ const FindAmbulanceTab = ({
     updateStatusCode,
     setLoading,
     fetchConfig,
-    isFocus
+    isFocus,
+    requestId
 }) => {
     const [patientName, setPatientName] = useState(null);
     const [patientPhone, setPatientPhone] = useState(null);
@@ -37,38 +39,44 @@ const FindAmbulanceTab = ({
     const [isOther, setIsOther] = useState(false);
 
     const handleAction = async () => {
-        if (!(pickUp && destination)) {
-            updateStatusCode(404);
-            return;
-        }
-        fetchConfig(token);
-        setTimeout(() => {
-            const current = new Date();
-            setLoading(true);
-            saveRequest(
-                token,
-                userId,
-                {
+        if (!requestId) {
+            if (!(pickUp && destination)) {
+                updateStatusCode(404);
+                return;
+            }
+            fetchConfig(token);
+            setTimeout(() => {
+                const current = new Date();
+                setLoading(true);
+                saveRequest(
+                    token,
+                    userId,
+                    {
+                        pickUp,
+                        destination,
+                        patientName,
+                        patientPhone,
+                        morbidity,
+                        morbidityNote,
+                        isEmergency: requestType === "emergency",
+                        isOther,
+                        healthInformation:
+                            !isOther && sendProfile && requestType === "emergency"
+                                ? parseProfileToString()
+                                : null,
+                        region: pickUp.address
+                            .substring(pickUp.address.lastIndexOf(", ") + 1)
+                            .trim(),
+                        createdDate: current.toISOString(),
+                        createdTime: current.toLocaleTimeString("vi-VN")
+                    },
                     pickUp,
-                    destination,
-                    patientName,
-                    patientPhone,
-                    morbidity,
-                    morbidityNote,
-                    isEmergency: requestType === "emergency",
-                    isOther,
-                    healthInformation:
-                        !isOther && sendProfile && requestType === "emergency"
-                            ? parseProfileToString()
-                            : null,
-                    region: pickUp.address.substring(pickUp.address.lastIndexOf(", ") + 1).trim(),
-                    createdDate: current.toISOString(),
-                    createdTime: current.toLocaleTimeString("vi-VN")
-                },
-                pickUp,
-                destination
-            );
-        }, 1000);
+                    destination
+                );
+            }, 1000);
+        } else {
+            console.log("Blezz Blezzz!");
+        }
     };
 
     const parseProfileToString = () => {
@@ -227,7 +235,8 @@ const FindAmbulanceTab = ({
 const mapStateToProps = createStructuredSelector({
     token: selectToken,
     userId: selectUserId,
-    profile: selectProfile
+    profile: selectProfile,
+    requestId: selectRequestId
 });
 
 const mapDispatchToProps = dispatch => ({

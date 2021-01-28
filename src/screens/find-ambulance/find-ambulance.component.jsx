@@ -51,9 +51,7 @@ const FindAmbulanceScreen = ({
 
     useEffect(() => {
         if (requestId && !finding) {
-            setTimeout(() => {
-                setFinding(true);
-            }, 2500);
+            setFinding(true);
             setLoading(false);
         }
     }, [requestId]);
