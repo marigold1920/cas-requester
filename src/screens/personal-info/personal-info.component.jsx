@@ -79,9 +79,10 @@ const PersonalInfoScreen = ({
     };
 
     const updateUserProfile = () => {
+        setVerificationId(null);
         setLoading(true);
         const image =
-            linkImage === currentUser.imageUrl
+            linkImage !== currentUser.imageUrl
                 ? {
                       uri: linkImage,
                       name: linkImage.substring(linkImage.lastIndexOf("/") + 1),

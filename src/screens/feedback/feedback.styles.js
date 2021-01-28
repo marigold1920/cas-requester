@@ -37,34 +37,33 @@ const styles = StyleSheet.create({
     },
     feed_description: {
         marginTop: 10,
-        width: 18 * rem,
+        width: "85%",
         fontSize: 14,
         fontFamily: "Texgyreadventor-regular",
         textAlign: "center",
         color: "#8D8D8D"
     },
     cancel_button: {
-        backgroundColor: "#FFF",
-        paddingVertical: 5,
-        borderRadius: 25,
-        elevation: 30
+        backgroundColor: "#f5f5f5",
+        paddingVertical: 8,
+        paddingHorizontal: 50,
+        borderRadius: 25
     },
     cancel_text: {
         color: "#000000",
-        fontSize: 16,
-        fontFamily: "Texgyreadventor-regular"
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-bold"
     },
     submit_button: {
-        backgroundColor: "#FFAB2E",
-        paddingVertical: 5,
-        paddingHorizontal: 35,
-        borderRadius: 25,
-        elevation: 30
+        backgroundColor: "#f5f5f5",
+        paddingVertical: 8,
+        paddingHorizontal: 50,
+        borderRadius: 25
     },
     submit_text: {
-        color: "#FFF",
-        fontSize: 16,
-        fontFamily: "Texgyreadventor-regular"
+        color: "#0132f5",
+        fontSize: 14,
+        fontFamily: "Texgyreadventor-bold"
     },
     textStyle: {
         color: "white",

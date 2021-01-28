@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -13,18 +13,25 @@ import Spinner from "../../components/spinner.component";
 
 import styles from "./history.styles";
 
-const HistoryScreen = ({ currentUser, token }) => {
-    const [history, setHistory] = useState([]);
-    const [loading, setLoading] = useState(true);
+const HistoryScreen = ({ currentUser, token, navigation }) => {
+    const [history, setHistory] = useState({ data: [], totalPage: 0, currentPage: 1 });
+    const [currentHistory, setCurrentHistory] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        fetchHistories(token, currentUser.id).then(response =>
+        fetchHistory(1);
+    }, []);
+
+    const fetchHistory = pageIndex => {
+        setLoading(true);
+        fetchHistories(token, currentUser.id, pageIndex).then(response =>
             setTimeout(() => {
                 setHistory(response.data);
+                setCurrentHistory(currentHistory.concat(response.data.data));
                 setLoading(false);
             }, 500)
         );
-    }, []);
+    };
 
     return (
         <View style={styles.container}>
@@ -35,11 +42,23 @@ const HistoryScreen = ({ currentUser, token }) => {
                 showsVerticalScrollIndicator={false}
                 directionalLockEnabled={true}
             >
-                {history.length
-                    ? history.map(({ id, ...otherProps }) => (
-                          <HistoryComponent key={id} {...otherProps} />
+                {currentHistory.length
+                    ? currentHistory.map(({ id, ...otherProps }) => (
+                          <HistoryComponent
+                              key={id}
+                              requestId={id}
+                              {...otherProps}
+                              navigation={navigation}
+                          />
                       ))
                     : null}
+                {history.currentPage < history.totalPage && (
+                    <TouchableOpacity
+                        onPress={() => fetchHistory(Number.parseInt(history.currentPage) + 1)}
+                    >
+                        <Text style={styles.loadMore}>Xem thêm</Text>
+                    </TouchableOpacity>
+                )}
             </ScrollView>
         </View>
     );

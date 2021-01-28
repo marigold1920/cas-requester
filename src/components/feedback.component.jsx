@@ -7,7 +7,14 @@ import rem from "./constant.unit";
 const Feedback = ({ action, ...otherProps }) => {
     return (
         <View style={styles.container_feedback_content}>
-            <Rating type="heart" imageSize={20} onFinishRating={rating => action(rating)} />
+            <Rating
+                type="heart"
+                imageSize={20}
+                fractions={1}
+                startingValue={5}
+                minValue={1}
+                onFinishRating={rating => action(rating)}
+            />
             <TextInput
                 style={styles.textArea}
                 placeholderTextColor="grey"
@@ -24,8 +31,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
-        marginVertical: 5
+        flexDirection: "column"
     },
     rating_block: {
         display: "flex",
@@ -40,11 +46,13 @@ const styles = StyleSheet.create({
     textArea: {
         borderRadius: 10,
         padding: 15,
-        backgroundColor: "#FFF",
+        backgroundColor: "#f9f9f9",
         width: 25 * rem,
         height: 7 * rem,
         textAlignVertical: "top",
-        fontFamily: "Texgyreadventor-regular"
+        fontFamily: "Texgyreadventor-regular",
+        // marginBottom: 5,
+        marginTop: 5
     }
 });
 

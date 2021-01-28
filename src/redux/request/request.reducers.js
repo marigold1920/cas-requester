@@ -12,10 +12,10 @@ const INITIAL_STATE = {
 
 const mapKey = {
     1: "requestTimeout",
-    2: "confirmationTimeout",
+    2: "termTimeout",
     3: "radius",
-    4: "numOfDrivers",
-    5: "extraRadius"
+    4: "extraRadius",
+    5: "maxRadius"
 };
 
 const requestReducer = (state = INITIAL_STATE, action) => {
@@ -51,6 +51,7 @@ const requestReducer = (state = INITIAL_STATE, action) => {
         case RequestActionTypes.CLEAR_REQUEST:
         case RequestActionTypes.CANCEL_REQUEST_SUCCESS:
         case RequestActionTypes.CLEAN_UP:
+        case RequestActionTypes.REJECTED_REQUEST_SUCCESS:
             return {
                 ...state,
                 currentRequest: null,
@@ -89,6 +90,7 @@ const requestReducer = (state = INITIAL_STATE, action) => {
                 }, {})
             };
         case RequestActionTypes.CANCEL_REQUEST_FAIL:
+        case RequestActionTypes.REJECTED_REQUEST_FAIL:
             return {
                 ...state,
                 error: action.payload

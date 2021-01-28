@@ -82,8 +82,8 @@ const Map = ({
                             onReady={results =>
                                 mapRef.current.fitToCoordinates(results.coordinates, {
                                     edgePadding: {
-                                        top: 35,
-                                        bottom: 50,
+                                        top: 50,
+                                        bottom: 85,
                                         left: 50,
                                         right: 50
                                     }
@@ -99,10 +99,12 @@ const Map = ({
                         ) : (
                             <Marker coordinate={driver}>
                                 <View style={styles.customMarker}>
-                                    {/* <Image
+                                    {driverImage ? (
+                                        <Image
                                             style={styles.driverImage}
                                             source={{ uri: driverImage }}
-                                        /> */}
+                                        />
+                                    ) : null}
                                     <Image
                                         style={{
                                             position: "absolute",

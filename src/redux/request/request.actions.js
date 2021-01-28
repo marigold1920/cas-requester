@@ -73,6 +73,20 @@ export const cancelRequestFail = error => ({
     payload: error
 });
 
+export const rejectedRequest = (token, requestId) => ({
+    type: RequestActionTypes.REJECTED_REQUEST_START,
+    payload: { token, requestId }
+});
+
+export const rejectedRequestSuccess = () => ({
+    type: RequestActionTypes.REJECTED_REQUEST_SUCCESS
+});
+
+export const rejectedRequestFail = error => ({
+    type: RequestActionTypes.REJECTED_REQUEST_FAIL,
+    payload: error
+});
+
 export const fetchConfig = token => ({
     type: RequestActionTypes.FETCH_CONFIG_START,
     payload: token

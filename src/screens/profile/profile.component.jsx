@@ -132,10 +132,7 @@ const ProfileScreen = ({
             {statusCode && (
                 <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
             )}
-            <HeaderTileWithBackBtn
-                textContent="Hồ sơ sức khỏe"
-                onPress={() => navigation.replace("Home")}
-            />
+            <HeaderTileWithBackBtn textContent="Thông tin sức khỏe" />
             <AvatarNameCol linkImage={imageUrl} textContent={displayName} />
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.profile}>

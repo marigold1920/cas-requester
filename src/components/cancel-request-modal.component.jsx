@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
         fontFamily: "Texgyreadventor-bold"
     },
     action: {
-        fontFamily: "Texgyreadventor-regular",
-        fontSize: 16,
-        paddingVertical: 7,
-        paddingHorizontal: 25,
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 13,
+        paddingVertical: 8,
+        paddingHorizontal: 50,
         borderRadius: 20,
         marginBottom: 10,
-        color: "#fff",
-        backgroundColor: "#5E00FF"
+        color: "#0132f5",
+        backgroundColor: "#f3f3f4"
     }
 });

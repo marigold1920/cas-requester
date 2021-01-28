@@ -15,4 +15,10 @@ firebase.initializeApp(firebaseConfig);
 
 export const firestore = firebase.firestore();
 
+export const cancelRequestFirestore = requestId => {
+    const requestRef = firestore.collection("requests").doc(`${requestId}`);
+
+    requestRef.update({ status: "canceled" });
+};
+
 export default firebase;
