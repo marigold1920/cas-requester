@@ -74,8 +74,6 @@ const FindAmbulanceTab = ({
                     destination
                 );
             }, 1000);
-        } else {
-            console.log("Blezz Blezzz!");
         }
     };
 

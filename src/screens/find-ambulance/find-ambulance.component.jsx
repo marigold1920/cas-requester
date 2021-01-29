@@ -50,9 +50,12 @@ const FindAmbulanceScreen = ({
     }, []);
 
     useEffect(() => {
+        setLoading(false);
+    }, [statusCode]);
+
+    useEffect(() => {
         if (requestId && !finding) {
             setFinding(true);
-            setLoading(false);
         }
     }, [requestId]);
 
