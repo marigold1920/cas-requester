@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text,Image } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -75,7 +75,13 @@ const ProfileScreen = ({
                 <MessageModal message={message[statusCode]} isMessage={statusCode < 400} />
             )}
             <HeaderTileWithBackBtn textContent="Thông tin sức khỏe" />
-            <AvatarNameCol linkImage={imageUrl} textContent={displayName} />
+            <View
+                style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", marginVertical: 10 }}
+            >
+                <Image style={styles.image} source={{ uri: imageUrl }} />
+                <Text style={styles.text}>{displayName}</Text>
+            </View>
+            {/* <AvatarNameCol linkImage={imageUrl} textContent={displayName} /> */}
             <KeyboardAvoiding conatainerStyle={{ flex: 1 }} style={styles.container}>
                 <View style={styles.profile}>
                     <View style={styles.group}>

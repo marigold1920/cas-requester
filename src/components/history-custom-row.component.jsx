@@ -70,7 +70,7 @@ const HistoryComponent = ({
                 </View>
             )}
             <View style={styles.overview}>
-                <View style={[styles.overviewItem, { flexBasis: "25%", marginRight: 30 }]}>
+                <View style={[styles.overviewItem, { flexBasis: "28%", marginRight: 30 }]}>
                     <Text style={styles.title}>Điểm đón:</Text>
                     <Text style={[styles.title, { fontSize: 9 }]}>
                         {pickUp.date ? `${pickUp.time} ${pickUp.date}` : "......"}
@@ -83,7 +83,7 @@ const HistoryComponent = ({
                                 !isEmergency && { backgroundColor: "#09acfe" }
                             ]}
                         >
-                            {isEmergency ? "Đi cấp cứu" : "Đi về nhà"}
+                            {isEmergency ? "Đến bệnh viện" : "Đi về nhà"}
                         </Text>
                     </View>
                 </View>

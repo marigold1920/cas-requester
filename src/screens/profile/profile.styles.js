@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { deviceRevolution } from "../../components/constant.unit";
+import rem from "../../components/constant.unit";
 const styles = StyleSheet.create({
     container: {
         position: "relative"
@@ -10,6 +11,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         marginBottom: 20,
         width: deviceRevolution.width * 0.95
+    },
+    image: {
+        width: 11 * rem,
+        height: 11 * rem,
+        borderRadius: 100,
+        marginBottom: 10,
+    },
+    text: {
+        fontFamily: "Texgyreadventor-bold",
+        fontSize: 22,
+        color: "#494958",
     },
     button: {
         backgroundColor: "#f5f5f5"
