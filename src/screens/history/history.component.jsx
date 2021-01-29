@@ -6,14 +6,18 @@ import { createStructuredSelector } from "reselect";
 
 import { fetchHistories } from "../../apis/core.api";
 import { selectCurrentUser, selectToken } from "../../redux/user/user.selectors";
+import { updateStatusCode } from "../../redux/message/message.action";
+import { selectStatusCode } from "../../redux/message/message.selectors";
+import { message } from "../../utils/message.data";
 
 import HeaderTileWithBackBtn from "../../components/header-title-back-arrow.component";
 import HistoryComponent from "../../components/history-custom-row.component";
 import Spinner from "../../components/spinner.component";
+import Message from "../../components/message-modal.component";
 
 import styles from "./history.styles";
 
-const HistoryScreen = ({ currentUser, token, navigation }) => {
+const HistoryScreen = ({ currentUser, token, navigation, statusCode, updateStatusCode }) => {
     const [history, setHistory] = useState({ data: [], totalPage: 0, currentPage: 1 });
     const [currentHistory, setCurrentHistory] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -24,19 +28,25 @@ const HistoryScreen = ({ currentUser, token, navigation }) => {
 
     const fetchHistory = pageIndex => {
         setLoading(true);
-        fetchHistories(token, currentUser.id, pageIndex).then(response =>
-            setTimeout(() => {
-                setHistory(response.data);
-                setCurrentHistory(currentHistory.concat(response.data.data));
+        fetchHistories(token, currentUser.id, pageIndex)
+            .then(response =>
+                setTimeout(() => {
+                    setHistory(response.data);
+                    setCurrentHistory(currentHistory.concat(response.data.data));
+                    setLoading(false);
+                }, 500)
+            )
+            .catch(error => {
                 setLoading(false);
-            }, 500)
-        );
+                updateStatusCode(700);
+            });
     };
 
     return (
         <View style={styles.container}>
             {loading && <Spinner />}
             <HeaderTileWithBackBtn textContent="Lịch sử" />
+            {statusCode && <Message message={message[statusCode]} isMessage={statusCode < 400} />}
             <ScrollView
                 style={{ width: "90%" }}
                 showsVerticalScrollIndicator={false}
@@ -66,7 +76,12 @@ const HistoryScreen = ({ currentUser, token, navigation }) => {
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
-    token: selectToken
+    token: selectToken,
+    statusCode: selectStatusCode
 });
 
-export default connect(mapStateToProps)(HistoryScreen);
+const mapDispatchToProps = dispatch => ({
+    updateStatusCode: statusCode => dispatch(updateStatusCode(statusCode))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryScreen);
